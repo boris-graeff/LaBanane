@@ -21,15 +21,6 @@ module.exports = function (grunt) {
 				options: {spawn: false}
 			},
 
-			//jsLibs: {
-			//	files: [
-			//		'public/bower_components/**/*.js'
-			//	],
-			//	tasks: ['uglify:libs', 'concat:js'],
-			//	options: {spawn: false}
-			//},
-
-
 			less : {
 				files: [
 					'public/less/**/*.js'
@@ -67,17 +58,7 @@ module.exports = function (grunt) {
 						"public/js/**/*.js"
 					]
 				}
-			},
-
-			//libs : {
-			//	files: {
-			//		"grunt/target/libs.js": [
-			//			"public/bower_components/angular/angular.min.js",
-			//			"public/bower_components/angular-route/angular-route.min.js",
-			//			"public/bower_components/socket/socket.js"
-			//		]
-			//	}
-			//}
+			}
 		},
 
 		// Concat
@@ -90,13 +71,14 @@ module.exports = function (grunt) {
 			js: {
 				files: {
 					"public/dist/app.js": [
-						"grunt/target/libs.js",
+						"public/bower_components/angular/angular.min.js",
+						"public/bower_components/angular-route/angular-route.min.js",
+						"public/bower_components/angular-socket-io/socket.js",
 						"grunt/target/sources.js"
 					]
 				}
 			}
 		},
-
 		// LESS
 		less: {
 			app: {
@@ -111,8 +93,10 @@ module.exports = function (grunt) {
 		// Make Directory
 		mkdir: {
 			folders: {
-				create: "grunt/target",
-				create: "public/dist"
+				create: [
+					"grunt/target",
+					"public/dist"
+				]
 			}
 		}
 	});
@@ -121,9 +105,7 @@ module.exports = function (grunt) {
 	grunt.registerTask("default", ["style", "js", "watch"]);
 
 	// Custom task for JavaScript files
-	//grunt.registerTask("js", ["mkdir:target", "uglify:libs", "uglify:sources", "concat:js"]);
 	grunt.registerTask("js", ["mkdir:folders", "uglify:sources", "concat:js"]);
-
 
 	// Custom task for CSS files
 	grunt.registerTask("style", ["mkdir:folders", "less:app"]);
