@@ -1,2 +1,2 @@
 # LaBanane
-Application web pour créer des playlsts à partir de différentes sources (Youtube, Soundcloud, etc.).
+Application web pour créer des playlists à partir de différentes sources (Youtube, Soundcloud, etc.).

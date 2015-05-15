@@ -13,7 +13,7 @@ angular.module('myApp', [
   // 3rd party dependencies
   'btford.socket-io'
 ]).
-config(function ($routeProvider, $locationProvider) {
+config(['$routeProvider', '$locationProvider', function ($routeProvider, $locationProvider) {
   $routeProvider.
     when('/view1', {
       templateUrl: 'partials/partial1',
@@ -28,4 +28,4 @@ config(function ($routeProvider, $locationProvider) {
     });
 
   $locationProvider.html5Mode(true);
-});
+}]);
