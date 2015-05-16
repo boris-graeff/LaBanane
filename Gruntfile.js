@@ -15,7 +15,7 @@ module.exports = function (grunt) {
 			// Js sources
 			jsSources: {
 				files: [
-					'public/js/**/*.js'
+					'client/js/**/*.js'
 				],
 				tasks: ['uglify:sources', 'concat:js'],
 				options: {spawn: false}
@@ -23,7 +23,7 @@ module.exports = function (grunt) {
 
 			less : {
 				files: [
-					'public/less/**/*.js'
+					'client/less/**/*.js'
 				],
 				tasks: ['less'],
 				options: {spawn: false}
@@ -55,7 +55,7 @@ module.exports = function (grunt) {
 			sources : {
 				files: {
 					"grunt/target/sources.js": [
-						"public/js/**/*.js"
+						"client/js/**/*.js"
 					]
 				}
 			}
@@ -70,10 +70,10 @@ module.exports = function (grunt) {
 
 			js: {
 				files: {
-					"public/dist/app.js": [
-						"public/bower_components/angular/angular.min.js",
-						"public/bower_components/angular-route/angular-route.min.js",
-						"public/bower_components/angular-socket-io/socket.js",
+					"client/dist/app.js": [
+						"client/bower_components/angular/angular.min.js",
+						"client/bower_components/angular-route/angular-route.min.js",
+						"client/bower_components/angular-socket-io/socket.js",
 						"grunt/target/sources.js"
 					]
 				}
@@ -83,8 +83,8 @@ module.exports = function (grunt) {
 		less: {
 			app: {
 				files: {
-					"public/dist/app.css": [
-						"public/less/**/*.less"
+					"client/dist/app.css": [
+						"client/less/**/*.less"
 					]
 				}
 			}
@@ -95,7 +95,7 @@ module.exports = function (grunt) {
 			folders: {
 				create: [
 					"grunt/target",
-					"public/dist"
+					"client/dist"
 				]
 			}
 		}
