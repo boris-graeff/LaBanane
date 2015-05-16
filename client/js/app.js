@@ -1,29 +1,42 @@
 // Declare app level module which depends on filters, and services
 
-angular.module('myApp', [
-  'ngRoute',
+angular.module('LaBanane.controllers', []);
 
-  'myApp.controllers',
-  'myApp.filters',
-  'myApp.services',
-  'myApp.directives',
+angular.module('LaBanane', [
+    'ngRoute',
 
-  // 3rd party dependencies
-  'btford.socket-io'
+    'LaBanane.controllers',
+    'LaBanane.filters',
+    'LaBanane.services',
+    'LaBanane.directives',
+    'LaBanane.constants',
+
+    // 3rd party dependencies
+    'btford.socket-io'
 ]).
-config(['$routeProvider', '$locationProvider', function ($routeProvider, $locationProvider) {
-  $routeProvider.
-    when('/view1', {
-      templateUrl: 'partials/partial1',
-      controller: 'MyCtrl1'
-    }).
-    when('/view2', {
-      templateUrl: 'partials/partial2',
-      controller: 'MyCtrl2'
-    }).
-    otherwise({
-      redirectTo: '/view1'
-    });
+    config(['$routeProvider', '$locationProvider', function ($routeProvider, $locationProvider) {
+        $routeProvider.
+            when('/app', {
+                templateUrl: 'partials/home',
+                controller: 'HomeCtrl'
+            }).
+            when('/player/:id', {
+                templateUrl: 'partials/player',
+                controller: 'PlayerCtrl'
+            }).
+            otherwise({
+                redirectTo: '/app'
+            });
 
-  $locationProvider.html5Mode(true);
-}]);
+        $locationProvider.html5Mode(true);
+    }])
+    .run(['$rootScope', '$location', function ($rootScope, $location) {
+        $rootScope.$watch(function () {
+                return $location.path();
+            },
+            function (url) {
+                ga('send', 'pageview', {
+                    page: url
+                });
+            });
+    }]);

@@ -3,7 +3,7 @@
 
 // Demonstrate how to register services
 // In this case it is a simple value service.
-angular.module('myApp.services', []).
+angular.module('LaBanane.services', []).
   factory('socket', ['socketFactory', function (socketFactory) {
     return socketFactory();
   }]).

@@ -23,9 +23,9 @@ module.exports = function (grunt) {
 
 			less : {
 				files: [
-					'client/less/**/*.js'
+					'client/less/**/*.less'
 				],
-				tasks: ['less'],
+				tasks: ['style'],
 				options: {spawn: false}
 			}
 		},
