@@ -10,8 +10,8 @@
 
     nav
         ul
-            li(ng-class="{'selected':isPlaylistSearch}", ng-click='searchPlaylist()') Search
-            li(ng-class="{'selected':isPlaylistCreation}", ng-click='createPlaylist()') Create
+            li(ng-class="{'selected':isPlaylistSearch}", ng-click='searchPlaylistMode()') Search
+            li(ng-class="{'selected':isPlaylistCreation}", ng-click='createPlaylistMode()') Create
 
     section.search(ng-show='isPlaylistSearch')
 
@@ -31,11 +31,11 @@
 
         p /!\ Please note that you will not be able to retrieve your password if you lost it !
         .input-container
-            input#playlist-name(input-text, type="text", autocomplete="off")
+            input#playlist-name(ng-model="playlistId", input-text, type="text", autocomplete="off")
 
             label(for="playlist-name") Playlist name
         .input-container
-            input#playlist-password(input-text, type="password", autocomplete="off")
+            input#playlist-password(ng-model="playlistPassword", input-text, type="password", autocomplete="off")
             label(for="playlist-password") Password
-        button.button Create
+        button.button(ng-click='createPlaylist()') Create
 

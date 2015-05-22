@@ -2,7 +2,8 @@
  * Controle for homepage
  */
 angular.module('LaBanane').
-  controller('HomeCtrl', ['$scope', 'localStorage', 'requests', function ($scope, localStorage, requests) {
+  controller('HomeCtrl', ['$scope', 'localStorage', 'requests', '$location',
+        function ($scope, localStorage, requests, $location) {
 
         // Init
 
@@ -10,7 +11,8 @@ angular.module('LaBanane').
         $scope.isPlaylistSearch = true;
         $scope.lastPlaylists = localStorage.getArray('lastPlaylists');
         $scope.allPlaylists = [];
-
+        $scope.playlistId = '';
+        $scope.playlistPassword = '';
 
         /*
 
@@ -22,22 +24,39 @@ angular.module('LaBanane').
          */
 
         // Get all playlists from server
-        requests.getAllPlaylists().success(function(data) {
-            $scope.allPlaylists = data;
-        }).
-        error(function(data, status, headers, config) {
-                // TODO : display popin
-        });
+
+        requests.getAllPlaylists().then(
+            function(playlists) {
+                $scope.allPlaylists= playlists;
+            }
+        );
 
         // Functions
 
-        $scope.createPlaylist = function(){
+        $scope.createPlaylistMode = function(){
             $scope.isPlaylistCreation = true;
             $scope.isPlaylistSearch = false;
         };
 
-        $scope.searchPlaylist = function(){
+        $scope.searchPlaylistMode = function(){
             $scope.isPlaylistCreation = false;
             $scope.isPlaylistSearch = true;
+        };
+
+        $scope.createPlaylist = function(){
+            var id = $scope.playlistId;
+            var password = $scope.playlistPassword;
+
+            requests.createPlaylist(id, password).then(
+                function onSuccess(){
+                    // Save password on localStorage
+                    localStorage.push('passwords', id, password);
+                    // Go to player
+                    $location.path('/player/' + id).replace();
+                },
+                function onError(){
+                    console.log('error');
+                }
+            );
         };
   }]);

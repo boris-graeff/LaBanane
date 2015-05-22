@@ -9,26 +9,92 @@ angular.module('LaBanane.services', []).
         return socketFactory();
     }]).
     factory('localStorage', [function () {
-        var localStorage = {};
-
-        localStorage.getArray = function (item) {
-            var array = window.localStorage.getItem(item);
-            return array ? JSON.parse(array) : [];
+        return {
+            getArray : getArray,
+            push : push,
+            getValue : getValue
         };
 
-        return localStorage;
+        // Public methods
+
+        function getArray(itemKey) {
+            var item = window.localStorage.getItem(itemKey);
+            return item ? JSON.parse(item) : [];
+        }
+
+        function push(itemKey, entryKey, entryValue) {
+            var item = window.localStorage.getItem(itemKey);
+            item = item ? JSON.parse(item) : {};
+            item[entryKey] = entryValue;
+
+            window.localStorage.setItem(itemKey, JSON.stringify(item));
+        }
+
+        function getValue(itemKey, entryKey) {
+            var item = window.localStorage.getItem(itemKey);
+            item = item ? JSON.parse(item) : {};
+            return item[entryKey];
+        }
     }]).
 
 
     factory('requests', ['$http', function ($http) {
-        var requests = {};
-        requests.getAllPlaylists = function () {
-            return $http.get('services/playlist/all');
+
+        return {
+            getAllPlaylists : getAllPlaylists,
+            getPlaylist : getPlaylist,
+            createPlaylist : createPlaylist
         };
 
-        requests.getPlaylist = function (id, password) {
-            return $http.get('services/playlist/content/' + id + '/' + password);
-        };
+        // Public methods
 
-        return requests;
+        function getAllPlaylists() {
+            var request = $http({
+                method : 'get',
+                url : 'services/playlist/all'
+            });
+
+            return request.then(handleSuccess, handleError);
+        }
+
+        function getPlaylist (id, password) {
+            var request = $http({
+                method : 'get',
+                url : 'services/playlist/content/' + id + '/' + password
+            });
+
+            return request.then(handleSuccess, handleError);
+        }
+
+        function createPlaylist (id, password) {
+            var request = $http({
+                method : 'post',
+                url : 'services/playlist/create',
+                data : {
+                    id: id,
+                    password: password
+                }
+            });
+
+            return request.then(handleSuccess, handleError);
+        }
+
+        // Private methods
+
+        function handleError(response){
+            // Server error, normalize format
+            if (! angular.isObject( response.data ) ||
+                ! response.data.message) {
+
+                return( $q.reject( "An unknown error occurred." ) );
+
+            }
+
+            // Otherwise, use expected error message.
+            return( $q.reject( response.data.message ) );
+        }
+
+        function handleSuccess(response){
+            return response.data;
+        }
     }]);
