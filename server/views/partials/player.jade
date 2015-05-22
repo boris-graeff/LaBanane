@@ -1,1 +1,37 @@
-p Player
+#player
+    #left
+        section
+            h4#playlist-name
+                | {{currentTrack.name}}
+                | ({{playlist.length}} songs)
+            h2#track-name {{currentTrack.name}}
+
+            #track-state.slider
+                .control
+                    .cursor
+
+            ul#player-controls
+                li 1
+                li 2
+                li 3
+                li 4
+                li 5
+
+        section#playlist
+            ul.tracks
+                li(ng-repeat="track in playlist")
+                    {{track.name}}
+    #right
+        nav
+            ul
+                li.tab(ng-class="{'selected':isSoundcloudProvider}") Soundcloud
+                li.tab(ng-class="{'selected':isYoutubeProvider}") Youtube
+
+        .input-container
+            input#search(input-text, type="text", autocomplete="off")
+            label(for="search") Song name
+
+        section#results
+            ul.tracks
+                li(ng-repeat="track in results")
+                    {{track.name}}

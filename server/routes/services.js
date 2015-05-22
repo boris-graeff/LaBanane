@@ -3,12 +3,13 @@
  */
 
 var db = require('../db');
+var _ = require('lodash');
 
 
 // Private functions
 
 /**
- * Ask mongo DB if playlist id is available
+ * Ask DB if playlist id is available
  * @param idPlaylist
  * @param callback
  */
@@ -19,7 +20,7 @@ var isPlaylistIdAvailable = function (idPlaylist, callback) {
 };
 
 /**
- * Get playlist content by playlist  from mongo DB
+ * Get playlist content by playlist from DB
  * @param idPlaylist
  * @param callback
  */
@@ -116,5 +117,22 @@ exports.getPlaylistContent = function (req, res) {
       res.json(data);
     }
   });
+};
 
+/**
+ * Get all playlists
+ * @param req
+ * @param res
+ */
+exports.getAllPlaylists = function (req, res) {
+
+  db.getAllPlaylists(function (err, playlists) {
+    if (err) {
+      res.json([]);
+    }
+    else {
+      res.json(_.pluck(playlists, 'id'));
+    }
+
+  });
 };

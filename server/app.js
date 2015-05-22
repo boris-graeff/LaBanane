@@ -62,6 +62,7 @@ app.get('/partials/:name', routes.partials);
 // JSON API
 app.get('/services/playlist/available/:id', services.isPlaylistIdAvailable);
 app.post('/services/playlist/create', services.createPlaylist);
+app.get('/services/playlist/all', services.getAllPlaylists);
 app.get('/services/playlist/content/:id/:password', services.getPlaylistContent);
 
 // Redirect all others to the index (HTML5 history)

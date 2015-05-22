@@ -1,29 +1,41 @@
-header
-    img(src="img/header.svg")
-nav
-    ul
-        li.button(ng-class="{'selected':isPlaylistSearch}", ng-click='searchPlaylist()') Search
-        li.button(ng-class="{'selected':isPlaylistCreation}", ng-click='createPlaylist()') Create
-section.search(ng-show='isPlaylistSearch')
-    .input-container
-        input(type='text')
-        div
-    ul.playlists
-        li 1
-        li 2
-        li 3
-        li 4
-        li 5
-        li 6
-    h3 Last visited playlists
-    ul.playlists
-        li(ng-repeat="playlist in lastPlaylists")
-            a(href="/player/{{playlist}}") {{playlist}}
-section.create(ng-show='isPlaylistCreation')
-    .input-container
-        input(type='text')
-        div
-    .input-container
-        input(type='password')
-        div
+#home
+    header
+        img(src="/img/header.svg")
+
+    p
+        | Bienvenue sur LaBanane, l'application pour écouter et partager votre musique !
+        br
+        | N'hésitez pas à nous rejoindre sur Facebook pour être tenu au courant des nouveautés, nous remonter un bug ou tout
+        | simplement pour partager votre playlist !
+
+    nav
+        ul
+            li(ng-class="{'selected':isPlaylistSearch}", ng-click='searchPlaylist()') Search
+            li(ng-class="{'selected':isPlaylistCreation}", ng-click='createPlaylist()') Create
+
+    section.search(ng-show='isPlaylistSearch')
+
+        .input-container
+            input#input-search-playlist(input-text, type="text", ng-model="search", autocomplete="off")
+            label(for="input-search-playlist") Name
+        ul.playlists
+            li(ng-repeat="playlist in allPlaylists | filter:search")
+                a(href="/player/{{playlist}}") {{playlist}}
+
+        h3 Last visited playlists
+        ul.playlists
+            li(ng-repeat="playlist in lastPlaylists")
+                a(href="/player/{{playlist}}") {{playlist}}
+
+    section.create(ng-show='isPlaylistCreation')
+
+        p /!\ Please note that you will not be able to retrieve your password if you lost it !
+        .input-container
+            input#playlist-name(input-text, type="text", autocomplete="off")
+
+            label(for="playlist-name") Playlist name
+        .input-container
+            input#playlist-password(input-text, type="password", autocomplete="off")
+            label(for="playlist-password") Password
+        button.button Create
 

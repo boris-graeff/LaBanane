@@ -42,6 +42,15 @@ module.exports = {
     },
 
     /**
+     * Get all playlists
+     * @param idPlaylist
+     * @param callback
+     */
+    getAllPlaylists: function (callback) {
+        ref.Playlist.find(callback);
+    },
+
+    /**
      * Update playlist
      * @param playlist
      * @param callback
