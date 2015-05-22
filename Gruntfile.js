@@ -74,6 +74,7 @@ module.exports = function (grunt) {
 						"client/bower_components/angular/angular.min.js",
 						"client/bower_components/angular-route/angular-route.min.js",
 						"client/bower_components/angular-socket-io/socket.js",
+						"client/bower_components/jquery/dist/jquery.min.js",
 						"grunt/target/sources.js"
 					]
 				}

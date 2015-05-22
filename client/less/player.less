@@ -1,0 +1,47 @@
+@import 'constants.less';
+
+#player {
+  flex-direction: row;
+  display: flex;
+  height : 100%;
+  flex : 1;
+
+  h2 {
+    white-space: nowrap;
+    overflow: hidden;
+    display: inline-block;
+    text-overflow: ellipsis;
+    font-size : 1.8em;
+  }
+
+  #right{
+    flex : 1;
+    padding : @padding;
+  }
+
+  #left {
+    flex-direction: column;
+    flex : 1;
+    display: flex;
+    padding : @padding;
+  }
+
+  #playlist{
+    flex: 1 1 auto;
+    overflow-y: auto;
+    min-height: 0px;
+  }
+
+  #player-controls {
+    display : flex;
+    list-style : none;
+    flex-direction: row;
+    text-align : center;
+
+    li {
+      flex : 1;
+    }
+  }
+
+
+}

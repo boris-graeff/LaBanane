@@ -12,12 +12,15 @@
   display: none !important;
 }
 
+html {
+  height : 100%;
+}
 
-input:focus,
-select:focus,
-textarea:focus,
-button:focus {
-  outline: none;
+
+input, select, textarea, button{
+  &:focus {
+    outline: none;
+  }
 }
 
 h1, h2, h3 {
@@ -41,69 +44,82 @@ body {
   color : @black;
   background : @yellow;
   font-family: 'Roboto Condensed', sans-serif;
+  height : 100%;
 }
 
 section {
-  padding : @padding;
+  padding : @padding 0;
 }
 
-.button {
+button {
   padding : @padding;
+  cursor : pointer;
+  background : @black;
+  color : @yellow;
+
   &:hover {
-    background : @black-10;
-  }
-
-  &.selected {
-    background : @black;
-    color : @yellow;
-  }
-}
-
-input {
-  &[type="text"], [type="password"]{
-    width : 100%;
-    padding : @padding-medium;
-    background : @black-20;
+    background: @black-50;
   }
 }
 
 nav {
+  margin-top : @padding;
   ul {
     display: flex;
-    text-transform: uppercase;
     font-style: italic;
     border-bottom : 1px solid @black;
 
     li {
       display : inline-block;
       flex : 1;
+      font-size: 1.8em;
       text-align : center;
+      padding : @padding-medium;
       cursor : pointer;
+      background : @black-05;
+      transition : all 0.5s;
+
+      &:hover {
+        background : @black-10;
+      }
+
+      &.selected {
+        background : @black;
+        color : @yellow;
+      }
     }
   }
 }
 
 ul.playlists{
+  margin : 1em 0;
+
   li {
+    height : 1em;
+
     &:before {
       content : '> ';
     }
   }
 }
 
-ul.songs{
+ul.tracks {
   li {
-    &:nth-child(even){
-      background : @black-05;
+    padding: @padding-light @padding;
+
+    &:nth-child(even) {
+      background: @black-02
     }
-    &:nth-child(odd){
-      background : @black-10;
+    &:nth-child(odd) {
+      background: @black-05
     }
   }
 }
 
-#page {
-  max-width : 600px;
-  margin : auto;
+p {
+  margin : @padding-medium 0;
 }
 
+#page {
+  height : 100%;
+}

@@ -1,30 +1,45 @@
 /**
- * Controle for homepage
+ * Controle for player page
  */
 angular.module('LaBanane').
-  controller('HomeCtrl', ['$scope', 'localStorage', 'requests', function ($scope, localStorage, requests) {
+  controller('PlayerCtrl', ['$scope', 'localStorage', 'requests', function ($scope, localStorage, requests) {
 
         // Init
 
-        $scope.isPlaylistCreation = false;
-        $scope.isPlaylistSearch = true;
-        $scope.lastPlaylists = localStorage.getArray('lastPlaylists');
+        $scope.currentTrack = {
+            'name' : 'Radiohead - Go to hell'
+        };
 
-        $scope.allPlaylists = ['dsgsdg', 'Fdsdgdg', 'aaa', 'bbbb', 'ffaaa', 'ccc', 'd', 'e', 'ffaaaddadg', 'dsdfdf', 'dssdgdg', 'dsgsdgsdgsdg'];
+        var mock = [
+            {
+                'name': 'fqsfsdf'
+            },
+            {
+                'name': 'sfqsfqsfqsf'
+            },
+            {
+                'name': 'dgsdgsdg'
+            },
+            {
+                'name': 'zeesdgsdgsdg'
+            }
+        ];
 
-        requests.getAllPlaylists().then(function(playlists){
-            $scope.allPlaylists = playlists;
+        $scope.playlist = mock;
+
+        $scope.results = mock;
+
+        $scope.isYoutubeProvider = false;
+        $scope.isSoundcloudProvider = true;
+
+        // Get playlist from server
+        /*
+        requests.getPlaylist('id', 'password').then(function(playlist){
+            $scope.playlist = playlist;
         });
+        */
 
         // Functions
 
-        $scope.createPlaylist = function(){
-            $scope.isPlaylistCreation = true;
-            $scope.isPlaylistSearch = false;
-        };
 
-        $scope.searchPlaylist = function(){
-            $scope.isPlaylistCreation = false;
-            $scope.isPlaylistSearch = true;
-        };
   }]);

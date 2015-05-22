@@ -1,4 +1,7 @@
-// My JQuery slider plugin
+/**
+ * JQuery slider plugin
+ * @author Boris Graeff
+ */
 (function( $ ) {
 
     $.fn.slider = function() {
@@ -67,9 +70,3 @@
         });
     }
 }( jQuery ));
-
-// On ready
-$(document).ready(function(){
-    // Call plugin
-    $('.slider').slider();
-});
