@@ -2,20 +2,24 @@ header
     img(src="img/header.svg")
 nav
     ul
-        li.button.selected Search
-        li.button Create
-section.search
+        li.button(ng-class="{'selected':isPlaylistSearch}", ng-click='searchPlaylist()') Search
+        li.button(ng-class="{'selected':isPlaylistCreation}", ng-click='createPlaylist()') Create
+section.search(ng-show='isPlaylistSearch')
     .input-container
         input(type='text')
         div
-    ul.list-of
+    ul.playlists
         li 1
         li 2
         li 3
         li 4
         li 5
         li 6
-section.create
+    h3 Last visited playlists
+    ul.playlists
+        li(ng-repeat="playlist in lastPlaylists")
+            a(href="/player/{{playlist}}") {{playlist}}
+section.create(ng-show='isPlaylistCreation')
     .input-container
         input(type='text')
         div

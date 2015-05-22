@@ -28,6 +28,15 @@ ul {
   list-style : none;
 }
 
+a {
+  color: @black;
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
 body {
   color : @black;
   background : @yellow;
@@ -41,7 +50,7 @@ section {
 .button {
   padding : @padding;
   &:hover {
-    background : @black-50;
+    background : @black-10;
   }
 
   &.selected {
@@ -63,6 +72,7 @@ nav {
     display: flex;
     text-transform: uppercase;
     font-style: italic;
+    border-bottom : 1px solid @black;
 
     li {
       display : inline-block;
@@ -73,7 +83,15 @@ nav {
   }
 }
 
-ul.list-of{
+ul.playlists{
+  li {
+    &:before {
+      content : '> ';
+    }
+  }
+}
+
+ul.songs{
   li {
     &:nth-child(even){
       background : @black-05;
