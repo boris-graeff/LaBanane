@@ -1,7 +1,16 @@
 extends layout
 
 block body
-    #page(ng-view)
+    #loader(ng-cloak='ng-cloak')
+        ul
+            li
+            li
+            li
+            li
+            li
+            li
+
+    #app(ng-view)
 
     script(src='/socket.io/socket.io.js')
     script(src='dist/app.js')
