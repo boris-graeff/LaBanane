@@ -6,12 +6,12 @@ angular.module('LaBanane.directives', [])
 
         return function (scope, element) {
             element.on('focus', function(){
-                element.addClass('open');
+                element.parent().addClass('open');
             });
 
             element.on('blur', function(){
                 if(element.val().length === 0){
-                    element.removeClass('open');
+                    element.parent().removeClass('open');
                 }
             });
         };

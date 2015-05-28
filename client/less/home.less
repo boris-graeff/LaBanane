@@ -1,18 +1,25 @@
 @import 'constants.less';
 
 #home {
-  max-width : 600px;
-  margin : auto;
-}
+  overflow-y: scroll;
+  height: 100%;
 
-header {
-  border-bottom : 1px solid @black;
-  text-align : center;
-  margin-bottom: 1.5em;
+  #page {
+    max-width: 600px;
+    margin: auto;
+  }
 
-  img {
-    width : 100%;
-    margin-bottom: -2em;
+  header {
+    text-align: center;
+    background : url("../img/header.svg") no-repeat scroll center center / contain transparent;
+    height: 9em;
+    position : relative;
+
+    + p {
+      border-top : 1px solid @black;
+      margin-top: -1.5em;
+      padding-top: 2em;
+    }
   }
 }
 

@@ -9,19 +9,14 @@ angular.module('LaBanane').
 
         $scope.isPlaylistCreation = false;
         $scope.isPlaylistSearch = true;
-        $scope.lastPlaylists = localStorage.getArray('lastPlaylists');
         $scope.allPlaylists = [];
-        $scope.playlistId = '';
-        $scope.playlistPassword = '';
+        $scope.playlist = {
+            id : '',
+            password : ''
+            };
 
-        /*
+        $scope.lastPlaylists = localStorage.getArray('lastPlaylists');
 
-         $scope.allPlaylists = data;
-         }).
-         error(function(data, status, headers, config) {
-         // TODO : display popin
-         });
-         */
 
         // Get all playlists from server
 

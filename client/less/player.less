@@ -1,4 +1,5 @@
 @import 'constants.less';
+@import 'sprite.less';
 
 #player {
   flex-direction: row;
@@ -12,6 +13,7 @@
     display: inline-block;
     text-overflow: ellipsis;
     font-size : 1.8em;
+    margin-top : @padding;
   }
 
   #right{
@@ -30,6 +32,22 @@
     flex: 1 1 auto;
     overflow-y: auto;
     min-height: 0px;
+
+    li {
+      .remove {
+        position : absolute;
+        right : @padding;
+        top : 0; // TODO
+
+        .sprite-remove-black;
+      }
+
+      &:hover {
+        .remove {
+          .sprite-remove-yellow;
+        }
+      }
+    }
   }
 
   #player-controls {
@@ -42,6 +60,7 @@
       flex : 1;
     }
   }
+
 
 
 }

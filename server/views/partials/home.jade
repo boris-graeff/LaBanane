@@ -1,41 +1,41 @@
 #home
-    header
-        img(src="/img/header.svg")
+    #page
+        header
 
-    p
-        | Bienvenue sur LaBanane, l'application pour écouter et partager votre musique !
-        br
-        | N'hésitez pas à nous rejoindre sur Facebook pour être tenu au courant des nouveautés, nous remonter un bug ou tout
-        | simplement pour partager votre playlist !
+        p
+            | Bienvenue sur LaBanane, l'application pour écouter et partager votre musique !
+            br
+            | N'hésitez pas à nous rejoindre sur Facebook pour être tenu au courant des nouveautés, nous remonter un bug ou tout
+            | simplement pour partager votre playlist !
 
-    nav
-        ul
-            li(ng-class="{'selected':isPlaylistSearch}", ng-click='searchPlaylistMode()') Search
-            li(ng-class="{'selected':isPlaylistCreation}", ng-click='createPlaylistMode()') Create
+        nav
+            ul
+                li(ng-class="{'selected':isPlaylistSearch}", ng-click='searchPlaylistMode()') Search
+                li(ng-class="{'selected':isPlaylistCreation}", ng-click='createPlaylistMode()') Create
 
-    section.search(ng-show='isPlaylistSearch')
+        section.search(ng-show='isPlaylistSearch')
 
-        .input-container
-            input#input-search-playlist(input-text, type="text", ng-model="search", autocomplete="off")
-            label(for="input-search-playlist") Name
-        ul.playlists
-            li(ng-repeat="playlist in allPlaylists | filter:search")
-                a(href="/player/{{playlist}}") {{playlist}}
+            .input-container
+                input#input-search-playlist(input-text, type="text", ng-model="search", autocomplete="off")
+                label(for="input-search-playlist") Name
+            ul.playlists
+                li(ng-repeat="playlist in allPlaylists | filter:search")
+                    a(href="/player/{{playlist}}") {{playlist}}
 
-        h3 Last visited playlists
-        ul.playlists
-            li(ng-repeat="playlist in lastPlaylists")
-                a(href="/player/{{playlist}}") {{playlist}}
+            h3(ng-show="lastPlaylists") Last {{lastPlaylists.length}} visited playlists
+            ul.playlists
+                li(ng-repeat="playlist in lastPlaylists")
+                    a(href="/player/{{playlist}}") {{playlist}}
 
-    section.create(ng-show='isPlaylistCreation')
+        section.create(ng-show='isPlaylistCreation')
 
-        p /!\ Please note that you will not be able to retrieve your password if you lost it !
-        .input-container
-            input#playlist-name(ng-model="playlistId", input-text, type="text", autocomplete="off")
+            p.note Tips : please note that if you lost your password you will not be able to retrieve it !
+            .input-container
+                input#playlist-name(ng-model="playlistId", input-text, type="text", autocomplete="off")
 
-            label(for="playlist-name") Playlist name
-        .input-container
-            input#playlist-password(ng-model="playlistPassword", input-text, type="password", autocomplete="off")
-            label(for="playlist-password") Password
-        button.button(ng-click='createPlaylist()') Create
+                label(for="playlist-name") Playlist name
+            .input-container
+                input#playlist-password(ng-model="playlistPassword", input-text, type="password", autocomplete="off")
+                label(for="playlist-password") Password
+            button.button(ng-click='createPlaylist()') Create
 

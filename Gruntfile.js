@@ -7,6 +7,7 @@ module.exports = function (grunt) {
 	grunt.loadNpmTasks("grunt-contrib-concat");
 	grunt.loadNpmTasks("grunt-mkdir");
 	grunt.loadNpmTasks('grunt-contrib-watch');
+	grunt.loadNpmTasks('grunt-autoprefixer');
 
 	grunt.initConfig({
 
@@ -99,7 +100,17 @@ module.exports = function (grunt) {
 					"client/dist"
 				]
 			}
-		}
+		},
+
+		// Autoprefixer
+		autoprefixer: {
+			options: {
+				browsers: 'last 2 versions, > 5%'
+			},
+			no_dest_single: {
+				src: 'client/dist/app.css'
+			},
+		},
 	});
 
 	// Default task
@@ -109,6 +120,6 @@ module.exports = function (grunt) {
 	grunt.registerTask("js", ["mkdir:folders", "uglify:sources", "concat:js"]);
 
 	// Custom task for CSS files
-	grunt.registerTask("style", ["mkdir:folders", "less:app"]);
+	grunt.registerTask("style", ["mkdir:folders", "less:app", "autoprefixer"]);
 
 };

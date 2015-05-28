@@ -2,9 +2,14 @@
     #left
         section
             h4#playlist-name
-                | {{playlistId}}
-                | ({{playlist.length}} songs)
-            h2#track-name {{currentTrack.name}}
+                | {{playlist.id}}
+                | ({{playlist.content.length}} songs)
+            a clone
+            span(ng-hide="playlist.owner")
+                | /
+                a edit
+            br
+            h2#track-name {{playist.currentTrack.name}}
 
             #track-state.slider
                 .control
@@ -19,19 +24,21 @@
 
         section#playlist
             ul.tracks
-                li(ng-repeat="track in playlist")
+                li(ng-repeat="track in playlist.content")
                     {{track.name}}
+                    .remove
     #right
         nav
             ul
-                li.tab(ng-class="{'selected':isSoundcloudProvider}") Soundcloud
-                li.tab(ng-class="{'selected':isYoutubeProvider}") Youtube
+                li.tab(ng-class="{'selected':search.isSoundcloudProvider}") Soundcloud
+                li.tab(ng-class="{'selected':search.isYoutubeProvider}") Youtube
 
         .input-container
-            input#search(input-text, type="text", autocomplete="off")
+            input#search(input-text, type="text", autocomplete="off", ng-model="keywords")
             label(for="search") Song name
 
         section#results
+            p.note Tips : to add a song to your playlist, you can use drag'n'drop or double click. ;)
             ul.tracks
-                li(ng-repeat="track in results")
+                li(ng-repeat="track in search.results | filter:keywords")
                     {{track.name}}
