@@ -72,10 +72,13 @@ module.exports = function (grunt) {
 			js: {
 				files: {
 					"client/dist/app.js": [
-						"client/bower_components/angular/angular.min.js",
+						//"client/bower_components/angular/angular.min.js",
+						"client/bower_components/angular/angular.js",
 						"client/bower_components/angular-route/angular-route.min.js",
+						"client/bower_components/angular-touch/angular-touch.min.js",
 						"client/bower_components/angular-socket-io/socket.js",
 						"client/bower_components/jquery/dist/jquery.min.js",
+						"client/bower_components/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js",
 						"grunt/target/sources.js"
 					]
 				}

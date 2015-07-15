@@ -15,4 +15,19 @@ angular.module('LaBanane.directives', [])
                 }
             });
         };
+    })
+
+    .directive('scrollable', function () {
+        return function(scope, element) {
+            var $el = $(element[0]);
+            console.log($el.parent().height());
+            console.log($el.parent().innerHeight());
+            console.log($el.parent().outerHeight());
+            $el.css('height', $el.parent().outerHeight());
+
+            $el.mCustomScrollbar({
+                theme : 'dark-thin'
+            });
+        };
     });
+

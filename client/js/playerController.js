@@ -5,6 +5,8 @@ angular.module('LaBanane').
   controller('PlayerCtrl', ['$scope', 'localStorage', 'requests', '$routeParams', 'providers', 'constants',
         function ($scope, localStorage, requests, $routeParams, providers, constants) {
 
+
+
         // Init
         var playlistId = $routeParams.id;
         var password = localStorage.getValue('passwords', playlistId);
@@ -47,10 +49,11 @@ angular.module('LaBanane').
             },
             {
                 'name': 'zeesdgsdgsdg'
-            }
+            },
+            {'name':'toto'},{'name':'toto'},{'name':'toto'},{'name':'toto'},{'name':'toto'},{'name':'toto'},{'name':'toto'},{'name':'toto'},{'name':'toto'},{'name':'toto'},{'name':'toto'},{'name':'toto'},{'name':'toto'},{'name':'toto'},{'name':'toto'},{'name':'toto'},{'name':'toto'},{'name':'toto'}
         ];
 
-        $scope.search.results = mock;
+       // TODO $scope.search.results = mock;
 
 
 

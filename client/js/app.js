@@ -4,7 +4,8 @@
 
     angular.module('LaBanane', [
         'ngRoute',
-
+        'ngTouch',
+        
         'LaBanane.controllers',
         'LaBanane.filters',
         'LaBanane.services',

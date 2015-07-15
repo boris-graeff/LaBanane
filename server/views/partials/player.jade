@@ -23,7 +23,7 @@
                 li 5
 
         section#playlist
-            ul.tracks
+            ul.tracks(scrollable)
                 li(ng-repeat="track in playlist.content")
                     {{track.name}}
                     .remove
