@@ -27,8 +27,6 @@ var isPlaylistIdAvailable = function (idPlaylist, callback) {
 var getPlaylistContent = function (idPlaylist, callback) {
 
   db.getPlaylist(idPlaylist, function (err, result) {
-    console.log(err);
-    console.log(result);
     if (result) {
       var playlist = {
         content: result.content,
@@ -50,10 +48,7 @@ exports.createPlaylist = function (req, res) {
   isPlaylistIdAvailable(playlist.id, function (err, available) {
 
     if (err || !available) {
-      res.json({
-        error: true,
-        available: false
-      });
+      res.status(500).send({ error: ":(" });
     }
     else {
       db.createPlaylist(playlist, function (err, result) {
@@ -85,9 +80,7 @@ exports.isPlaylistIdAvailable = function (req, res) {
 
   isPlaylistIdAvailable(idPlaylist, function (err, available) {
     if (err) {
-      res.json({
-        error: true
-      });
+      res.status(500).send({ error: ":(" });
     }
     else {
       res.json({

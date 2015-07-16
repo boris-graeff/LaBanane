@@ -33,11 +33,11 @@
             ul.tracks(scrollable)
                 li(ng-repeat="track in playlist.content") {{track.name}}
                     .remove
-    #right
+    #right(ng-controller="SearchCtrl")
         nav
             ul
-                li.tab(ng-class="{'selected':search.isSoundcloudProvider}") Soundcloud
-                li.tab(ng-class="{'selected':search.isYoutubeProvider}") Youtube
+                li.tab(ng-class="{'selected':isSoundcloudProvider}", ng-click='setSoundcloudProvider()') Soundcloud
+                li.tab(ng-class="{'selected':isYoutubeProvider}", ng-click='setYoutubeProvider()') Youtube
 
         .input-container
             input#search(input-text, type="text", autocomplete="off", ng-model="keywords")
@@ -46,5 +46,4 @@
         section#results
             p.note Tips : to add a song to your playlist, you can use drag'n'drop or double click. ;)
             ul.tracks
-                li(ng-repeat="track in search.results | filter:keywords")
-            {{track.name}}
+                li(ng-repeat="track in results | filter:keywords") {{track.name}}

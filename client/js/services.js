@@ -125,8 +125,7 @@ angular.module('LaBanane.services', []).
         // Public methods
 
         function doSearchRequest(keywords) {
-            var item = window.localStorage.getItem(itemKey);
-            return item ? JSON.parse(item) : [];
+            return ['test', 'tot', 'tata'];
         }
 
     }]);

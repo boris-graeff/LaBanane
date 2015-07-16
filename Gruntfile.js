@@ -76,7 +76,6 @@ module.exports = function (grunt) {
                         "client/bower_components/angular/angular.js",
                         "client/bower_components/angular-route/angular-route.min.js",
                         "client/bower_components/angular-touch/angular-touch.min.js",
-                        "client/bower_components/ngDialog/js/ngDialog.min.js",
                         "client/bower_components/angular-socket-io/socket.js",
                         "client/bower_components/jquery/dist/jquery.min.js",
                         "client/bower_components/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js",
@@ -90,8 +89,7 @@ module.exports = function (grunt) {
             app: {
                 files: {
                     "client/dist/app.css": [
-                        "client/less/**/*.less",
-                        "client/bower_components/ngDialog/css/ngDialog.min.css"
+                        "client/less/**/*.less"
                     ]
                 }
             }

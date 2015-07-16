@@ -2,10 +2,8 @@
  * Controle for player page
  */
 angular.module('LaBanane').
-  controller('PlayerCtrl', ['$scope', 'localStorage', 'requests', '$routeParams', 'providers', 'constants', 'ngDialog',
-        function ($scope, localStorage, requests, $routeParams, providers, constants, ngDialog) {
-
-
+  controller('PlayerCtrl', ['$scope', 'localStorage', 'requests', '$routeParams', 'constants',
+        function ($scope, localStorage, requests, $routeParams, constants) {
 
         // Init
         var playlistId = $routeParams.id;
@@ -23,11 +21,6 @@ angular.module('LaBanane').
             isMuted : false,
             isShuffleMode : false
         };
-
-        $scope.search = {
-            provider : 'youtube'
-        };
-
 
         // TODO : clear
         $scope.playlist.currentTrack = {
@@ -52,10 +45,6 @@ angular.module('LaBanane').
             },
             {'name':'toto'},{'name':'toto'},{'name':'toto'},{'name':'toto'},{'name':'toto'},{'name':'toto'},{'name':'toto'},{'name':'toto'},{'name':'toto'},{'name':'toto'},{'name':'toto'},{'name':'toto'},{'name':'toto'},{'name':'toto'},{'name':'toto'},{'name':'toto'},{'name':'toto'},{'name':'toto'}
         ];
-
-       // TODO $scope.search.results = mock;
-
-
 
         // Get playlist from server
 
@@ -163,20 +152,6 @@ angular.module('LaBanane').
             seek(0);
             $scope.palylist.currentTrack = {};
         }
-
-        function search () {
-            var keywords = $scope.search.keywords;
-            var provider = $scope.search.provider;
-
-            if (keywords.length > 3) {
-                providers.doSearchRequest(keywords).then(
-                    function(results){
-                        $scope.search.results = results;
-                    }
-                );
-            }
-        }
-
 
 
   }]);
