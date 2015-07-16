@@ -1,66 +1,169 @@
 @import 'constants.less';
 @import 'sprite.less';
 
+
 #player {
   flex-direction: row;
   display: flex;
-  height : 100%;
-  flex : 1;
+  height: 100%;
+  flex: 1;
+  padding-top : 32px;
 
-  h2 {
-    white-space: nowrap;
-    overflow: hidden;
-    display: inline-block;
-    text-overflow: ellipsis;
-    font-size : 1.8em;
-    margin-top : @padding;
-  }
+  header{
+    background : @black;
+    color : @yellow;
+    padding : @padding-light @padding;
+    position : absolute;
+    top : 0;
+    right : 0;
+    left : 0;
 
-  #right{
-    flex : 1;
-    padding : @padding;
-  }
+    > * {
+      display : inline-block;
+      vertical-align: middle;
+    }
 
-  #left {
-    flex-direction: column;
-    flex : 1;
-    display: flex;
-    padding : @padding;
-  }
+    h4 {
+      margin-right : @padding;
+    }
 
-  #playlist{
-    flex: 1 1 auto;
-    overflow: hidden;
-    min-height: 0px;
+    button, a{
+      padding : @padding-light;
 
-    li {
-      .remove {
-        position : absolute;
-        right : @padding;
-        top : 0; // TODO
-
-        .sprite-remove-black;
+      &:before {
+        content: '';
+        display: inline-block;
+        height: 1.5em;
+        width: 1.5em;
+        vertical-align: middle;
+        margin-right : @padding-light;
       }
+    }
 
-      &:hover {
+    #edit {
+      &:before {
+        background: url('../img/pictos/ic_mode_edit_yellow_24px.svg') no-repeat scroll center left / contain transparent;
+      }
+    }
+
+    #clone {
+      &:before {
+        background: url('../img/pictos/ic_content_copy_yellow_24px.svg') no-repeat scroll center left / contain transparent;
+      }
+    }
+
+    #clear {
+      &:before {
+        background: url('../img/pictos/ic_clear_yellow_24px.svg') no-repeat scroll center left / contain transparent;
+      }
+    }
+
+    #back-home {
+      position : absolute;
+      right : 0;
+      top : 0;
+
+      &:before {
+        height : 24px;
+        width : 24px;
+        background: url('../img/pictos/ic_exit_to_app_yellow_24px.svg') no-repeat scroll center left / contain transparent;
+      }
+    }
+
+
+  }
+
+    h2 {
+      white-space: nowrap;
+      overflow: hidden;
+      display: inline-block;
+      text-overflow: ellipsis;
+      font-size: 1.8em;
+      margin-top: @padding;
+    }
+
+    #right {
+      flex: 1;
+      padding: @padding;
+    }
+
+    #left {
+      flex-direction: column;
+      flex: 1;
+      display: flex;
+      padding: @padding;
+    }
+
+    #playlist {
+      flex: 1 1 auto;
+      overflow: hidden;
+      min-height: 0px;
+
+      li {
         .remove {
-          .sprite-remove-yellow;
+          position: absolute;
+          right: @padding;
+          top: 0; // TODO
+
+          .sprite-remove-black;
+        }
+
+        &:hover {
+          .remove {
+            .sprite-remove-yellow;
+          }
         }
       }
     }
-  }
 
-  #player-controls {
-    display : flex;
-    list-style : none;
-    flex-direction: row;
-    text-align : center;
+    #player-controls {
+      display: flex;
+      list-style: none;
+      flex-direction: row;
+      text-align: center;
 
-    li {
-      flex : 1;
+      li {
+        flex: 1;
+        height: 60px;
+
+        &:hover {
+          background: @black-10;
+        }
+      }
+
+      button {
+        height: 100%;
+        width: 100%;
+
+        &.shuffle {
+          background: url('../img/pictos/ic_shuffle_black_24px.svg') no-repeat scroll center center / contain transparent;
+        }
+
+        &.play {
+          background: url('../img/pictos/ic_play_arrow_black_24px.svg') no-repeat scroll center center / contain transparent;
+        }
+
+        &.pause {
+          background: url('../img/pictos/ic_pause_black_24px.svg') no-repeat scroll center center / contain transparent;
+        }
+
+        &.previous {
+          background: url('../img/pictos/ic_skip_previous_black_24px.svg') no-repeat scroll center center / contain transparent;
+        }
+
+        &.next {
+          background: url('../img/pictos/ic_skip_next_black_24px.svg') no-repeat scroll center center / contain transparent;
+        }
+
+        &.volume-up {
+          background: url('../img/pictos/ic_volume_up_black_24px.svg') no-repeat scroll center center / contain transparent;
+        }
+
+        &.volume-off {
+          background: url('../img/pictos/ic_volume_off_black_24px.svg') no-repeat scroll center center / contain transparent;
+        }
+      }
     }
-  }
-
-
 
 }
+

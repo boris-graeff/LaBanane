@@ -1,14 +1,16 @@
 #player
+    header
+        h4#playlist-name
+            | LaBanane -
+            | {{playlist.id}}
+            | ({{playlist.content.length}} songs)
+        button#clone clone
+        div(ng-hide="playlist.owner")
+            button#edit edit
+            button#clear clear
+        a#back-home(href="/app")
     #left
         section
-            h4#playlist-name
-                | {{playlist.id}}
-                | ({{playlist.content.length}} songs)
-            a clone
-            span(ng-hide="playlist.owner")
-                | /
-                a edit
-            br
             h2#track-name {{playist.currentTrack.name}}
 
             #track-state.slider
@@ -16,16 +18,20 @@
                     .cursor
 
             ul#player-controls
-                li 1
-                li 2
-                li 3
-                li 4
-                li 5
+                li
+                    button.previous
+                li
+                    button.play
+                li
+                    button.next
+                li
+                    button.shuffle
+                li
+                    button.volume-up
 
         section#playlist
             ul.tracks(scrollable)
-                li(ng-repeat="track in playlist.content")
-                    {{track.name}}
+                li(ng-repeat="track in playlist.content") {{track.name}}
                     .remove
     #right
         nav
@@ -41,4 +47,4 @@
             p.note Tips : to add a song to your playlist, you can use drag'n'drop or double click. ;)
             ul.tracks
                 li(ng-repeat="track in search.results | filter:keywords")
-                    {{track.name}}
+            {{track.name}}

@@ -27,6 +27,8 @@ var isPlaylistIdAvailable = function (idPlaylist, callback) {
 var getPlaylistContent = function (idPlaylist, callback) {
 
   db.getPlaylist(idPlaylist, function (err, result) {
+    console.log(err);
+    console.log(result);
     if (result) {
       var playlist = {
         content: result.content,
@@ -108,8 +110,7 @@ exports.getPlaylistContent = function (req, res) {
 
   getPlaylistContent(idPlaylist, function (err, playlist) {
     if (err || !playlist) {
-      data.error = true;
-      res.json(data);
+      res.status(404).send({ error: "Playlist doesn't exist !" });
     }
     else {
       data.playlist = playlist.content;

@@ -9,9 +9,9 @@
   "dependencies": {
     "angular": "~1.2.14",
     "angular-socket-io": "~0.3.0",
-    "angular-touch" : "~1.2.0",
+    "angular-touch": "~1.2.0",
     "angular-route": "~1.2.14",
-    "jquery" : "~2.1.4",
-    "malihu-custom-scrollbar-plugin" : "~3.0.8"
+    "jquery": "~2.1.4",
+    "malihu-custom-scrollbar-plugin": "~3.0.8"
   }
 }

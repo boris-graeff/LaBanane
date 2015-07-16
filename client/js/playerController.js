@@ -2,8 +2,8 @@
  * Controle for player page
  */
 angular.module('LaBanane').
-  controller('PlayerCtrl', ['$scope', 'localStorage', 'requests', '$routeParams', 'providers', 'constants',
-        function ($scope, localStorage, requests, $routeParams, providers, constants) {
+  controller('PlayerCtrl', ['$scope', 'localStorage', 'requests', '$routeParams', 'providers', 'constants', 'ngDialog',
+        function ($scope, localStorage, requests, $routeParams, providers, constants, ngDialog) {
 
 
 
@@ -71,7 +71,7 @@ angular.module('LaBanane').
                     localStorage.pushTemp('lastPlaylists', playlistId, constants.MAX_VISITED_PLAYLISTS);
                 },
                 function onError(){
-                    alert('ERROR : playlsit inconnue');
+                    console.log('error');
                 }
         );
 

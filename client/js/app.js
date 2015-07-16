@@ -5,6 +5,7 @@
     angular.module('LaBanane', [
         'ngRoute',
         'ngTouch',
+        'ngDialog',
         
         'LaBanane.controllers',
         'LaBanane.filters',
