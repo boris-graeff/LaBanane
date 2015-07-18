@@ -117,6 +117,7 @@ angular.module('LaBanane.services', []).
         }
     }]).
 
+
     factory('providers', [function () {
         return {
             doSearchRequest : doSearchRequest

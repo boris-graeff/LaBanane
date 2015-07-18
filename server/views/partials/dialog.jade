@@ -1,0 +1,7 @@
+#dialog(ng-controller="DialogCtrl", ng-click="hide()", ng-class="{'open':open}", class="{{type}}")
+    #dialog-content
+        h3 {{title}}
+        p {{content}}
+        .actions
+            button.cancel(ng-click="hide()") Cancel
+            button.confirm(ng-click="confirm()") Ok

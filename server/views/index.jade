@@ -1,14 +1,8 @@
 extends layout
 
 block body
-    #loader(ng-cloak='ng-cloak')
-        ul
-            li
-            li
-            li
-            li
-            li
-            li
+    include partials/loader.jade
+    include partials/dialog.jade
 
     #app(ng-view)
 

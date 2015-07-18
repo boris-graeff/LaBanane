@@ -1,0 +1,58 @@
+@import 'constants.less';
+
+#dialog {
+  display : none;
+  top : 0;
+  bottom : 0;
+  left : 0;
+  right : 0;
+  background-color : @black-50;
+  position: fixed;
+  z-index : 9999;
+  cursor : pointer;
+
+  .actions {
+    display : flex;
+    justify-content : space-around;
+
+    button {
+      background : @yellow;
+
+      &:hover {
+        background : @yellow-75;
+      }
+    }
+  }
+
+  &.open {
+    display : block;
+  }
+
+  // Types
+
+  &.simple {
+    .cancel {
+      display : none;
+    }
+  }
+
+  &.unclosable {
+    cursor : default;
+    .actions {
+      display : none;
+    }
+  }
+}
+
+#dialog-content {
+  max-width : 400px;
+  background: @black;
+  color : @yellow;
+  padding : @padding;
+  position: absolute;
+  left : 0;
+  right : 0;
+  top : 20%;
+  margin : auto;
+  cursor : default;
+}
