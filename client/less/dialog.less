@@ -31,7 +31,13 @@
   // Types
 
   &.simple {
-    .cancel {
+    .cancel, .confirm {
+      display : none;
+    }
+  }
+
+  &.confirm {
+    .ok {
       display : none;
     }
   }

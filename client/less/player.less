@@ -80,12 +80,7 @@
       margin-top: @padding;
     }
 
-    #right {
-      flex: 1;
-      padding: @padding;
-    }
-
-    #left {
+    #right, #left {
       flex-direction: column;
       flex: 1;
       display: flex;
@@ -93,10 +88,6 @@
     }
 
     #playlist {
-      flex: 1 1 auto;
-      overflow: hidden;
-      min-height: 0px;
-
       li {
         .remove {
           position: absolute;
@@ -112,6 +103,12 @@
           }
         }
       }
+    }
+
+    .track-list {
+      flex: 1 1 auto;
+      overflow: hidden;
+      min-height: 0px;
     }
 
     #player-controls {

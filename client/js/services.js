@@ -118,15 +118,22 @@ angular.module('LaBanane.services', []).
     }]).
 
 
-    factory('providers', ['soundcloudService', function (soundcloudService) {
+    factory('searchService', ['soundCloudService', function (soundCloudService) {
         return {
             doSearchRequest : doSearchRequest
         };
 
         // Public methods
 
-        function doSearchRequest(keywords) {
-            return soundcloudService.doSearchRequest(keywords);
+        function doSearchRequest(provider, keywords) {
+            if(provider === 'soundcloud'){
+                return soundCloudService.doSearchRequest(keywords);
+            }
+            /*
+            else if(provider === 'youtube'){
+                return youtubeService.doSearchRequest(keywords);
+            }
+            */
         }
 
     }])

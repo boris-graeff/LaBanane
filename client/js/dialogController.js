@@ -5,6 +5,13 @@ angular.module('LaBanane').
     controller('DialogCtrl', ['$scope', '$rootScope', 'constants',
         function ($scope, $rootScope, constants) {
 
+            /**
+             * Types :
+             * - simple
+             * - unclosable
+             * - confirm
+             */
+
             // Init
             $scope.open = false;
             var unclosable = false;
@@ -31,12 +38,14 @@ angular.module('LaBanane').
             }
 
             /**
-             * Hide dialog
+             * Hide dialog if click on cancel button or on backdrop
              */
-            $scope.hide = function () {
-                if(! unclosable){
+            $scope.hide = function (event) {
+                var $target = $(event.target);
+                if(! unclosable && $target.hasClass('close-dialog')){
                     $scope.open = false;
                 }
             };
+
 
         }]);

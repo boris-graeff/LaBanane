@@ -5,9 +5,9 @@
             | {{playlist.id}}
             | ({{playlist.content.length}} songs)
         button#clone clone
-        div(ng-hide="playlist.owner")
+        div(ng-show="playlist.owner")
             button#edit edit
-            button#clear clear
+            button#clear(ng-click="clearPlaylist()") clear
         a#back-home.button(href="/app")
     #left
         section
@@ -29,21 +29,21 @@
                 li
                     button.volume-up
 
-        section#playlist
+        section#playlist.track-list
             ul.tracks(scrollable, playlist)
-                li(ng-repeat="track in playlist.content", playlist-track) {{track.name}}
+                li(ng-repeat="track in playlist.content track by $index", playlist-track) {{track.name}}
                     .remove
     #right(ng-controller="SearchCtrl")
         nav
             ul
-                li.tab(ng-class="{'selected':isSoundcloudProvider}", ng-click='setSoundcloudProvider()') Soundcloud
-                li.tab(ng-class="{'selected':isYoutubeProvider}", ng-click='setYoutubeProvider()') Youtube
+                li.tab(ng-class="{'selected':provider === 'soundcloud'}", ng-click='setSoundcloudProvider()') Soundcloud
+                li.tab(ng-class="{'selected':provider === 'youtube'}", ng-click='setYoutubeProvider()') Youtube
 
         .input-container
             input#search(input-text, type="text", autocomplete="off", ng-model="keywords", ng-change="search()")
             label(for="search") Song name
 
-        section#results
+        section#results.track-list
             p.note Tips : to add a song to your playlist, you can use drag'n'drop or double click. ;)
-            ul.tracks
-                li(ng-repeat="track in results | filter:keywords", resources-track, data-type="youtube", data-url="TODO") {{track.name}}
+            ul.tracks(scrollable)
+                li(ng-repeat="track in results | filter:keywords track by $index", resources-track, data-type="youtube", data-url="TODO") {{track.name}}

@@ -19,12 +19,14 @@ angular.module('LaBanane.directives', [])
 
     .directive('scrollable', function () {
         return function(scope, element) {
-            var $el = $(element);
-            $el.css('height', $el.parent().outerHeight());
+            setTimeout(function(){
+                var $el = $(element);
+                $el.css('height', $el.parent().outerHeight());
 
-            $el.mCustomScrollbar({
-                theme : 'dark-thin'
-            });
+                $el.mCustomScrollbar({
+                    theme : 'dark-thin'
+                });
+            }, 0);
         };
     })
 

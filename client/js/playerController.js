@@ -9,11 +9,17 @@ angular.module('LaBanane').
             var playlistId = $routeParams.id;
             var password = localStorage.getValue('passwords', playlistId);
 
-            var popins = {
+            var dialogs = {
                 unknown_playlist : {
                     title   : "Sorry",
                     content : "The playlist doesn't exist anymore. : (",
                     type    : 'unclosable'
+                },
+                confirm_clear_playlist : {
+                    title       : "Hey",
+                    content     : "Are you sure you want to clear this playlist ?",
+                    type        : 'confirm',
+                    onConfirm   : clearPlaylist
                 }
             };
 
@@ -36,24 +42,6 @@ angular.module('LaBanane').
                 'name': 'Radiohead - Go to hell'
             };
 
-            var mock = [
-                {
-                    'name': '1'
-                },
-                {
-                    'name': '2'
-                },
-                {
-                    'name': '3'
-                },
-                {
-                    'name': '4'
-                },
-                {
-                    'name': '5'
-                }
-            ];
-
             // Get playlist from server
 
             requests.getPlaylist(playlistId, password)
@@ -63,13 +51,12 @@ angular.module('LaBanane').
                     $scope.playlist.owner = data.auth;
                     // TODO
                     console.log(data);
-                    //$scope.playlist.content = mock;
 
                     // Save visit in localstorage
                     localStorage.pushTemp('lastPlaylists', playlistId, constants.MAX_VISITED_PLAYLISTS);
                 },
                 function onError() {
-                    $rootScope.$emit(constants.EVENTS.OPEN_DIALOG, popins.unknown_playlist);
+                    $rootScope.$emit(constants.EVENTS.OPEN_DIALOG, dialogs.unknown_playlist);
                 }
             );
 
@@ -107,21 +94,31 @@ angular.module('LaBanane').
                 }
 
                 update();
-            }
+            };
+
+            $scope.clearPlaylist = function () {
+                $rootScope.$emit(constants.EVENTS.OPEN_DIALOG, dialogs.confirm_clear_playlist);
+            };
 
             // Privates functions
+
+            function clearPlaylist() {
+                $scope.playlist.content.length = 0;
+                stop();
+                update();
+            }
 
             function getRandomTrackId() {
                 return Math.floor(Math.random() * $scope.playlist.content.length);
             }
 
             function play(num) {
-                player.play();
+                // player.play();
                 $scope.isPlaying = true;
             }
 
             function pause() {
-                player.pause();
+                // player.pause();
                 $scope.isPlaying = false;
             }
 
@@ -173,11 +170,11 @@ angular.module('LaBanane').
             }
 
             function setVolume(volume) {
-                player.setVolume(volume);
+                //player.setVolume(volume);
             }
 
             function seek(percentage) {
-                player.seek(percentage);
+                //player.seek(percentage);
             }
 
             function mute() {
