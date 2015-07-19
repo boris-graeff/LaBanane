@@ -2,8 +2,8 @@
  * Controle for player page
  */
 angular.module('LaBanane').
-    controller('PlayerCtrl', ['$scope', 'localStorage', 'requests', '$routeParams', 'constants', '$rootScope',
-        function ($scope, localStorage, requests, $routeParams, constants, $rootScope) {
+    controller('PlayerCtrl', ['$scope', 'localStorage', 'requests', '$routeParams', 'constants', '$rootScope', 'socket',
+        function ($scope, localStorage, requests, $routeParams, constants, $rootScope, socket) {
 
             // Init
             var playlistId = $routeParams.id;
@@ -62,6 +62,7 @@ angular.module('LaBanane').
                     $scope.playlist.content = data.playlist;
                     $scope.playlist.owner = data.auth;
                     // TODO
+                    console.log(data);
                     //$scope.playlist.content = mock;
 
                     // Save visit in localstorage
@@ -77,10 +78,12 @@ angular.module('LaBanane').
 
             $scope.addSongToPlaylistEnd = function (trackInfo) {
                 $scope.playlist.content.push(trackInfo);
+                update();
             };
 
             $scope.addSongToPlaylist = function(index, trackInfo) {
                 $scope.playlist.content.splice(index, 0, trackInfo);
+                update();
             };
 
             $scope.moveSong = function (index1, index2) {
@@ -102,6 +105,8 @@ angular.module('LaBanane').
                         $scope.currentTrack.index += 1;
                     }
                 }
+
+                update();
             }
 
             // Privates functions
@@ -193,6 +198,23 @@ angular.module('LaBanane').
                 $scope.playlist.currentTrack = {};
             }
 
+            /**
+             * Send playlist state to server
+             */
+            function update() {
 
+                if ($scope.playlist.owner) {
+                    var passwords = localStorage.getArray('passwords');
+                    var password = passwords[playlistId];
+
+                    socket.emit("message", {
+                        action: 'update',
+                        room: playlistId,
+                        param: {
+                            playlist: $scope.playlist.content,
+                            password: password}
+                    });
+                }
+            }
 
         }]);

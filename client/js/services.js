@@ -131,7 +131,7 @@ angular.module('LaBanane.services', []).
 
     }])
 
-    .factory('soundcloudService', ['$window', '$rootScope', '$interval', '$q', 'constants',
+    .factory('soundCloudService', ['$window', '$rootScope', '$interval', '$q', 'constants',
         function ($window, $rootScope, $interval, $q, constants) {
 
             var service = $rootScope.$new(true);
