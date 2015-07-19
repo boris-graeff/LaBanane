@@ -56,6 +56,7 @@ module.exports = function (grunt) {
             sources : {
                 files: {
                     "grunt/target/sources.js": [
+                        "client/libs/**/*.js",
                         "client/js/**/*.js"
                     ]
                 }

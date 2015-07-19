@@ -40,7 +40,7 @@
                 li.tab(ng-class="{'selected':isYoutubeProvider}", ng-click='setYoutubeProvider()') Youtube
 
         .input-container
-            input#search(input-text, type="text", autocomplete="off", ng-model="keywords")
+            input#search(input-text, type="text", autocomplete="off", ng-model="keywords", ng-change="search()")
             label(for="search") Song name
 
         section#results
