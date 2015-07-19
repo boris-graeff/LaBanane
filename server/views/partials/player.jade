@@ -8,7 +8,7 @@
         div(ng-hide="playlist.owner")
             button#edit edit
             button#clear clear
-        a#back-home(href="/app")
+        a#back-home.button(href="/app")
     #left
         section
             h2#track-name {{playist.currentTrack.name}}
@@ -30,8 +30,8 @@
                     button.volume-up
 
         section#playlist
-            ul.tracks(scrollable)
-                li(ng-repeat="track in playlist.content") {{track.name}}
+            ul.tracks(scrollable, playlist)
+                li(ng-repeat="track in playlist.content", playlist-track) {{track.name}}
                     .remove
     #right(ng-controller="SearchCtrl")
         nav
@@ -46,4 +46,4 @@
         section#results
             p.note Tips : to add a song to your playlist, you can use drag'n'drop or double click. ;)
             ul.tracks
-                li(ng-repeat="track in results | filter:keywords") {{track.name}}
+                li(ng-repeat="track in results | filter:keywords", resources-track, data-type="youtube", data-url="TODO") {{track.name}}

@@ -20,7 +20,8 @@ angular.module('LaBanane').
             $scope.playlist = {
                 id: playlistId,
                 owner: false,
-                currenTrack: {}
+                currenTrack: {},
+                content : []
             };
 
             $scope.controls = {
@@ -37,38 +38,20 @@ angular.module('LaBanane').
 
             var mock = [
                 {
-                    'name': 'fqsfsdf'
+                    'name': '1'
                 },
                 {
-                    'name': 'sfqsfqsfqsf'
+                    'name': '2'
                 },
                 {
-                    'name': 'dgsdgsdg'
+                    'name': '3'
                 },
                 {
-                    'name': 'zeesdgsdgsdg'
+                    'name': '4'
                 },
                 {
-                    'name': 'zeesdgsdgsdg'
-                },
-                {'name': 'toto'},
-                {'name': 'toto'},
-                {'name': 'toto'},
-                {'name': 'toto'},
-                {'name': 'toto'},
-                {'name': 'toto'},
-                {'name': 'toto'},
-                {'name': 'toto'},
-                {'name': 'toto'},
-                {'name': 'toto'},
-                {'name': 'toto'},
-                {'name': 'toto'},
-                {'name': 'toto'},
-                {'name': 'toto'},
-                {'name': 'toto'},
-                {'name': 'toto'},
-                {'name': 'toto'},
-                {'name': 'toto'}
+                    'name': '5'
+                }
             ];
 
             // Get playlist from server
@@ -79,7 +62,7 @@ angular.module('LaBanane').
                     $scope.playlist.content = data.playlist;
                     $scope.playlist.owner = data.auth;
                     // TODO
-                    $scope.playlist.content = mock;
+                    //$scope.playlist.content = mock;
 
                     // Save visit in localstorage
                     localStorage.pushTemp('lastPlaylists', playlistId, constants.MAX_VISITED_PLAYLISTS);
@@ -88,6 +71,38 @@ angular.module('LaBanane').
                     $rootScope.$emit(constants.EVENTS.OPEN_DIALOG, popins.unknown_playlist);
                 }
             );
+
+
+            // Scope functions
+
+            $scope.addSongToPlaylistEnd = function (trackInfo) {
+                $scope.playlist.content.push(trackInfo);
+            };
+
+            $scope.addSongToPlaylist = function(index, trackInfo) {
+                $scope.playlist.content.splice(index, 0, trackInfo);
+            };
+
+            $scope.moveSong = function (index1, index2) {
+                var track = $scope.playlist.content[index1];
+
+                $scope.playlist.content.splice(index1, 1);
+                $scope.playlist.content.splice(index2, 0, track);
+
+                var currentTrack = $scope.playlist.currentTrack;
+
+                if (currentTrack) {
+                    if (index1 == currentTrack.index) {
+                        $scope.currentTrack.index = index2;
+                    }
+                    else if (index1 < currentTrack.index && index2 >= currentTrack.index) {
+                        $scope.currentTrack.index -= 1;
+                    }
+                    else if (index1 > currentTrack.index && index2 <= currentTrack.index) {
+                        $scope.currentTrack.index += 1;
+                    }
+                }
+            }
 
             // Privates functions
 
@@ -175,8 +190,9 @@ angular.module('LaBanane').
             function stop() {
                 pause();
                 seek(0);
-                $scope.palylist.currentTrack = {};
+                $scope.playlist.currentTrack = {};
             }
+
 
 
         }]);
