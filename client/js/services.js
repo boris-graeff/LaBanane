@@ -75,21 +75,21 @@ angular.module('LaBanane.services', []).
             return request.then(handleSuccess, handleError);
         }
 
-        function getPlaylist (id, password) {
+        function getPlaylist (name, password) {
             var request = $http({
                 method : 'get',
-                url : 'services/playlist/content/' + id + '/' + password
+                url : 'services/playlist/content/' + name + '/' + password
             });
 
             return request.then(handleSuccess, handleError);
         }
 
-        function createPlaylist (id, password) {
+        function createPlaylist (name, password) {
             var request = $http({
                 method : 'post',
                 url : 'services/playlist/create',
                 data : {
-                    id: id,
+                    name: name,
                     password: password
                 }
             });
@@ -115,27 +115,6 @@ angular.module('LaBanane.services', []).
         function handleSuccess(response){
             return response.data;
         }
-    }]).
-
-
-    factory('searchService', ['soundCloudService', function (soundCloudService) {
-        return {
-            doSearchRequest : doSearchRequest
-        };
-
-        // Public methods
-
-        function doSearchRequest(provider, keywords) {
-            if(provider === 'soundcloud'){
-                return soundCloudService.doSearchRequest(keywords);
-            }
-            /*
-            else if(provider === 'youtube'){
-                return youtubeService.doSearchRequest(keywords);
-            }
-            */
-        }
-
     }])
 
     .factory('soundCloudService', ['$window', '$rootScope', '$interval', '$q', 'constants',
@@ -206,17 +185,18 @@ angular.module('LaBanane.services', []).
 
             service.doSearchRequest = function (keywords) {
                 var deferred = $q.defer();
-                var soundcloudResources = [];
 
                 SC.get('/tracks', {q: keywords, limit: constants.MAX_RESULTS}, function (tracks) {
                     var results = [];
 
                     for (var i in tracks) {
                         var track = tracks[i];
-                        results.push({'index': i, 'url': track.id, 'name': track.title, 'type': 'soundcloud'});
+                        results.push({'index': i, 'provider-id': track.id, 'name': track.title, 'provider': 'soundcloud'});
                     }
 
                     $rootScope.$apply(function () {
+                        console.log("results 1");
+                        console.log(results);
                         deferred.resolve(results);
                     });
                 });

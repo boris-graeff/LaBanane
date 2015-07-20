@@ -2,12 +2,13 @@
  * Controle for player page
  */
 angular.module('LaBanane').
-    controller('PlayerCtrl', ['$scope', 'localStorage', 'requests', '$routeParams', 'constants', '$rootScope', 'socket',
-        function ($scope, localStorage, requests, $routeParams, constants, $rootScope, socket) {
+    controller('PlayerCtrl', ['$scope', 'localStorage', 'requests', '$routeParams', 'constants', '$rootScope', 'socket', 'soundCloudService',
+        function ($scope, localStorage, requests, $routeParams, constants, $rootScope, socket, soundCloudService) {
 
             // Init
-            var playlistId = $routeParams.id;
+            var playlistId = $routeParams.name;
             var password = localStorage.getValue('passwords', playlistId);
+            var player = null;
 
             var dialogs = {
                 unknown_playlist : {
@@ -24,7 +25,7 @@ angular.module('LaBanane').
             };
 
             $scope.playlist = {
-                id: playlistId,
+                name: playlistId,
                 owner: false,
                 currenTrack: {},
                 content : []
@@ -39,7 +40,9 @@ angular.module('LaBanane').
 
             // TODO : clear
             $scope.playlist.currentTrack = {
-                'name': 'Radiohead - Go to hell'
+                'name': 'Radiohead - Go to hell',
+                'provider': 'SOundcloud',
+                'provider-id' : 'test'
             };
 
             // Get playlist from server
@@ -113,12 +116,12 @@ angular.module('LaBanane').
             }
 
             function play(num) {
-                // player.play();
+                player.play();
                 $scope.isPlaying = true;
             }
 
             function pause() {
-                // player.pause();
+                player.pause();
                 $scope.isPlaying = false;
             }
 
@@ -170,11 +173,11 @@ angular.module('LaBanane').
             }
 
             function setVolume(volume) {
-                //player.setVolume(volume);
+                player.setVolume(volume);
             }
 
             function seek(percentage) {
-                //player.seek(percentage);
+                player.seek(percentage);
             }
 
             function mute() {

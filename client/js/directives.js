@@ -47,7 +47,7 @@ angular.module('LaBanane.directives', [])
                 var data = JSON.parse(event.dataTransfer.getData("track-info"));
                 console.log(data);
 
-                if (data.type === 'playlist') {
+                if (data.provider === 'playlist') {
                     scope.$apply(scope.moveToPlaylistEnd(data.index));
                 }
                 else {
@@ -83,7 +83,7 @@ angular.module('LaBanane.directives', [])
                 var $el = $(element);
                 var data = {
                     name: $el.text(),
-                    type : $el.data('type'),
+                    provider : $el.data('provider'),
                     url : $el.data('url'),
                     index : $el.data('index')
                 };
@@ -97,7 +97,7 @@ angular.module('LaBanane.directives', [])
                 var data = JSON.parse(event.dataTransfer.getData("track-info"));
                 var indexElement = parseFloat(event.target.dataset.index);
 
-                if (data.type === 'playlist') {
+                if (data.provider === 'playlist') {
                     scope.$apply(scope.moveSong(data.index, indexElement));
                 }
                 else{
@@ -129,7 +129,7 @@ angular.module('LaBanane.directives', [])
                 console.log($el);
                 var data = {
                     name : $el.text(),
-                    type : $el.data('type'),
+                    provider : $el.data('provider'),
                     url : $el.data('url'),
                     index : $el.data('index')
                 };

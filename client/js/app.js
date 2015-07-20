@@ -21,7 +21,7 @@
                     templateUrl: 'partials/home',
                     controller: 'HomeCtrl'
                 }).
-                when('/player/:id', {
+                when('/player/:name', {
                     templateUrl: 'partials/player',
                     controller: 'PlayerCtrl'
                 }).

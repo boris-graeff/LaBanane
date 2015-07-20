@@ -22,5 +22,50 @@
       padding-top: 2em;
     }
   }
+
+  #create {
+    @arrow-width : 20px;
+
+    form {
+
+      section {
+        position : relative;
+        display : flex;
+        flex-direction: row;
+        align-content: stretch;
+        padding-right: @arrow-width;
+
+        .inputs {
+          flex : 1;
+          padding-right : 20px;
+        }
+      }
+
+      button {
+        flex: 0 1 auto;
+        padding-left : 3*@padding;
+        transition : all @anim-duration;
+        background : @black-20;
+        position : relative;
+
+        &:disabled {
+          background : @black-05;
+          padding-left : @padding;
+        }
+      }
+
+      svg {
+        position : absolute;
+        top : 0;
+        bottom : 0;
+        width: @arrow-width;
+        height: 100%;
+
+        path {
+          fill : @black-20;
+        }
+      }
+    }
+  }
 }
 

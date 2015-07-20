@@ -2,7 +2,7 @@
     header
         h4#playlist-name
             | LaBanane -
-            | {{playlist.id}}
+            | {{playlist.name}}
             | ({{playlist.content.length}} songs)
         button#clone clone
         div(ng-show="playlist.owner")
@@ -46,4 +46,4 @@
         section#results.track-list
             p.note Tips : to add a song to your playlist, you can use drag'n'drop or double click. ;)
             ul.tracks(scrollable)
-                li(ng-repeat="track in results | filter:keywords track by $index", resources-track, data-type="youtube", data-url="TODO") {{track.name}}
+                li(ng-repeat="track in results track by $index", resources-track, data-provider="track.provider", data-provider-id="track.provider-id") {{track.name}}

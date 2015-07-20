@@ -11,7 +11,7 @@ angular.module('LaBanane').
             $scope.isPlaylistSearch = true;
             $scope.allPlaylists = [];
             $scope.playlist = {
-                id: '',
+                name: '',
                 password: ''
             };
 
@@ -47,15 +47,16 @@ angular.module('LaBanane').
             };
 
             $scope.createPlaylist = function () {
-                var id = $scope.playlistId;
-                var password = $scope.playlistPassword;
+                var name = $scope.playlist.name;
+                var password = $scope.playlist.password;
+                var id = name.toLowerCase();
 
-                requests.createPlaylist(id, password).then(
+                requests.createPlaylist(name, password).then(
                     function onSuccess() {
                         // Save password on localStorage
                         localStorage.push('passwords', id, password);
                         // Go to player
-                        $location.path('/player/' + id).replace();
+                        $location.path('/player/' + name).replace();
                     },
                     function onError() {
                         $rootScope.$emit(constants.EVENTS.OPEN_DIALOG, popins.unavailable_name);
