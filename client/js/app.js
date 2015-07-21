@@ -1,11 +1,9 @@
 // Declare app level module which depends on filters, and services
 
     angular.module('LaBanane.controllers', []);
+    angular.module('LaBanane.services', []);
 
     angular.module('LaBanane', [
-        'ngRoute',
-        'ngTouch',
-        
         'LaBanane.controllers',
         'LaBanane.filters',
         'LaBanane.services',
@@ -13,7 +11,9 @@
         'LaBanane.constants',
 
         // 3rd party dependencies
-        'btford.socket-io'
+        'btford.socket-io',
+        'ngRoute',
+        'ngTouch'
     ]).
         config(['$routeProvider', '$locationProvider', function ($routeProvider, $locationProvider) {
             $routeProvider.

@@ -1,5 +1,5 @@
 - Eviter décallage quand scrollbar visible
-- 
+- Utiliser fichiers minifiés
 
 - Double click pour ajouter
 - Reprendre suppression d'un morceau de la playlist

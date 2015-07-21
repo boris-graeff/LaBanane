@@ -1,5 +1,3 @@
-/* Directives */
-
 angular.module('LaBanane.directives', [])
 
     .directive('inputText', function () {
@@ -31,7 +29,6 @@ angular.module('LaBanane.directives', [])
     })
 
     .directive('playlist', [function () {
-        'use strict';
 
         return function (scope, element) {
 
@@ -59,7 +56,6 @@ angular.module('LaBanane.directives', [])
     }])
 
     .directive('playlistTrack', [function () {
-        'use strict';
 
         return function (scope, element) {
 
@@ -110,7 +106,6 @@ angular.module('LaBanane.directives', [])
     }])
 
     .directive('resourcesTrack', [function () {
-        'use strict';
 
         return function (scope, element) {
 
