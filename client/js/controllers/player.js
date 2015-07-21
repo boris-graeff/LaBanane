@@ -10,6 +10,9 @@ angular.module('LaBanane').
             var password = localStorage.getValue('passwords', playlistId);
             var player = null;
 
+            // TODO
+            player = soundCloud;
+
             var dialogs = {
                 unknown_playlist : {
                     title   : "Sorry",

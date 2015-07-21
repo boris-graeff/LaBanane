@@ -73,12 +73,10 @@ angular.module('LaBanane.services')
 
                     for (var i in tracks) {
                         var track = tracks[i];
-                        results.push({'index': i, 'provider-id': track.id, 'name': track.title, 'provider': 'soundcloud'});
+                        results.push({'index': i, 'id': track.id, 'name': track.title, 'provider': 'soundcloud'});
                     }
 
                     $rootScope.$apply(function () {
-                        console.log("results 1");
-                        console.log(results);
                         deferred.resolve(results);
                     });
                 });

@@ -80,7 +80,7 @@ angular.module('LaBanane.directives', [])
                 var data = {
                     name: $el.text(),
                     provider : $el.data('provider'),
-                    url : $el.data('url'),
+                    id : $el.data('id'),
                     index : $el.data('index')
                 };
                 event.dataTransfer.setData("track-info", JSON.stringify(data));
@@ -121,11 +121,10 @@ angular.module('LaBanane.directives', [])
                 element.addClass("dragged-track");
 
                 var $el = $(element);
-                console.log($el);
                 var data = {
                     name : $el.text(),
                     provider : $el.data('provider'),
-                    url : $el.data('url'),
+                    id : $el.data('id'),
                     index : $el.data('index')
                 };
                 event.dataTransfer.setData("track-info", JSON.stringify(data));
