@@ -51,10 +51,16 @@ body {
 button, .button{
   padding : @padding;
   cursor : pointer;
-  background : transparent;
+  background : @black-05;
+  font-family : 'Roboto Condensed';
+  color : @black;
 
   &:hover {
     background: @black-10;
+  }
+
+  &:disabled {
+    background-color : @black-05;
   }
 }
 

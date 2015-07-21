@@ -25,8 +25,15 @@
       margin-right : @padding;
     }
 
-    button, a{
-      padding : @padding-light;
+    button, .button{
+      padding : @padding-light @padding-medium @padding-light @padding-light;
+      background : transparent;
+      font-size : 0.9em;
+
+      &:hover {
+        background : @black-10;
+        text-decoration: none;
+      }
 
       &:before {
         content: '';
@@ -57,13 +64,7 @@
     }
 
     #back-home {
-      position : absolute;
-      right : 0;
-      top : 0;
-
       &:before {
-        height : 24px;
-        width : 24px;
         background: url('../img/pictos/ic_exit_to_app_black_24px.svg') no-repeat scroll center left / contain transparent;
       }
     }
