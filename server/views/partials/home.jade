@@ -28,6 +28,7 @@
                     a(href="/player/{{playlist}}") {{playlist}}
 
         section#create(ng-show='isPlaylistCreation')
+            p.note Tips : please note that if you lost your password you will not be able to retrieve it !
             form(name="playlistForm")
                 .input-container
                     input#playlist-name(ng-model="playlist.name", input-text, type="text", autocomplete="off", required)
@@ -35,12 +36,4 @@
                 .input-container
                     input#playlist-password(ng-model="playlist.password", input-text, type="password", autocomplete="off", required)
                     label(for="playlist-password") Password
-                button.button.go(ng-click='createPlaylist()') Go !
-                p.note
-                    | Tips :
-                    br
-                    | - name and password are required.
-                    br
-                    | - playlist name can only be composed by alphanumeric characteres and hyphen.
-                    br
-                    | - please note that if you lost your password you will not be able to retrieve it !
+                button.button.send(ng-click='createPlaylist()', ng-disabled="playlistForm.$invalid") Send

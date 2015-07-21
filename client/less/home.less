@@ -28,31 +28,37 @@
 
     form {
 
-      .go {
-        height : 3em;
+      .send {
         vertical-align: middle;
         position : relative;
         font-size : 1em;
         font-style : italic;
+        float : right;
+        overflow : hidden;
+        transition : all @anim-duration;
+        padding-left : 3*@padding;
+        margin-top : @padding;
 
-        &:after {
-          top : 0;
-          right : -1.5em;
+        &:before {
           content : '';
-          display : inline-block;
           position : absolute;
-          width: 0;
-          height: 0;
-          border-style: solid;
-          border-width: 1.5em 0 1.5em 1.5em;
-          border-color: transparent transparent transparent @black-05;
+          left : @padding-medium;
+          top : 50%;
+          margin-top : -12px;
+          height : 24px;
+          width : 24px;
+          transition : all @anim-duration;
+          background: url('../img/pictos/ic_chevron_right_black_24px.svg') no-repeat scroll center left / contain transparent;
         }
       }
 
       &.ng-invalid {
-        .go {
+        .send {
+          cursor : default;
+          padding-left : @padding;
+
           &:before {
-            left : @padding;
+            left : -200px;
           }
         }
       }
