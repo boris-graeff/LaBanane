@@ -33,8 +33,12 @@ angular.module('LaBanane').
             $scope.playlist = {
                 name: playlistName,
                 owner: false,
-                currentTrack: {},
                 content : []
+            };
+
+            $scope.currentTrack = {
+                name : ' ',
+                index : null
             };
 
             $scope.controls = {
@@ -74,6 +78,8 @@ angular.module('LaBanane').
 
                     $scope.pause();
 
+                    console.log(track);
+
                     if (track.provider === 'youtube') {
                         player = youtube;
                     }
@@ -81,8 +87,8 @@ angular.module('LaBanane').
                         player= soundcloud;
                     }
 
-                    $scope.playlist.currentTrack = {
-                        track   : track,
+                    $scope.currentTrack = {
+                        name   : track.name,
                         index   : index
                     };
 
@@ -92,7 +98,7 @@ angular.module('LaBanane').
                     });
 
                 }
-                else if ($scope.playlist.currentTrack !== null) {
+                else if ($scope.currentTrack !== null) {
                     player.play();
                     $scope.controls.isPlaying = true;
                 }
@@ -110,12 +116,12 @@ angular.module('LaBanane').
             };
 
             $scope.previous = function () {
-                if ($scope.playlist.currentTrack) {
+                if ($scope.currentTrack) {
                     if ($scope.controls.isShuffleMode) {
                         $scope.play(getRandomTrackId());
                     }
                     else {
-                        var prevTrackId = $scope.playlist.currentTrack.index - 1;
+                        var prevTrackId = $scope.currentTrack.index - 1;
                         var playlistLength = $scope.playlist.content.length;
 
                         if (prevTrackId < 0) {
@@ -129,12 +135,12 @@ angular.module('LaBanane').
             };
 
             $scope.next = function () {
-                if ($scope.playlist.currentTrack) {
+                if ($scope.currentTrack) {
                     if ($scope.controls.isShuffleMode) {
                         $scope.play(getRandomTrackId());
                     }
                     else {
-                        var nextTrackId = $scope.playlist.currentTrack.index + 1;
+                        var nextTrackId = $scope.currentTrack.index + 1;
                         var playlistLength = $scope.playlist.content.length;
 
                         if (nextTrackId > playlistLength) {
@@ -174,7 +180,10 @@ angular.module('LaBanane').
             $scope.stop = function () {
                 pause();
                 $scope.seek(0);
-                $scope.playlist.currentTrack = {};
+                $scope.currentTrack = {
+                    name : ' ',
+                    index : null
+                };
             };
 
 
@@ -201,16 +210,16 @@ angular.module('LaBanane').
                 $scope.playlist.content.splice(index1, 1);
                 $scope.playlist.content.splice(index2, 0, track);
 
-                var currentTrack = $scope.playlist.currentTrack;
+                var currentTrackIndex = $scope.currentTrack.index;
 
-                if (currentTrack) {
-                    if (index1 === currentTrack.index) {
+                if (currentTrackIndex !== null) {
+                    if (index1 === currentTrackIndex) {
                         $scope.currentTrack.index = index2;
                     }
-                    else if (index1 < currentTrack.index && index2 >= currentTrack.index) {
+                    else if (index1 < currentTrackIndex && index2 >= currentTrackIndex) {
                         $scope.currentTrack.index -= 1;
                     }
-                    else if (index1 > currentTrack.index && index2 <= currentTrack.index) {
+                    else if (index1 > currentTrackIndex && index2 <= currentTrackIndex) {
                         $scope.currentTrack.index += 1;
                     }
                 }
@@ -230,13 +239,13 @@ angular.module('LaBanane').
 
                 update();
 
-                var currentTrack = $scope.playlist.currentTrack;
+                var currentTrackIndex = $scope.currentTrack.index;
 
-                if(currentTrack){
-                    if (currentTrack.index > index) {
+                if(currentTrackIndex !== null){
+                    if (currentTrackIndex > index) {
                         $scope.currentTrack.index = currentTrackIndex - 1;
                     }
-                    else if (currentTrack.index === index) {
+                    else if (currentTrackIndex === index) {
                         $scope.stop();
                         $scope.play(index);
                     }

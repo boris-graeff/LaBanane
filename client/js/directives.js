@@ -24,7 +24,7 @@ angular.module('LaBanane.directives', [])
                 $el.mCustomScrollbar({
                     theme : 'dark-thin'
                 });
-            }, 0);
+            }, 100ms);
         };
     })
 
