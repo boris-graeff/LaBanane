@@ -2,16 +2,13 @@
  * Controle for player page
  */
 angular.module('LaBanane').
-    controller('PlayerCtrl', ['$scope', 'localStorage', 'requests', '$routeParams', 'constants', '$rootScope', 'socket', 'soundCloud',
-        function ($scope, localStorage, requests, $routeParams, constants, $rootScope, socket, soundCloud) {
+    controller('PlayerCtrl', ['$scope', 'localStorage', 'requests', '$routeParams', 'constants', '$rootScope', 'socket', 'soundcloud', 'youtube',
+        function ($scope, localStorage, requests, $routeParams, constants, $rootScope, socket, soundcloud, youtube) {
 
             // Init
             var playlistName = $routeParams.name;
             var playlistPassword = localStorage.getValue('passwords', playlistName);
             var player = null;
-
-            // TODO
-            player = soundCloud;
 
             var dialogs = {
                 unknown_playlist : {
@@ -36,7 +33,7 @@ angular.module('LaBanane').
             $scope.playlist = {
                 name: playlistName,
                 owner: false,
-                currenTrack: {},
+                currentTrack: {},
                 content : []
             };
 
@@ -45,13 +42,6 @@ angular.module('LaBanane').
                 isPlaying: false,
                 isMuted: false,
                 isShuffleMode: false
-            };
-
-            // TODO : clear
-            $scope.playlist.currentTrack = {
-                'name': 'Radiohead - Go to hell',
-                'provider': 'SOundcloud',
-                'provider-id' : 'test'
             };
 
             // Get playlist from server
@@ -66,12 +56,7 @@ angular.module('LaBanane').
                     localStorage.pushTemp('lastPlaylists', playlistName, constants.MAX_VISITED_PLAYLISTS);
                 },
                 function onError() {
-                    $scope.playlist.content = [
-                        {name : 'Test 1'},
-                        {name : 'Test 2'},
-                        {name : 'Test 3'}
-                    ];
-                    //$rootScope.$emit(constants.EVENTS.OPEN_DIALOG, dialogs.unknown_playlist);
+                    $rootScope.$emit(constants.EVENTS.OPEN_DIALOG, dialogs.unknown_playlist);
                 }
             );
 
@@ -80,18 +65,52 @@ angular.module('LaBanane').
 
 
             $scope.play = function (index) {
-                console.log('play');
-                player.play(index);
-                $scope.controls.isPlaying = true;
+                if (index !== undefined && index !== null && $scope.playlist.content[0] !== undefined) {
+                    var track = $scope.playlist.content[index];
+                    if (track === undefined) {
+                        track = $scope.playlist.content[0];
+                        index = 0;
+                    }
+
+                    $scope.pause();
+
+                    if (track.provider === 'youtube') {
+                        player = youtube;
+                    }
+                    else if (track.provider === 'soundcloud') {
+                        player= soundcloud;
+                    }
+
+                    $scope.playlist.currentTrack = {
+                        track   : track,
+                        index   : index
+                    };
+
+                    player.loadSong(track.id).then(function () {
+                        player.play();
+                        $scope.controls.isPlaying = true;
+                    });
+
+                }
+                else if ($scope.playlist.currentTrack !== null) {
+                    player.play();
+                    $scope.controls.isPlaying = true;
+                }
+
+                else if ($scope.playlist.content[0] !== undefined) {
+                    $scope.play(0);
+                }
             };
 
             $scope.pause = function () {
-                player.pause();
-                $scope.controls.isPlaying = false;
+                if(player){
+                    player.pause();
+                    $scope.controls.isPlaying = false;
+                }
             };
 
             $scope.previous = function () {
-                if ($scope.playlist.currenTrack) {
+                if ($scope.playlist.currentTrack) {
                     if ($scope.controls.isShuffleMode) {
                         $scope.play(getRandomTrackId());
                     }
@@ -110,7 +129,7 @@ angular.module('LaBanane').
             };
 
             $scope.next = function () {
-                if ($scope.playlist.currenTrack) {
+                if ($scope.playlist.currentTrack) {
                     if ($scope.controls.isShuffleMode) {
                         $scope.play(getRandomTrackId());
                     }
@@ -173,6 +192,10 @@ angular.module('LaBanane').
             };
 
             $scope.moveSong = function (index1, index2) {
+
+                console.log('movesong');
+                console.log(index1);
+                console.log(index2);
                 var track = $scope.playlist.content[index1];
 
                 $scope.playlist.content.splice(index1, 1);
@@ -181,7 +204,7 @@ angular.module('LaBanane').
                 var currentTrack = $scope.playlist.currentTrack;
 
                 if (currentTrack) {
-                    if (index1 == currentTrack.index) {
+                    if (index1 === currentTrack.index) {
                         $scope.currentTrack.index = index2;
                     }
                     else if (index1 < currentTrack.index && index2 >= currentTrack.index) {
@@ -199,8 +222,25 @@ angular.module('LaBanane').
                 $rootScope.$emit(constants.EVENTS.OPEN_DIALOG, dialogs.confirm_clear_playlist);
             };
 
-            $scope.removeTrack = function(index) {
+            $scope.remove = function(index) {
                 console.log('removeTrack');
+                console.log(index);
+
+                $scope.playlist.content.splice(index, 1);
+
+                update();
+
+                var currentTrack = $scope.playlist.currentTrack;
+
+                if(currentTrack){
+                    if (currentTrack.index > index) {
+                        $scope.currentTrack.index = currentTrackIndex - 1;
+                    }
+                    else if (currentTrack.index === index) {
+                        $scope.stop();
+                        $scope.play(index);
+                    }
+                }
             };
 
             $scope.authentication = function () {

@@ -2,10 +2,10 @@
  * Controle for player page
  */
 angular.module('LaBanane').
-    controller('SearchCtrl', ['$scope', 'localStorage', 'requests', '$location', 'soundCloud', 'youtube',
-        function ($scope, localStorage, requests, $location, soundCloud, youtube) {
+    controller('SearchCtrl', ['$scope', 'localStorage', 'requests', '$location', 'soundcloud', 'youtube',
+        function ($scope, localStorage, requests, $location, soundcloud, youtube) {
 
-            var providerService = soundCloud;
+            var provider = soundcloud;
             $scope.provider = 'soundcloud';
             $scope.results = [];
 
@@ -14,7 +14,7 @@ angular.module('LaBanane').
              */
             $scope.setYoutubeProvider = function () {
                 $scope.provider = 'youtube';
-                providerService = youtube;
+                provider = youtube;
             };
 
             /**
@@ -22,7 +22,7 @@ angular.module('LaBanane').
              */
             $scope.setSoundcloudProvider = function () {
                 $scope.provider = 'soundcloud';
-                providerService = soundCloud;
+                provider = soundCloud;
             };
 
             /**
@@ -30,7 +30,7 @@ angular.module('LaBanane').
              */
             $scope.search = function () {
                 if ($scope.keywords.length > 3) {
-                    var promiseSearch = providerService.doSearchRequest($scope.keywords);
+                    var promiseSearch = provider.doSearchRequest($scope.keywords);
                     promiseSearch.then(function (results) {
                         $scope.results = results;
                     });

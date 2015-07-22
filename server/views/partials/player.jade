@@ -18,21 +18,23 @@
 
             ul#player-controls
                 li
-                    button.previous
+                    button.previous(ng-click="previous()")
+                li(ng-hide="controls.isPlaying")
+                    button.play(ng-click="play()")
+                li(ng-show="controls.isPlaying")
+                    button.pause(ng-click="pause()")
                 li
-                    button.play
+                    button.next(ng-click="next()")
                 li
-                    button.next
+                    button.shuffle(ng-click="toggleShuffleMode()", ng-class="{shuffleModeOn: controls.isShuffleMode}")
                 li
-                    button.shuffle
-                li
-                    button.volume-up
+                    button.volume-up(ng-click="mute()")
 
         section#playlist.track-list
             ul.tracks(scrollable, playlist)
-                li(ng-repeat="track in playlist.content track by $index", playlist-track, ng-click="play($index)")
+                li(ng-repeat="track in playlist.content track by $index", playlist-track, ng-class="{currentTrack: $index == playlist.currentTrack.index}", data-index="{{$index}}")
                     .remove(ng-click="remove($index)")
-                    {{track.name}}
+                    .track(ng-click="play($index)") {{track.name}}
     #right(ng-controller="SearchCtrl")
         nav
             ul
@@ -47,5 +49,6 @@
             p.note Tips : to add a song to your playlist, you can use drag'n'drop or double click. ;)
             ul.tracks(scrollable)
                 li(ng-repeat="track in results track by $index", resources-track, data-provider="{{track.provider}}", data-id="{{track.id}}")
-                    .add(ng-click="addSongToPlaylistEnd()")
-                    {{track.name}}
+                    .add(ng-click="addSongToPlaylistEnd(track)")
+                    .track(ng-dblclick="addSongToPlaylistEnd(track)") {{track.name}}
+#youtube-player(youtube-player)

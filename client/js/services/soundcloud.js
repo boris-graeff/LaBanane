@@ -1,5 +1,5 @@
 angular.module('LaBanane.services')
-    .factory('soundCloud', ['$window', '$rootScope', '$interval', '$q', 'constants',
+    .factory('soundcloud', ['$window', '$rootScope', '$interval', '$q', 'constants',
         function ($window, $rootScope, $interval, $q, constants) {
 
             var service = $rootScope.$new(true);
@@ -12,7 +12,7 @@ angular.module('LaBanane.services')
 
             service.play = function () {
 
-                if (service.sound != null) {
+                if (service.sound !== null) {
                     service.sound.play({
                         whileplaying: function () {
                             if ((this.position - service.lastPosition) > 500) {

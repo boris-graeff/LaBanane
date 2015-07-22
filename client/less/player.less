@@ -95,7 +95,12 @@
           height : 24px;
         }
 
-        &:hover {
+        &.currentTrack {
+          background : @black;
+          color : @yellow;
+        }
+
+        &:hover, &.currentTrack {
           .remove {
             background: url('../img/pictos/ic_clear_yellow_24px.svg') no-repeat scroll center center / contain transparent;
           }
@@ -148,6 +153,10 @@
 
         &.shuffle {
           background: url('../img/pictos/ic_shuffle_black_24px.svg') no-repeat scroll center center / contain transparent;
+
+          &.shuffleModeOn {
+            background-color : @black-05;
+          }
         }
 
         &.play {

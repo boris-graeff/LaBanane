@@ -81,7 +81,8 @@ angular.module('LaBanane.directives', [])
                     name: $el.text(),
                     provider : $el.data('provider'),
                     id : $el.data('id'),
-                    index : $el.data('index')
+                    index : $el.data('index'),
+                    fromPlaylist : true
                 };
                 event.dataTransfer.setData("track-info", JSON.stringify(data));
             });
@@ -91,9 +92,11 @@ angular.module('LaBanane.directives', [])
                 event.preventDefault();
 
                 var data = JSON.parse(event.dataTransfer.getData("track-info"));
-                var indexElement = parseFloat(event.target.dataset.index);
 
-                if (data.provider === 'playlist') {
+                // TODO : ugly
+                var indexElement = parseFloat($(event.target).parent()[0].dataset.index);
+
+                if (data.fromPlaylist) {
                     scope.$apply(scope.moveSong(data.index, indexElement));
                 }
                 else{
@@ -142,5 +145,14 @@ angular.module('LaBanane.directives', [])
                 // Do nothing
             });
 
+        };
+    }])
+
+    .directive('youtubePlayer', ['youtube', function (youtube) {
+        return {
+            restrict: 'A',
+            link: function (scope, element) {
+                youtube.bindVideoPlayer(element[0].id);
+            }
         };
     }]);
