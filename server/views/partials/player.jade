@@ -5,12 +5,12 @@
             | {{playlist.name}}
             | ({{playlist.content.length}} songs)
         button#clone clone
-        button#edit(ng-hide="playlist.owner") edit
-        button#clear(ng-show="playlist.owner", ng-click="clearPlaylist()") clear
+        button#edit(ng-hide="playlist.owner", ng-click="authentication()") edit
+        button#clear(ng-show="playlist.owner", ng-click="confirmClearPlaylist()") clear
         a#back-home.button(href="/app") home
     #left
         section
-            h2#track-name {{playist.currentTrack.name}}
+            h2#track-name {{playlist.currentTrack.name}}
 
             #track-state.slider
                 .control
@@ -30,8 +30,9 @@
 
         section#playlist.track-list
             ul.tracks(scrollable, playlist)
-                li(ng-repeat="track in playlist.content track by $index", playlist-track) {{track.name}}
-                    .remove
+                li(ng-repeat="track in playlist.content track by $index", playlist-track, ng-click="play($index)")
+                    .remove(ng-click="remove($index)")
+                    {{track.name}}
     #right(ng-controller="SearchCtrl")
         nav
             ul
@@ -45,4 +46,6 @@
         section#results.track-list
             p.note Tips : to add a song to your playlist, you can use drag'n'drop or double click. ;)
             ul.tracks(scrollable)
-                li(ng-repeat="track in results track by $index", resources-track, data-provider="{{track.provider}}", data-id="{{track.id}}") {{track.name}}
+                li(ng-repeat="track in results track by $index", resources-track, data-provider="{{track.provider}}", data-id="{{track.id}}")
+                    .add(ng-click="addSongToPlaylistEnd()")
+                    {{track.name}}

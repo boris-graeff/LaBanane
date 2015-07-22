@@ -1,14 +1,14 @@
 - Eviter décallage quand scrollbar visible
 - Utiliser fichiers minifiés
-
 - Double click pour ajouter
 - Reprendre suppression d'un morceau de la playlist
   > Suppression sprite : modification de la couleur en CSS
   > Repositionner la croix
   > Modif controller
-- Ajout de Youtube comme provider
-- Ajout code player
 - Gestion volume
 - Gestion progression
-- Bouton authentification
+- Gestion authentification
+- Gestion en mode non authentifié
+- Gestion affichage playlist vide
+- Ajouter instruction partie droite : pour ajouter un son, choisissez un provider et effectuer une recherche
 

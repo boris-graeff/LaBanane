@@ -6,8 +6,8 @@ angular.module('LaBanane').
         function ($scope, localStorage, requests, $routeParams, constants, $rootScope, socket, soundCloud) {
 
             // Init
-            var playlistId = $routeParams.name;
-            var password = localStorage.getValue('passwords', playlistId);
+            var playlistName = $routeParams.name;
+            var playlistPassword = localStorage.getValue('passwords', playlistName);
             var player = null;
 
             // TODO
@@ -24,11 +24,17 @@ angular.module('LaBanane').
                     content     : "Are you sure you want to clear this playlist ?",
                     type        : 'confirm',
                     onConfirm   : clearPlaylist
+                },
+                do_auth : {
+                    title   : "Authentication",
+                    content : "<p>Please, type password for this playlist</p><input type='password' />",
+                    type    : 'confirm',
+                    onConfirm   : doAuthentication
                 }
             };
 
             $scope.playlist = {
-                name: playlistId,
+                name: playlistName,
                 owner: false,
                 currenTrack: {},
                 content : []
@@ -50,24 +56,111 @@ angular.module('LaBanane').
 
             // Get playlist from server
 
-            requests.getPlaylist(playlistId, password)
+            requests.getPlaylist(playlistName, playlistPassword)
                 .then(
                 function onSuccess(data) {
                     $scope.playlist.content = data.playlist;
                     $scope.playlist.owner = data.auth;
-                    // TODO
-                    console.log(data);
 
                     // Save visit in localstorage
-                    localStorage.pushTemp('lastPlaylists', playlistId, constants.MAX_VISITED_PLAYLISTS);
+                    localStorage.pushTemp('lastPlaylists', playlistName, constants.MAX_VISITED_PLAYLISTS);
                 },
                 function onError() {
-                    $rootScope.$emit(constants.EVENTS.OPEN_DIALOG, dialogs.unknown_playlist);
+                    $scope.playlist.content = [
+                        {name : 'Test 1'},
+                        {name : 'Test 2'},
+                        {name : 'Test 3'}
+                    ];
+                    //$rootScope.$emit(constants.EVENTS.OPEN_DIALOG, dialogs.unknown_playlist);
                 }
             );
 
 
-            // Scope functions
+            // Player functions
+
+
+            $scope.play = function (index) {
+                console.log('play');
+                player.play(index);
+                $scope.controls.isPlaying = true;
+            };
+
+            $scope.pause = function () {
+                player.pause();
+                $scope.controls.isPlaying = false;
+            };
+
+            $scope.previous = function () {
+                if ($scope.playlist.currenTrack) {
+                    if ($scope.controls.isShuffleMode) {
+                        $scope.play(getRandomTrackId());
+                    }
+                    else {
+                        var prevTrackId = $scope.playlist.currentTrack.index - 1;
+                        var playlistLength = $scope.playlist.content.length;
+
+                        if (prevTrackId < 0) {
+                            $scope.play(playlistLength - 1);
+                        }
+                        else if (prevTrackId < playlistLength) {
+                            $scope.play(prevTrackId);
+                        }
+                    }
+                }
+            };
+
+            $scope.next = function () {
+                if ($scope.playlist.currenTrack) {
+                    if ($scope.controls.isShuffleMode) {
+                        $scope.play(getRandomTrackId());
+                    }
+                    else {
+                        var nextTrackId = $scope.playlist.currentTrack.index + 1;
+                        var playlistLength = $scope.playlist.content.length;
+
+                        if (nextTrackId > playlistLength) {
+                            $scope.play(0);
+                        }
+                        else if (nextTrackId >= 0) {
+                            $scope.play(nextTrackId);
+                        }
+                    }
+                }
+            };
+
+            $scope.toggleShuffleMode = function () {
+                $scope.controls.isShuffleMode = !$scope.controls.isShuffleMode;
+            };
+
+            $scope.setVolume = function (volume) {
+                player.setVolume(volume);
+            };
+
+            $scope.seek = function (position) {
+                player.seek(position);
+            };
+
+            $scope.mute = function () {
+                $scope.controls.isMuted = true;
+                $scope.volume = player.getVolume();
+
+                $scope.setVolume(0);
+            };
+
+            $scope.unmute = function () {
+                $scope.controls.isMuted = false;
+                $scope.setVolume($scope.volume);
+            };
+
+            $scope.stop = function () {
+                pause();
+                $scope.seek(0);
+                $scope.playlist.currentTrack = {};
+            };
+
+
+            // Playlist functions
+
 
             $scope.addSongToPlaylistEnd = function (trackInfo) {
                 $scope.playlist.content.push(trackInfo);
@@ -102,120 +195,57 @@ angular.module('LaBanane').
                 update();
             };
 
-            $scope.clearPlaylist = function () {
+            $scope.confirmClearPlaylist = function () {
                 $rootScope.$emit(constants.EVENTS.OPEN_DIALOG, dialogs.confirm_clear_playlist);
+            };
+
+            $scope.removeTrack = function(index) {
+                console.log('removeTrack');
+            };
+
+            $scope.authentication = function () {
+                $rootScope.$emit(constants.EVENTS.OPEN_DIALOG, dialogs.do_auth);
             };
 
             // Privates functions
 
+            /**
+             * Clear playlist
+             */
             function clearPlaylist() {
                 $scope.playlist.content.length = 0;
-                stop();
+                $scope.stop();
                 update();
             }
 
+            /**
+             * Perform authentication
+             */
+            function doAuthentication() {
+                console.log('doAuth');
+            }
+
+            /**
+             * Get random track id
+             * @returns {number}
+             */
             function getRandomTrackId() {
                 return Math.floor(Math.random() * $scope.playlist.content.length);
             }
 
-            function play(num) {
-                player.play();
-                $scope.isPlaying = true;
-            }
-
-            function pause() {
-                player.pause();
-                $scope.isPlaying = false;
-            }
-
-            function reset() {
-                $scope.playlist.content.length = 0;
-                stop();
-            }
-
-            function previous() {
-                if ($scope.playlist.currenTrack) {
-                    if ($scope.controls.isShuffleMode) {
-                        play(getRandomTrackId());
-                    }
-                    else {
-                        var prevTrackId = $scope.playlist.currentTrack.index - 1;
-                        var playlistLength = $scope.playlist.content.length;
-
-                        if (prevTrackId < 0) {
-                            play(playlistLength - 1);
-                        }
-                        else if (prevTrackId < playlistLength) {
-                            play(prevTrackId);
-                        }
-                    }
-                }
-            }
-
-            function next() {
-                if ($scope.playlist.currenTrack) {
-                    if ($scope.controls.isShuffleMode) {
-                        play(getRandomTrackId());
-                    }
-                    else {
-                        var nextTrackId = $scope.playlist.currentTrack.index + 1;
-                        var playlistLength = $scope.playlist.content.length;
-
-                        if (nextTrackId > playlistLength) {
-                            play(0);
-                        }
-                        else if (nextTrackId >= 0) {
-                            play(nextTrackId);
-                        }
-                    }
-                }
-            }
-
-            function toggleShuffleMode() {
-                $scope.controls.isShuffleMode = !$scope.controls.isShuffleMode;
-            }
-
-            function setVolume(volume) {
-                player.setVolume(volume);
-            }
-
-            function seek(percentage) {
-                player.seek(percentage);
-            }
-
-            function mute() {
-                $scope.controls.isMuted = true;
-                $scope.volume = player.getVolume();
-
-                setVolume(0);
-            }
-
-            function unmute() {
-                $scope.controls.isMuted = false;
-                setVolume($scope.volume);
-            }
-
-            function stop() {
-                pause();
-                seek(0);
-                $scope.playlist.currentTrack = {};
-            }
 
             /**
              * Send playlist state to server
              */
             function update() {
-
                 if ($scope.playlist.owner) {
-                    var passwords = localStorage.getArray('passwords');
-                    var password = passwords[playlistId];
-
                     socket.emit("message", {
                         action: 'update',
-                        room: playlistId,
+                        room: playlistName,
                         param: {
-                            playlist: $scope.playlist.content,
-                            password: password}
+                            playlist    : $scope.playlist.content,
+                            password    : playlistPassword
+                        }
                     });
                 }
             }

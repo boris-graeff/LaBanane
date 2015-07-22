@@ -143,4 +143,4 @@ angular.module('LaBanane.directives', [])
             });
 
         };
-    }])
+    }]);

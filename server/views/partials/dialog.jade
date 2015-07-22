@@ -1,7 +1,8 @@
 #dialog(ng-controller="DialogCtrl", ng-click="hide($event)", ng-class="{'open':open}", class="{{type}} close-dialog")
     #dialog-content(ng-click="")
         h3 {{title}}
-        p {{content}}
+        .content
+            {{content}}
         .actions
             button.cancel.close-dialog Cancel
             button.ok.close-dialog Ok

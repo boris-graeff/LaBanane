@@ -1,6 +1,4 @@
 @import 'constants.less';
-@import 'sprite.less';
-
 
 #player {
   flex-direction: row;
@@ -69,7 +67,6 @@
       }
     }
 
-
   }
 
     h2 {
@@ -89,18 +86,36 @@
     }
 
     #playlist {
+
       li {
         .remove {
-          position: absolute;
-          right: @padding;
-          top: 0; // TODO
-
-          .sprite-remove-black;
+          float : right;
+          background: url('../img/pictos/ic_clear_black_24px.svg') no-repeat scroll center center / contain transparent;
+          width : 24px;
+          height : 24px;
         }
 
         &:hover {
           .remove {
-            .sprite-remove-yellow;
+            background: url('../img/pictos/ic_clear_yellow_24px.svg') no-repeat scroll center center / contain transparent;
+          }
+        }
+      }
+    }
+
+    #results {
+
+      li {
+        .add {
+          float : right;
+          background: url('../img/pictos/ic_add_black_24px.svg') no-repeat scroll center center / contain transparent;
+          width : 24px;
+          height : 24px;
+        }
+
+        &:hover {
+          .add {
+            background: url('../img/pictos/ic_add_yellow_24px.svg') no-repeat scroll center center / contain transparent;
           }
         }
       }
