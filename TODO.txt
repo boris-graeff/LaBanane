@@ -1,10 +1,5 @@
 - Eviter décallage quand scrollbar visible
 - Utiliser fichiers minifiés
-- Double click pour ajouter
-- Reprendre suppression d'un morceau de la playlist
-  > Suppression sprite : modification de la couleur en CSS
-  > Repositionner la croix
-  > Modif controller
 - Gestion volume
 - Gestion progression
 - Gestion authentification
@@ -12,3 +7,10 @@
 - Gestion affichage playlist vide
 - Ajouter instruction partie droite : pour ajouter un son, choisissez un provider et effectuer une recherche
 
+- placer un h1 sur home et player
+- préparer texte à traduire :
+> Présentation homepage
+> Balise meta presentation
+> Textes boites de dialogs
+
+- Merge /socket.io/socket.io.js
