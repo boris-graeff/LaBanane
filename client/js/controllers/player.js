@@ -24,7 +24,15 @@ angular.module('LaBanane').
                 },
                 do_auth : {
                     title   : "Authentication",
-                    content : "<p>Please, type password for this playlist</p><input type='password' />",
+                    content :  "<p>Please, type password for this playlist</p>" +
+                        "<div class='input-container'><input type='password' ng-model='param'></div>",
+                    type    : 'confirm',
+                    onConfirm   : doAuthentication
+                },
+                bad_password : {
+                    title   : "Error",
+                    content :  "<p>Bad password. Try again.</p>" +
+                        "<div class='input-container'><input type='password' ng-model='param'></div>",
                     type    : 'confirm',
                     onConfirm   : doAuthentication
                 }
@@ -60,7 +68,7 @@ angular.module('LaBanane').
                     localStorage.pushTemp('lastPlaylists', playlistName, constants.MAX_VISITED_PLAYLISTS);
                 },
                 function onError() {
-                    $rootScope.$emit(constants.EVENTS.OPEN_DIALOG, dialogs.unknown_playlist);
+                    // TODO $rootScope.$emit(constants.EVENTS.OPEN_DIALOG, dialogs.unknown_playlist);
                 }
             );
 
@@ -202,9 +210,6 @@ angular.module('LaBanane').
 
             $scope.moveSong = function (index1, index2) {
 
-                console.log('movesong');
-                console.log(index1);
-                console.log(index2);
                 var track = $scope.playlist.content[index1];
 
                 $scope.playlist.content.splice(index1, 1);
@@ -265,13 +270,32 @@ angular.module('LaBanane').
                 $scope.playlist.content.length = 0;
                 $scope.stop();
                 update();
+                $rootScope.$emit(constants.EVENTS.CLOSE_DIALOG);
             }
 
             /**
              * Perform authentication
              */
-            function doAuthentication() {
-                console.log('doAuth');
+            function doAuthentication($dialogScope) {
+
+                var password = $dialogScope.param;
+                console.log(password);
+
+                if(password){
+                    $dialogScope.param = '';
+                    requests.getPlaylist(playlistName, password)
+                        .then(
+                        function onSuccess(data) {
+                            $scope.playlist.content = data.playlist;
+                            $scope.playlist.owner = data.auth;
+                            $rootScope.$emit(constants.EVENTS.CLOSE_DIALOG);
+                        },
+                        function onError() {
+                            $rootScope.$emit(constants.EVENTS.CLOSE_DIALOG);
+                            $rootScope.$emit(constants.EVENTS.OPEN_DIALOG, dialogs.bad_password);
+                        }
+                    );
+                }
             }
 
             /**

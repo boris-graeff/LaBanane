@@ -15,18 +15,18 @@ angular.module('LaBanane.directives', [])
         };
     })
 
-    .directive('scrollable', function () {
+    .directive('scrollable', ['$timeout', function ($timeout) {
         return function(scope, element) {
-            setTimeout(function(){
+            $timeout(function(){
                 var $el = $(element);
                 $el.css('height', $el.parent().outerHeight());
 
                 $el.mCustomScrollbar({
                     theme : 'dark-thin'
                 });
-            }, 100ms);
+            }, 0);
         };
-    })
+    }])
 
     .directive('playlist', [function () {
 
@@ -153,6 +153,26 @@ angular.module('LaBanane.directives', [])
             restrict: 'A',
             link: function (scope, element) {
                 youtube.bindVideoPlayer(element[0].id);
+            }
+        };
+    }])
+
+    .directive('compile', ['$compile', '$parse', function($compile, $parse) {
+        // directive factory creates a link function
+        return {
+            restrict: 'A',
+            link: function(scope, element, attr) {
+                var parsed = $parse(attr.ngBindHtml);
+
+                //Recompile if the template changes
+                scope.$watch(
+                    function() {
+                        return (parsed(scope) || '').toString();
+                    },
+                    function() {
+                        $compile(element, null, -9999)(scope);  //The -9999 makes it skip directives so that we do not recompile ourselves
+                    }
+                );
             }
         };
     }]);

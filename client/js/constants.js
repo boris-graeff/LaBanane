@@ -8,6 +8,7 @@ angular.module('LaBanane.constants', [])
         MAX_VISITED_PLAYLISTS: 10,
 
         EVENTS : {
-            OPEN_DIALOG : "OPEN_DIALOG"
+            OPEN_DIALOG : "OPEN_DIALOG",
+            CLOSE_DIALOG : "CLOSE_DIALOG"
         }
     });
