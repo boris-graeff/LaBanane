@@ -19,7 +19,7 @@
                 input#input-search-playlist(input-text, type="text", ng-model="search", autocomplete="off")
                 label(for="input-search-playlist") Name
             ul.playlists
-                li(ng-repeat="playlist in allPlaylists | filter:search")
+                li(ng-repeat="playlist in allPlaylists | filter:search | limitTo:maxPlaylistsDisplayed")
                     a(href="/player/{{playlist}}") {{playlist}}
 
             h3(ng-show="lastPlaylists") Last {{lastPlaylists.length}} visited playlists

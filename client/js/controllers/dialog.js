@@ -46,8 +46,10 @@ angular.module('LaBanane').
              * Hide dialog if click on cancel button or on backdrop
              */
             $scope.hide = function (event) {
-                var $target = $(event.target);
-                if(! unclosable && $target.hasClass('close-dialog')){
+                if(event){
+                    $scope.open =  unclosable || ! $(event.target).hasClass('close-dialog');
+                }
+                else {
                     $scope.open = false;
                 }
             };

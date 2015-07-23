@@ -32,10 +32,10 @@
 
         section#playlist.track-list
             ul.tracks(scrollable, playlist)
-                li(ng-repeat="track in playlist.content track by $index", playlist-track, ng-class="{currentTrack: $index == playlist.currentTrack.index}", data-index="{{$index}}")
+                li(ng-repeat="track in playlist.content track by $index", playlist-track, ng-class="{currentTrack: $index == currentTrack.index}", data-index="{{$index}}")
                     .remove(ng-click="remove($index)")
                     .track(ng-click="play($index)") {{track.name}}
-    #right(ng-controller="SearchCtrl")
+    #right(ng-controller="SearchCtrl", ng-show="playlist.owner")
         nav
             ul
                 li.tab(ng-class="{'selected':provider === 'soundcloud'}", ng-click='setSoundcloudProvider()') Soundcloud

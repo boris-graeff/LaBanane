@@ -22,7 +22,7 @@ angular.module('LaBanane').
              */
             $scope.setSoundcloudProvider = function () {
                 $scope.provider = 'soundcloud';
-                provider = soundCloud;
+                provider = soundcloud;
             };
 
             /**
@@ -32,7 +32,9 @@ angular.module('LaBanane').
                 if ($scope.keywords.length > 3) {
                     var promiseSearch = provider.doSearchRequest($scope.keywords);
                     promiseSearch.then(function (results) {
+                        console.log(results);
                         $scope.results = results;
+                        $scope.$apply();
                     });
                 }
             };

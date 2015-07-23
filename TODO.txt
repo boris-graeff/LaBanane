@@ -1,16 +1,23 @@
-- Eviter décallage quand scrollbar visible
-- Utiliser fichiers minifiés
-- Gestion volume
-- Gestion progression
+Must :
 - Gestion authentification
 - Gestion en mode non authentifié
-- Gestion affichage playlist vide
-- Ajouter instruction partie droite : pour ajouter un son, choisissez un provider et effectuer une recherche
 
-- placer un h1 sur home et player
+- Placer un h1 sur home et player
+
+- Gestion volume
+- Gestion progression
+- Scrollbar : style, décalage, hauteur, ...
+
 - préparer texte à traduire :
 > Présentation homepage
 > Balise meta presentation
 > Textes boites de dialogs
 
+
+- Utiliser fichiers minifiés
+- Utiliser Sprite
+
+Should :
 - Merge /socket.io/socket.io.js
+- Gestion affichage playlist vide
+- Ajouter instruction partie droite : pour ajouter un son, choisissez un provider et effectuer une recherche

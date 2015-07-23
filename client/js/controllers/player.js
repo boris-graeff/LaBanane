@@ -68,7 +68,7 @@ angular.module('LaBanane').
                     localStorage.pushTemp('lastPlaylists', playlistName, constants.MAX_VISITED_PLAYLISTS);
                 },
                 function onError() {
-                    // TODO $rootScope.$emit(constants.EVENTS.OPEN_DIALOG, dialogs.unknown_playlist);
+                    $rootScope.$emit(constants.EVENTS.OPEN_DIALOG, dialogs.unknown_playlist);
                 }
             );
 
@@ -106,7 +106,7 @@ angular.module('LaBanane').
                     });
 
                 }
-                else if ($scope.currentTrack !== null) {
+                else if ($scope.currentTrack.index !== null) {
                     player.play();
                     $scope.controls.isPlaying = true;
                 }
@@ -279,7 +279,6 @@ angular.module('LaBanane').
             function doAuthentication($dialogScope) {
 
                 var password = $dialogScope.param;
-                console.log(password);
 
                 if(password){
                     $dialogScope.param = '';
@@ -288,6 +287,10 @@ angular.module('LaBanane').
                         function onSuccess(data) {
                             $scope.playlist.content = data.playlist;
                             $scope.playlist.owner = data.auth;
+
+                            // Save password on localStorage
+                            localStorage.push('passwords', playlistName, password);
+
                             $rootScope.$emit(constants.EVENTS.CLOSE_DIALOG);
                         },
                         function onError() {

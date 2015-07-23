@@ -8,6 +8,7 @@ angular.module('LaBanane').
             // Init
 
             $scope.isPlaylistCreation = false;
+            $scope.maxPlaylistsDisplayed = constants.MAX_PLAYLISTS_DISPLAYED;
             $scope.isPlaylistSearch = true;
             $scope.allPlaylists = [];
             $scope.playlist = {
@@ -49,12 +50,11 @@ angular.module('LaBanane').
             $scope.createPlaylist = function () {
                 var name = $scope.playlist.name;
                 var password = $scope.playlist.password;
-                var id = name.toLowerCase();
 
                 requests.createPlaylist(name, password).then(
                     function onSuccess() {
                         // Save password on localStorage
-                        localStorage.push('passwords', id, password);
+                        localStorage.push('passwords', name, password);
                         // Go to player
                         $location.path('/player/' + name).replace();
                     },
