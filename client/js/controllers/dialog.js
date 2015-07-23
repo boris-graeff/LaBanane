@@ -22,6 +22,7 @@ angular.module('LaBanane').
             });
 
             $rootScope.$on(constants.EVENTS.CLOSE_DIALOG, function() {
+                console.log('close event');
                 $scope.hide();
             });
 
@@ -46,10 +47,8 @@ angular.module('LaBanane').
              * Hide dialog if click on cancel button or on backdrop
              */
             $scope.hide = function (event) {
-                if(event){
-                    $scope.open =  unclosable || ! $(event.target).hasClass('close-dialog');
-                }
-                else {
+
+                if(!event || (!unclosable && $(event.target).hasClass('close-dialog'))){
                     $scope.open = false;
                 }
             };

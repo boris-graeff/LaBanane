@@ -46,7 +46,9 @@ angular.module('LaBanane').
 
             $scope.currentTrack = {
                 name : ' ',
-                index : null
+                index : null,
+                progress : 50
+                //progress : 0
             };
 
             $scope.controls = {
@@ -71,6 +73,26 @@ angular.module('LaBanane').
                     $rootScope.$emit(constants.EVENTS.OPEN_DIALOG, dialogs.unknown_playlist);
                 }
             );
+
+            // Events
+
+            $rootScope.$on('service.timeUpdate', function (event, data) {
+                $scope.currentTrack.progress = data * 600;
+            });
+
+            // Song end
+            /*
+            $rootScope.$on('service.songEnd', function () {
+                $scope.next();
+                $scope.$apply();
+            });
+
+            // Loading error
+            $rootScope.$on('service.loadingError', function () {
+                $scope.$apply($scope.remove($scope.currentTrack.index));
+                $scope.play($scope.currentTrack.index);
+            });
+            */
 
 
             // Player functions
@@ -170,7 +192,10 @@ angular.module('LaBanane').
             };
 
             $scope.seek = function (position) {
-                player.seek(position);
+                console.log("seek "+position);
+                if(player){
+                    player.seek(position);
+                }
             };
 
             $scope.mute = function () {
@@ -186,7 +211,7 @@ angular.module('LaBanane').
             };
 
             $scope.stop = function () {
-                pause();
+                $scope.pause();
                 $scope.seek(0);
                 $scope.currentTrack = {
                     name : ' ',
@@ -256,6 +281,23 @@ angular.module('LaBanane').
                     }
                 }
             };
+
+            $scope.moveToPlaylistEnd = function (trackIdPlaylist) {
+                var song = $scope.playlistSongs[trackIdPlaylist];
+                $scope.playlistSongs.splice(trackIdPlaylist, 1);
+                $scope.playlistSongs.push(song);
+
+                var currentTrack = $scope.currentTrack;
+                if (currentTrack) {
+                    if (trackIdPlaylist == currentTrack.index) {
+                        $scope.currentTrack.index = $scope.playlistSongs.length - 1;
+                    }
+                    else if (trackIdPlaylist < currentTrack.index) {
+                        $scope.currentTrack.index -= 1;
+                    }
+                }
+                update();
+            }
 
             $scope.authentication = function () {
                 $rootScope.$emit(constants.EVENTS.OPEN_DIALOG, dialogs.do_auth);

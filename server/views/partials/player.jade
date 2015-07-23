@@ -1,6 +1,6 @@
 #player
     header
-        h4#playlist-name
+        h1#playlist-name
             | LaBanane -
             | {{playlist.name}}
             | ({{playlist.content.length}} songs)
@@ -12,9 +12,9 @@
         section
             h2#track-name {{currentTrack.name}}
 
-            #track-state.slider
-                .control
-                    .cursor
+            #track-state.slider(progress-bar)
+                .slider-control
+                    .slider-cursor
 
             ul#player-controls
                 li

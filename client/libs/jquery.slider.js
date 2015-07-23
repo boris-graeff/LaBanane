@@ -4,40 +4,36 @@
  */
 (function( $ ) {
 
-    $.fn.slider = function() {
+    $.fn.slider = function(callback) {
 
         // Deal with collections
         return this.each(function() {
-            var $this = $(this),
-                $control = $this.find('.control'),
-                $document = $(document),
-                value = $this.attr('value');
 
-            $control.width(value+'%');
+            var $this = $(this),
+                $control = $this.find('.slider-control'),
+                $document = $(document);
 
             // Listen to clik and mousedown events
-            $this.on('click', change);
+            $this.on('click', click);
             $control.on('mousedown', drag);
 
             /**
              * Fired on click
              */
-            function change(e){
+            function click(e){
                 e.preventDefault();
-                var percent = (e.pageX - $this.offset().left) / $this.width() * 100;
+                var percent = parseInt((e.pageX - $this.offset().left) / $this.width() * 100);
+
+                console.log("percent");
+                console.log(percent);
+                console.log($control);
+
                 $control.animate({
                     width : percent+'%'
                 }, 500);
 
-                update(percent);
-            };
-
-            /**
-             * Update value attribute
-             */
-            function update(percent){
-                $this.attr('value', Math.round(percent));
-            };
+                callback(percent);
+            }
 
             /**
              * Start drag listeners
@@ -46,7 +42,7 @@
                 e.preventDefault();
                 $document.on('mousemove', moveHandler.bind(this));
                 $document.on('mouseup', stopHandler.bind(this));
-            };
+            }
 
             /**
              * Fired on drag
@@ -56,9 +52,11 @@
                     sliderWidth = $this.width(),
                     posX = Math.min(Math.max(0, e.pageX - holderOffset), sliderWidth);
 
+                console.log("posX");
+                console.log(posX);
                 $control.width(posX);
-                update(posX / sliderWidth * 100);
-            };
+                callback(parseInt(posX / sliderWidth * 100));
+            }
 
             /**
              * Stop drag listeners
@@ -66,7 +64,7 @@
             function stopHandler(){
                 $document.off('mousemove');
                 $document.off('mouseup');
-            };
+            }
         });
     }
 }( jQuery ));

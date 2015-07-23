@@ -1,8 +1,5 @@
 Must :
-- Gestion authentification
 - Gestion en mode non authentifié
-
-- Placer un h1 sur home et player
 
 - Gestion volume
 - Gestion progression

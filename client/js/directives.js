@@ -1,5 +1,12 @@
 angular.module('LaBanane.directives', [])
 
+
+    .directive('progressBar', function () {
+        return function(scope, element){
+            $(element).slider(scope.seek);
+        };
+    })
+
     .directive('inputText', function () {
 
         return function (scope, element) {
@@ -42,7 +49,6 @@ angular.module('LaBanane.directives', [])
                 event.preventDefault();
 
                 var data = JSON.parse(event.dataTransfer.getData("track-info"));
-                console.log(data);
 
                 if (data.provider === 'playlist') {
                     scope.$apply(scope.moveToPlaylistEnd(data.index));
@@ -71,6 +77,9 @@ angular.module('LaBanane.directives', [])
                 event.stopPropagation();
                 event.preventDefault();
                 element.removeClass("dragged-track");
+
+                var index = parseInt($(event.target)[0].dataset.index);
+                scope.$apply(scope.remove(index));
             });
 
             element.on('dragstart', function (event) {
@@ -93,8 +102,7 @@ angular.module('LaBanane.directives', [])
 
                 var data = JSON.parse(event.dataTransfer.getData("track-info"));
 
-                // TODO : ugly
-                var indexElement = parseFloat($(event.target).parent()[0].dataset.index);
+                var indexElement = parseInt($(event.target).parent()[0].dataset.index);
 
                 if (data.fromPlaylist) {
                     scope.$apply(scope.moveSong(data.index, indexElement));

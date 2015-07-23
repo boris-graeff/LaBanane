@@ -32,9 +32,7 @@ angular.module('LaBanane').
                 if ($scope.keywords.length > 3) {
                     var promiseSearch = provider.doSearchRequest($scope.keywords);
                     promiseSearch.then(function (results) {
-                        console.log(results);
                         $scope.results = results;
-                        $scope.$apply();
                     });
                 }
             };
