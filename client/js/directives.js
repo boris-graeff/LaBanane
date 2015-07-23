@@ -45,6 +45,7 @@ angular.module('LaBanane.directives', [])
             });
 
             element.on('drop', function (event) {
+                console.log('drop playlist');
                 event.stopPropagation();
                 event.preventDefault();
 
@@ -77,9 +78,6 @@ angular.module('LaBanane.directives', [])
                 event.stopPropagation();
                 event.preventDefault();
                 element.removeClass("dragged-track");
-
-                var index = parseInt($(event.target)[0].dataset.index);
-                scope.$apply(scope.remove(index));
             });
 
             element.on('dragstart', function (event) {
