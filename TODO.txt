@@ -8,8 +8,11 @@ Must :
 > Balise meta presentation
 > Textes boites de dialogs
 
+- Clone playlist
+
 - Utiliser fichiers minifiés
 - Utiliser Sprite
+
 
 Should :
 - Merge /socket.io/socket.io.js
