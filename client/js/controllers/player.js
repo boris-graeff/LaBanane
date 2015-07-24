@@ -52,6 +52,7 @@ angular.module('LaBanane').
 
             $scope.controls = {
                 volume: 100,
+                volumeBeforeBeingMuted: 100,
                 isPlaying: false,
                 isMuted: false,
                 isShuffleMode: false
@@ -122,6 +123,7 @@ angular.module('LaBanane').
                         player.play();
                         $scope.controls.isPlaying = true;
                     });
+                    player.setVolume(volume);
 
                 }
                 else if ($scope.currentTrack.index !== null) {
@@ -183,8 +185,11 @@ angular.module('LaBanane').
                 $scope.controls.isShuffleMode = !$scope.controls.isShuffleMode;
             };
 
-            $scope.setVolume = function (volume) {
-                player.setVolume(volume);
+            $scope.setVolume = function (value) {
+                if(player){
+                    player.setVolume(value);
+                }
+                $scope.controls.volume = value;
             };
 
             $scope.seek = function (percentage) {
@@ -194,15 +199,14 @@ angular.module('LaBanane').
             };
 
             $scope.mute = function () {
+                $scope.controls.volumeBeforeBeingMuted = $scope.controls.volume;
                 $scope.controls.isMuted = true;
-                $scope.volume = player.getVolume();
-
                 $scope.setVolume(0);
             };
 
             $scope.unmute = function () {
                 $scope.controls.isMuted = false;
-                $scope.setVolume($scope.volume);
+                $scope.setVolume($scope.controls.volumeBeforeBeingMuted);
             };
 
             $scope.stop = function () {
@@ -277,17 +281,18 @@ angular.module('LaBanane').
                 }
             };
 
-            $scope.moveToPlaylistEnd = function (trackIdPlaylist) {
-                var song = $scope.playlistSongs[trackIdPlaylist];
-                $scope.playlistSongs.splice(trackIdPlaylist, 1);
-                $scope.playlistSongs.push(song);
+            $scope.moveToPlaylistEnd = function (trackIndex) {
+                var track = $scope.playlist.content[trackIndex];
+                $scope.playlist.content.splice(trackIndex, 1);
+                $scope.playlist.content.push(track);
 
                 var currentTrack = $scope.currentTrack;
-                if (currentTrack) {
-                    if (trackIdPlaylist == currentTrack.index) {
-                        $scope.currentTrack.index = $scope.playlistSongs.length - 1;
+
+                if (currentTrack.index) {
+                    if (trackIndex === currentTrack.index) {
+                        $scope.currentTrack.index = $scope.playlist.content.length - 1;
                     }
-                    else if (trackIdPlaylist < currentTrack.index) {
+                    else if (trackIndex < currentTrack.index) {
                         $scope.currentTrack.index -= 1;
                     }
                 }

@@ -26,7 +26,8 @@
                 li
                     button.shuffle(ng-click="toggleShuffleMode()", ng-class="{shuffleModeOn: controls.isShuffleMode}")
                 li.volume
-                    button.volume-up(ng-click="mute()")
+                    button.volume-up(ng-click="mute()", ng-hide="controls.isMuted")
+                    button.volume-off(ng-click="unmute()", ng-show="controls.isMuted")
                     progress-bar#track-volume(ng-attr-data-value="{{controls.volume}}", ng-attr-callback="setVolume")
 
         section#playlist.track-list

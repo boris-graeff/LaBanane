@@ -44,7 +44,7 @@ angular.module('LaBanane.directives', [])
 
                 var data = JSON.parse(event.dataTransfer.getData("track-info"));
 
-                if (data.provider === 'playlist') {
+                if (data.fromPlaylist) {
                     scope.$apply(scope.moveToPlaylistEnd(data.index));
                 }
                 else {
