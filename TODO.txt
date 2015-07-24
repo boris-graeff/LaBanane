@@ -10,7 +10,6 @@ Must :
 > Balise meta presentation
 > Textes boites de dialogs
 
-
 - Utiliser fichiers minifiés
 - Utiliser Sprite
 
