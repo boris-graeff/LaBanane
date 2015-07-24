@@ -76,6 +76,13 @@ angular.module('LaBanane').
 
             // Events
 
+            // TEMP
+            $scope.currentTrack.progress = 0;
+            setInterval(function(){
+                $scope.currentTrack.progress = ($scope.currentTrack.progress+1) % 100;
+                $scope.$apply();
+            }, 1000);
+
             $rootScope.$on('service.timeUpdate', function (event, data) {
                 $scope.currentTrack.progress = data * 600;
             });
@@ -192,7 +199,7 @@ angular.module('LaBanane').
             };
 
             $scope.seek = function (position) {
-                console.log("seek "+position);
+                $scope.currentTrack.progress = position;
                 if(player){
                     player.seek(position);
                 }

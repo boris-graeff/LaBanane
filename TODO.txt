@@ -18,3 +18,4 @@ Should :
 - Merge /socket.io/socket.io.js
 - Gestion affichage playlist vide
 - Ajouter instruction partie droite : pour ajouter un son, choisissez un provider et effectuer une recherche
+- Replace JQuery by JQlite

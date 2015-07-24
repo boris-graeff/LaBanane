@@ -12,9 +12,7 @@
         section
             h2#track-name {{currentTrack.name}}
 
-            #track-state.slider(progress-bar)
-                .slider-control
-                    .slider-cursor
+            progress-bar#track-state(ng-attr-data-value="{{currentTrack.progress}}", ng-attr-callback="seek")
 
             ul#player-controls
                 li

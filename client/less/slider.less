@@ -12,8 +12,11 @@
     position: absolute;
     height: 1em;
     border-bottom: 1px solid @black;
-
     width : 50%;
+
+    &.dragged {
+      transition : all @anim-duration/2;
+    }
 
     .slider-cursor {
       position: absolute;

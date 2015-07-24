@@ -1,12 +1,5 @@
 angular.module('LaBanane.directives', [])
 
-
-    .directive('progressBar', function () {
-        return function(scope, element){
-            $(element).slider(scope.seek);
-        };
-    })
-
     .directive('inputText', function () {
 
         return function (scope, element) {
@@ -181,4 +174,66 @@ angular.module('LaBanane.directives', [])
                 );
             }
         };
-    }]);
+    }])
+
+    .directive('progressBar', function () {
+        return {
+            restrict: 'E',
+            scope: {
+                callback: '='
+            },
+            replace: true,
+            template: '<div class="slider"><div class="slider-control" ng-class="{dragged: !dragged}"><div class="slider-cursor"></div></div></div>',
+
+            link: function link($scope, $elem, attrs) {
+
+                var $el = $($elem[0]),
+                    $control = $el.find('.slider-control'),
+                    $document = $(document);
+                $scope.dragged = false;
+
+                $el.on('click', function(e){
+                    e.preventDefault();
+                    var percent = Math.round((e.pageX - $el.offset().left) / $el.width() * 100);
+                    update(percent);
+                    $scope.callback(percent);
+                });
+
+                $control.on('mousedown', function(e){
+                    $scope.dragged = true;
+                    e.preventDefault();
+                    $document.on('mousemove', moveHandler.bind(this));
+                    $document.on('mouseup', stopHandler.bind(this));
+                });
+
+                $scope.$watch(function() {
+                    return attrs.value;
+                }, function(value){
+                    update(value);
+                });
+
+                function update(value) {
+                    if(!$scope.dragged){
+                        $control[0].style.width = value + '%';
+                    }
+                }
+
+                function moveHandler(e){
+                    var holderOffset = $el.offset().left,
+                        sliderWidth = $el.width(),
+                        posX = Math.min(Math.max(0, e.pageX - holderOffset), sliderWidth);
+
+                    $control.width(posX);
+                    update(Math.round(posX / sliderWidth * 100));
+                    callback(Math.round(posX / sliderWidth * 100));
+                }
+
+                function stopHandler(){
+                    $control.removeClass('dragged');
+                    $scope.dragged = false;
+                    $document.off('mousemove');
+                    $document.off('mouseup');
+                }
+            }
+        };
+    });
