@@ -183,24 +183,26 @@ angular.module('LaBanane.directives', [])
                 callback: '='
             },
             replace: true,
-            template: '<div class="slider"><div class="slider-control" ng-class="{dragged: !dragged}"><div class="slider-cursor"></div></div></div>',
+            template: "<div class='slider'><div class='slider-control'><div class='slider-cursor'></div></div></div>",
 
             link: function link($scope, $elem, attrs) {
 
                 var $el = $($elem[0]),
                     $control = $el.find('.slider-control'),
-                    $document = $(document);
+                    $document = $(document),
+                    value = 0;
                 $scope.dragged = false;
 
                 $el.on('click', function(e){
                     e.preventDefault();
-                    var percent = Math.round((e.pageX - $el.offset().left) / $el.width() * 100);
-                    update(percent);
-                    $scope.callback(percent);
+                    value = Math.round((e.pageX - $el.offset().left) / $el.width() * 100);
+                    update(value);
+                    $scope.callback(value);
                 });
 
                 $control.on('mousedown', function(e){
                     $scope.dragged = true;
+                    $control.addClass('dragged');
                     e.preventDefault();
                     $document.on('mousemove', moveHandler.bind(this));
                     $document.on('mouseup', stopHandler.bind(this));
@@ -222,17 +224,16 @@ angular.module('LaBanane.directives', [])
                     var holderOffset = $el.offset().left,
                         sliderWidth = $el.width(),
                         posX = Math.min(Math.max(0, e.pageX - holderOffset), sliderWidth);
-
-                    $control.width(posX);
-                    update(Math.round(posX / sliderWidth * 100));
-                    callback(Math.round(posX / sliderWidth * 100));
+                    value = Math.round(posX / sliderWidth * 100);
+                    $control[0].style.width = value+ '%';
                 }
 
                 function stopHandler(){
-                    $control.removeClass('dragged');
                     $scope.dragged = false;
+                    $control.removeClass('dragged');
                     $document.off('mousemove');
                     $document.off('mouseup');
+                    $scope.callback(value);
                 }
             }
         };

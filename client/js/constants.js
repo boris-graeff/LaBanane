@@ -9,7 +9,9 @@ angular.module('LaBanane.constants', [])
         MAX_PLAYLISTS_DISPLAYED : 20,
 
         EVENTS : {
-            OPEN_DIALOG : "OPEN_DIALOG",
-            CLOSE_DIALOG : "CLOSE_DIALOG"
+            OPEN_DIALOG     : "OPEN_DIALOG",
+            CLOSE_DIALOG    : "CLOSE_DIALOG",
+            TRACK_END       : "TRACK_END",
+            TRACK_PROGRESS  : "TRACK_PROGRESS"
         }
     });

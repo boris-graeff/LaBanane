@@ -13,9 +13,10 @@
     height: 1em;
     border-bottom: 1px solid @black;
     width : 50%;
+    transition : all @anim-duration/2;
 
     &.dragged {
-      transition : all @anim-duration/2;
+      transition : none;
     }
 
     .slider-cursor {

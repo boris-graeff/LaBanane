@@ -143,15 +143,33 @@
       li {
         flex: 1;
         height: 60px;
+        text-align: left;
 
-        &:hover {
-          background: @black-10;
+        &.volume{
+          flex : 2;
+          display: flex;
+          align-items: center;
+
+          button {
+            width: 70px;
+            padding: 0 3em;
+            flex : 0;
+          }
+
+          .slider {
+            flex : 1;
+            display: inline-block;
+          }
         }
       }
 
       button {
         height: 100%;
         width: 100%;
+
+        &:hover {
+          background-color: @black-10 !important;
+        }
 
         &.shuffle {
           background: url('../img/icons/ic_shuffle_black_24px.svg') no-repeat scroll center center / contain transparent;

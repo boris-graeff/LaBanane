@@ -58,21 +58,21 @@ angular.module('LaBanane.services')
             };
 
             function updateTime() {
-                $rootScope.$emit('service.timeUpdate', service.player.getCurrentTime() / service.player.getDuration());
+                $rootScope.$emit(constants.EVENTS.TRACK_PROGRESS, service.player.getCurrentTime() / service.player.getDuration());
             }
 
             service.onPlayerStateChange = function (event) {
                 if (event.data === 0) { // ended
                     $interval.cancel(timeupdater);
                     timeupdater = null;
-                    $rootScope.$emit('service.songEnd', "");
+                    $rootScope.$emit(constants.EVENTS.TRACK_END, '');
                 }
                 else if (event.data === 1) { // playing
                     if (timeupdater !== null) {
                         $interval.cancel(timeupdater);
                         timeupdater = null;
                     }
-                    timeupdater = $interval(updateTime, 500);
+                    timeupdater = $interval(updateTime, 420);
                 }
                 else if (event.data === 2) { // paused
                     $interval.cancel(timeupdater);
@@ -106,8 +106,8 @@ angular.module('LaBanane.services')
             };
 
             service.seek = function (percentage) {
-                var allowSeekAhead = true; // Plus d'infos : https://developers.google.com/youtube/js_api_reference
-                this.player.seekTo(percentage * this.player.getDuration(), allowSeekAhead);
+                var allowSeekAhead = true;
+                this.player.seekTo(percentage/100 * this.player.getDuration(), allowSeekAhead);
             };
 
             service.mute = function () {

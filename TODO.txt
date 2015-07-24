@@ -1,8 +1,6 @@
 Must :
 - Gestion en mode non authentifié
 
-- Gestion volume
-- Gestion progression
 - Scrollbar : style, décalage, hauteur, ...
 
 - préparer texte à traduire :

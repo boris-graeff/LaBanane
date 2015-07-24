@@ -15,13 +15,13 @@ angular.module('LaBanane.services')
                 if (service.sound !== null) {
                     service.sound.play({
                         whileplaying: function () {
-                            if ((this.position - service.lastPosition) > 500) {
+                            if ((this.position - service.lastPosition) > 420) {
                                 service.lastPosition = this.position;
-                                $rootScope.$emit('service.timeUpdate', this.position / this.duration);
+                                $rootScope.$emit(constants.EVENTS.TRACK_PROGRESS, this.position / this.duration *100);
                             }
                         },
                         onfinish: function () {
-                            $rootScope.$emit('service.songEnd', "");
+                            $rootScope.$emit(constants.EVENTS.TRACK_END, '');
                         }
                     });
                 }
@@ -62,7 +62,7 @@ angular.module('LaBanane.services')
             };
 
             service.seek = function (percentage) {
-                this.sound.setPosition(percentage * this.sound.duration);
+                this.sound.setPosition(percentage/100 * this.sound.duration);
             };
 
             service.doSearchRequest = function (keywords) {

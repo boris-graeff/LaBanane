@@ -47,8 +47,7 @@ angular.module('LaBanane').
             $scope.currentTrack = {
                 name : ' ',
                 index : null,
-                progress : 50
-                //progress : 0
+                progress : 0
             };
 
             $scope.controls = {
@@ -74,32 +73,22 @@ angular.module('LaBanane').
                 }
             );
 
+
             // Events
 
-            // TEMP
-            $scope.currentTrack.progress = 0;
-            setInterval(function(){
-                $scope.currentTrack.progress = ($scope.currentTrack.progress+1) % 100;
-                $scope.$apply();
-            }, 1000);
 
-            $rootScope.$on('service.timeUpdate', function (event, data) {
-                $scope.currentTrack.progress = data * 600;
+            // Track progress
+            $rootScope.$on(constants.EVENTS.TRACK_PROGRESS, function (event, progress) {
+                console.log(progress);
+
+                $scope.$apply($scope.currentTrack.progress = progress);
             });
 
-            // Song end
-            /*
-            $rootScope.$on('service.songEnd', function () {
+            // End of the track
+            $rootScope.$on(constants.EVENTS.TRACK_END, function () {
                 $scope.next();
                 $scope.$apply();
             });
-
-            // Loading error
-            $rootScope.$on('service.loadingError', function () {
-                $scope.$apply($scope.remove($scope.currentTrack.index));
-                $scope.play($scope.currentTrack.index);
-            });
-            */
 
 
             // Player functions
@@ -198,10 +187,9 @@ angular.module('LaBanane').
                 player.setVolume(volume);
             };
 
-            $scope.seek = function (position) {
-                $scope.currentTrack.progress = position;
+            $scope.seek = function (percentage) {
                 if(player){
-                    player.seek(position);
+                    player.seek(percentage);
                 }
             };
 
