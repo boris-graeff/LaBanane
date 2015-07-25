@@ -15,6 +15,15 @@ angular.module('LaBanane.directives', [])
         };
     })
 
+    .directive('playlistName', function () {
+        return function (scope, element) {
+            element.on('change input paste', function (event) {
+                var value = element[0].value.replace(/\s+/g, '-').replace(/[^a-zA-Z0-9-]/g, '');
+                element[0].value = value;
+            });
+        };
+    })
+
     .directive('scrollable', ['$timeout', function ($timeout) {
         return function(scope, element) {
             $timeout(function(){

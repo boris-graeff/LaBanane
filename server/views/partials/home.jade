@@ -15,7 +15,7 @@
         section.search(ng-show='isPlaylistSearch')
 
             .input-container
-                input#input-search-playlist(input-text, type="text", ng-model="search", autocomplete="off")
+                input#input-search-playlist(input-text, type="text", ng-model="search", autocomplete="off", playlist-name)
                 label(for="input-search-playlist") Name
             ul.playlists
                 li(ng-repeat="playlist in allPlaylists | filter:search | limitTo:maxPlaylistsDisplayed")
@@ -30,7 +30,7 @@
             p.note Tips : please note that if you lost your password you will not be able to retrieve it !
             form(name="playlistForm")
                 .input-container
-                    input#playlist-name(ng-model="playlist.name", input-text, type="text", autocomplete="off", required)
+                    input#playlist-name(ng-model="playlist.name", input-text, type="text", autocomplete="off", required, playlist-name)
                     label(for="playlist-name") Playlist name
                 .input-container
                     input#playlist-password(ng-model="playlist.password", input-text, type="password", autocomplete="off", required)

@@ -8,8 +8,6 @@ Must :
 > Balise meta presentation
 > Textes boites de dialogs
 
-- Clone playlist
-
 - Utiliser fichiers minifiés
 - Utiliser Sprite
 
