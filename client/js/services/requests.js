@@ -1,18 +1,19 @@
 angular.module('LaBanane.services')
-    .factory('requests', ['$http', function ($http) {
+    .factory('requests', ['$http', 'dialogHelper', function ($http, dialogHelper) {
 
         return {
-            getAllPlaylists: getAllPlaylists,
-            getPlaylist: getPlaylist,
-            createPlaylist: createPlaylist
+            getAllPlaylists : getAllPlaylists,
+            getPlaylist     : getPlaylist,
+            createPlaylist  : createPlaylist,
+            clonePlaylist   : clonePlaylist
         };
 
         // Public methods
 
         function getAllPlaylists() {
             var request = $http({
-                method: 'get',
-                url: 'services/playlist/all'
+                method  : 'get',
+                url     : 'services/playlist/all'
             });
 
             return request.then(handleSuccess, handleError);
@@ -20,8 +21,8 @@ angular.module('LaBanane.services')
 
         function getPlaylist(name, password) {
             var request = $http({
-                method: 'get',
-                url: 'services/playlist/content/' + name + '/' + password
+                method  : 'get',
+                url     : 'services/playlist/content/' + name + '/' + password
             });
 
             return request.then(handleSuccess, handleError);
@@ -29,11 +30,25 @@ angular.module('LaBanane.services')
 
         function createPlaylist(name, password) {
             var request = $http({
-                method: 'post',
-                url: 'services/playlist/create',
-                data: {
-                    name: name,
-                    password: password
+                method  : 'post',
+                url     : 'services/playlist/create',
+                data    : {
+                    name        : name,
+                    password    : password
+                }
+            });
+
+            return request.then(handleSuccess, handleError);
+        }
+
+        function clonePlaylist(name, password, content) {
+            var request = $http({
+               method   : 'post',
+                url     : 'services/playlist/clone',
+                data    : {
+                    name        : name,
+                    password    : password,
+                    content     : content
                 }
             });
 
@@ -43,15 +58,8 @@ angular.module('LaBanane.services')
         // Private methods
 
         function handleError(response) {
-            // Server error, normalize format
-            if (!angular.isObject(response.data) || !response.data.message) {
-
-                return( $q.reject("An unknown error occurred.") );
-
-            }
-
-            // Otherwise, use expected error message.
-            return( $q.reject(response.data.message) );
+            dialogHelper.openDialogUnexpectedError();
+            return ($q.reject("Unexpected error :("));
         }
 
         function handleSuccess(response) {

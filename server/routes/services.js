@@ -42,12 +42,17 @@ var getPlaylistContent = function (idPlaylist, callback) {
 
 var checkPlaylistId = function(res, playlistName){
     if(! playlistName || ! PLAYLIST_ID_PATTERN.test(playlistName.toLowerCase())) {
-        res.status(500).send({ error: "Invalid playlist id" });
+        res.status(400).send({error: "Invalid playlist id" });
     }
 };
 
 // Services
 
+/**
+ *
+ * @param req
+ * @param res
+ */
 exports.createPlaylist = function (req, res) {
     var playlist = req.body;
 
@@ -59,20 +64,22 @@ exports.createPlaylist = function (req, res) {
 
         isPlaylistIdAvailable(playlist.id, function (err, available) {
 
-            if (err || !available) {
-                res.status(500).send({ error: ":(" });
+            if (err) {
+                res.status(500).send({ error: "Unexpected error :(" });
+            }
+            else if(!available){
+                res.json({
+                    available: false
+                });
             }
             else {
                 db.createPlaylist(playlist, function (err, result) {
                     if (err) {
-                        res.json({
-                            error: true,
-                            available: false
-                        });
+                        res.status(500).send({ error: "Unexpected error :(" });
                     }
                     else {
                         res.json({
-                            error: false
+                            available: true
                         });
                     }
 
@@ -81,7 +88,7 @@ exports.createPlaylist = function (req, res) {
         });
     }
     else {
-        res.status(500).send({error:'Check your param'});
+        res.status(400).send({error:'Check your param !'});
     }
 };
 
@@ -98,7 +105,7 @@ exports.isPlaylistIdAvailable = function (req, res) {
 
     isPlaylistIdAvailable(name.toLowerCase(), function (err, available) {
         if (err) {
-            res.status(500).send({ error: ":(" });
+            res.status(500).send({ error: "Unexpected error :(" });
         }
         else {
             res.json({
@@ -114,17 +121,21 @@ exports.isPlaylistIdAvailable = function (req, res) {
  * @param res
  */
 exports.getPlaylistContent = function (req, res) {
+
     var name = req.params.name;
     var password = req.params.password;
-
-    console.log("req.params");
-    console.log(req.params);
 
     checkPlaylistId(res, name);
 
     getPlaylistContent(name.toLowerCase(), function (err, playlist) {
-        if (err || !playlist) {
-            res.status(404).send({ error: "Playlist doesn't exist !" });
+        if (err) {
+            res.status(500).send({ error: "Unexpected error :(" });
+        }
+        else if(! playlist){
+            res.json({
+                error : true,
+                message : "Playlist doesn't exist"
+            });
         }
         else {
             res.json({
@@ -143,7 +154,7 @@ exports.getPlaylistContent = function (req, res) {
 exports.getAllPlaylists = function (req, res) {
     db.getAllPlaylists(function (err, playlists) {
         if (err) {
-            res.json([]);
+            res.status(500).send({ error: "Unexpected error :(" });
         }
         else {
             res.json(_.pluck(playlists, 'id'));

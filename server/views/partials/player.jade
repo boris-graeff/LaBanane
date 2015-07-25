@@ -4,7 +4,7 @@
             | LaBanane -
             | {{playlist.name}}
             | ({{playlist.content.length}} songs)
-        button#clone clone
+        button#clone(ng-click="clone()") clone
         button#edit(ng-hide="playlist.owner", ng-click="authentication()") edit
         button#clear(ng-show="playlist.owner", ng-click="confirmClearPlaylist()") clear
         a#back-home.button(href="/app") home
