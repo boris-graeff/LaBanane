@@ -2,41 +2,15 @@
  * Controle for player page
  */
 angular.module('LaBanane').
-    controller('PlayerCtrl', ['$scope', 'localStorage', 'requests', '$routeParams', 'constants', '$rootScope', 'socket', 'soundcloud', 'youtube',
-        function ($scope, localStorage, requests, $routeParams, constants, $rootScope, socket, soundcloud, youtube) {
+    controller('PlayerCtrl', ['$scope', 'localStorage', 'requests', '$routeParams', 'constants', '$rootScope', 'socket',
+        'soundcloud', 'youtube', 'dialogHelper', '$location',
+        function ($scope, localStorage, requests, $routeParams, constants, $rootScope, socket, soundcloud, youtube,
+                  dialogHelper, $location) {
 
             // Init
             var playlistName = $routeParams.name;
             var playlistPassword = localStorage.getValue('passwords', playlistName);
             var player = null;
-
-            var dialogs = {
-                unknown_playlist : {
-                    title   : "Sorry",
-                    content : "The playlist doesn't exist anymore. : (",
-                    type    : 'unclosable'
-                },
-                confirm_clear_playlist : {
-                    title       : "Hey",
-                    content     : "Are you sure you want to clear this playlist ?",
-                    type        : 'confirm',
-                    onConfirm   : clearPlaylist
-                },
-                do_auth : {
-                    title   : "Authentication",
-                    content :  "<p>Please, type password for this playlist</p>" +
-                        "<div class='input-container'><input type='password' ng-model='param'></div>",
-                    type    : 'confirm',
-                    onConfirm   : doAuthentication
-                },
-                bad_password : {
-                    title   : "Error",
-                    content :  "<p>Bad password. Try again.</p>" +
-                        "<div class='input-container'><input type='password' ng-model='param'></div>",
-                    type    : 'confirm',
-                    onConfirm   : doAuthentication
-                }
-            };
 
             $scope.playlist = {
                 name: playlistName,
@@ -61,18 +35,18 @@ angular.module('LaBanane').
             // Get playlist from server
 
             requests.getPlaylist(playlistName, playlistPassword)
-                .then(
-                function onSuccess(data) {
-                    $scope.playlist.content = data.playlist;
-                    $scope.playlist.owner = data.auth;
+                .then(function onSuccess(data) {
+                    if(data.error){
+                        dialogHelper.opendDialogUnknownPlaylist();
+                    }
+                    else {
+                        $scope.playlist.content = data.playlist;
+                        $scope.playlist.owner = data.auth;
 
-                    // Save visit in localstorage
-                    localStorage.pushTemp('lastPlaylists', playlistName, constants.MAX_VISITED_PLAYLISTS);
-                },
-                function onError() {
-                    $rootScope.$emit(constants.EVENTS.OPEN_DIALOG, dialogs.unknown_playlist);
-                }
-            );
+                        // Save visit in localstorage
+                        localStorage.pushTemp('lastPlaylists', playlistName, constants.MAX_VISITED_PLAYLISTS);
+                    }
+                });
 
 
             // Events
@@ -257,8 +231,12 @@ angular.module('LaBanane').
             };
 
             $scope.confirmClearPlaylist = function () {
-                $rootScope.$emit(constants.EVENTS.OPEN_DIALOG, dialogs.confirm_clear_playlist);
+                dialogHelper.openDialogClearPlaylist(clearPlaylist);
             };
+
+            $scope.clone = function () {
+                dialogHelper.openDialogClone(doClone);
+            }
 
             $scope.remove = function(index) {
                 console.log('removeTrack');
@@ -300,7 +278,7 @@ angular.module('LaBanane').
             }
 
             $scope.authentication = function () {
-                $rootScope.$emit(constants.EVENTS.OPEN_DIALOG, dialogs.do_auth);
+                dialogHelper.openDialogAuth(doAuthentication);
             };
 
             // Privates functions
@@ -312,7 +290,7 @@ angular.module('LaBanane').
                 $scope.playlist.content.length = 0;
                 $scope.stop();
                 update();
-                $rootScope.$emit(constants.EVENTS.CLOSE_DIALOG);
+                dialogHelper.closeDialog();
             }
 
             /**
@@ -327,17 +305,47 @@ angular.module('LaBanane').
                     requests.getPlaylist(playlistName, password)
                         .then(
                         function onSuccess(data) {
-                            $scope.playlist.content = data.playlist;
-                            $scope.playlist.owner = data.auth;
+                            if(data.auth){
+                                $scope.playlist.content = data.playlist;
+                                $scope.playlist.owner = data.auth;
 
-                            // Save password on localStorage
-                            localStorage.push('passwords', playlistName, password);
+                                // Save password on localStorage
+                                localStorage.push('passwords', playlistName, password);
 
-                            $rootScope.$emit(constants.EVENTS.CLOSE_DIALOG);
-                        },
-                        function onError() {
-                            $rootScope.$emit(constants.EVENTS.CLOSE_DIALOG);
-                            $rootScope.$emit(constants.EVENTS.OPEN_DIALOG, dialogs.bad_password);
+                                dialogHelper.closeDialog();
+                            }
+                            else {
+                                dialogHelper.closeDialog();
+                                dialogHelper.openDialogAuthError(doAuthentication);
+                            }
+                        }
+                    );
+                }
+            }
+
+            function doClone($dialogScope) {
+                var param = $dialogScope.param,
+                    name = param.name,
+                    password = param.password,
+                    content = $scope.playlist.content;
+
+                if(name && password){
+                    $dialogScope.param = '';
+
+                    requests.clonePlaylist(name, password, content).then(
+                        function onSuccess(response) {
+                            if(response.available){
+                                // Save password on localStorage
+                                localStorage.push('passwords', name, password);
+                                // Go to player
+                                $location.path('/player/' + name).replace();
+
+                                dialogHelper.closeDialog();
+                            }
+                            else {
+                                dialogHelper.closeDialog();
+                                dialogHelper.openDialogCloneError(doClone);
+                            }
                         }
                     );
                 }

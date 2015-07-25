@@ -2,8 +2,8 @@
  * Controle for homepage
  */
 angular.module('LaBanane').
-    controller('HomeCtrl', ['$scope', 'localStorage', 'requests', '$location', '$rootScope', 'constants',
-        function ($scope, localStorage, requests, $location, $rootScope, constants) {
+    controller('HomeCtrl', ['$scope', 'localStorage', 'requests', '$location', 'constants', 'dialogHelper',
+        function ($scope, localStorage, requests, $location, constants, dialogHelper) {
 
             // Init
 
@@ -16,13 +16,6 @@ angular.module('LaBanane').
                 password: ''
             };
 
-            var popins = {
-                unavailable_name : {
-                    title: "Sorry",
-                    content: "This name is already taken. : (",
-                    type: 'simple'
-                }
-            };
 
             $scope.lastPlaylists = localStorage.getArray('lastPlaylists');
 
@@ -52,14 +45,18 @@ angular.module('LaBanane').
                 var password = $scope.playlist.password;
 
                 requests.createPlaylist(name, password).then(
-                    function onSuccess() {
-                        // Save password on localStorage
-                        localStorage.push('passwords', name, password);
-                        // Go to player
-                        $location.path('/player/' + name).replace();
-                    },
-                    function onError() {
-                        $rootScope.$emit(constants.EVENTS.OPEN_DIALOG, popins.unavailable_name);
+                    function onSuccess(response) {
+                        console.log("create resp");
+                        console.log(response);
+                        if(response.available){
+                            // Save password on localStorage
+                            localStorage.push('passwords', name, password);
+                            // Go to player
+                            $location.path('/player/' + name).replace();
+                        }
+                        else {
+                            dialogHelper.openDialogUnavailableName();
+                        }
                     }
                 );
             };

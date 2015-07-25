@@ -15,8 +15,22 @@
     margin-bottom : 1em;
   }
 
-  input {
-    background : @yellow-75;
+  .input-container {
+    input {
+      background : @yellow-75;
+
+      &:focus {
+        +label {
+          color : @yellow !important;
+        }
+      }
+    }
+
+    &.open {
+      input + label {
+        color : @yellow !important;
+      }
+    }
   }
 
   .actions {

@@ -6,13 +6,16 @@ angular.module('LaBanane').
         function ($scope, $rootScope, constants, $sce) {
 
             /**
-             * Types :
-             * - simple
-             * - unclosable
-             * - confirm
+             * Dialogs types :
+             * - SIMPLE
+             * - UNCLOSABLE
+             * - CONFIRM
              */
 
-            // Init
+
+            // INIT
+
+
             $scope.open = false;
             var unclosable = false;
 
@@ -22,9 +25,12 @@ angular.module('LaBanane').
             });
 
             $rootScope.$on(constants.EVENTS.CLOSE_DIALOG, function() {
-                console.log('close event');
                 $scope.hide();
             });
+
+
+            // FUNCTIONS
+
 
             /**
              * Show dialog
@@ -36,7 +42,7 @@ angular.module('LaBanane').
                     $scope.title = options.title;
                     $scope.content =  $sce.trustAsHtml(options.content);
                     $scope.type = options.type;
-                    $scope.onConfirm = options.onConfirm;
+                    $scope.callback = options.callback;
 
                     unclosable = options.type === 'unclosable';
                 }
@@ -57,7 +63,7 @@ angular.module('LaBanane').
              * Call callback with $scope as parameter
              */
             $scope.confirm = function () {
-                $scope.onConfirm($scope);
+                $scope.callback($scope);
             };
 
 
