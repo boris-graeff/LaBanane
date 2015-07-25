@@ -97,7 +97,7 @@ angular.module('LaBanane').
                         player.play();
                         $scope.controls.isPlaying = true;
                     });
-                    player.setVolume(volume);
+                    player.setVolume($scope.controls.volume);
 
                 }
                 else if ($scope.currentTrack.index !== null) {
@@ -307,10 +307,11 @@ angular.module('LaBanane').
                         function onSuccess(data) {
                             if(data.auth){
                                 $scope.playlist.content = data.playlist;
-                                $scope.playlist.owner = data.auth;
+                                $scope.playlist.owner = true;
 
                                 // Save password on localStorage
                                 localStorage.push('passwords', playlistName, password);
+                                playlistPassword = password;
 
                                 dialogHelper.closeDialog();
                             }
@@ -339,7 +340,6 @@ angular.module('LaBanane').
                                 localStorage.push('passwords', name, password);
                                 // Go to player
                                 $location.path('/player/' + name).replace();
-
                                 dialogHelper.closeDialog();
                             }
                             else {

@@ -15,7 +15,7 @@ module.exports = function (socket) {
   });
 
   socket.on('message', function (data) {
-    socket.broadcast.to(data.room).emit(data.action, data.param);
+    // socket.broadcast.to(data.room).emit(data.action, data.param);
 
     if (data.action === 'update') {
       if (data.param.playlist) {
@@ -27,7 +27,6 @@ module.exports = function (socket) {
         };
 
         db.updatePlaylist(playlist, function (err, result) {
-          console.log("update playlsit");
           // TODO
         });
       }

@@ -24,16 +24,15 @@ angular.module('LaBanane.directives', [])
         };
     })
 
-    .directive('scrollable', ['$timeout', function ($timeout) {
+    .directive('scrollable', ['$timeout', function () {
         return function(scope, element) {
-            $timeout(function(){
-                var $el = $(element);
-                $el.css('height', $el.parent().outerHeight());
+            console.log('scrollable');
+            var $el = $(element);
+            $el.css('height', $el.parent().innerHeight());
 
-                $el.mCustomScrollbar({
-                    theme : 'dark-thin'
-                });
-            }, 0);
+            $el.mCustomScrollbar({
+                theme : 'dark-thin'
+            });
         };
     }])
 

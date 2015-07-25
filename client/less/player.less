@@ -1,6 +1,6 @@
 @import 'constants.less';
 
-#player {
+#player-page {
   flex-direction: row;
   display: flex;
   height: 100%;
@@ -80,7 +80,7 @@
       height: 1.8em;
     }
 
-    #right, #left {
+    #player, #search{
       flex-direction: column;
       flex: 1;
       display: flex;
@@ -204,6 +204,15 @@
         }
       }
     }
+
+  &.no-auth {
+    #player {
+      margin-left: auto;
+      margin-right: auto;
+      width : 50%;
+      flex : initial;
+    }
+  }
 }
 
 .dragged-track {

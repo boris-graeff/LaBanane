@@ -1,7 +1,8 @@
-Must :
+Think about :
 - Gestion en mode non authentifié
 
-- Scrollbar : style, décalage, hauteur, ...
+Must :
+- Début sous soundcloud : par en arrière
 
 - préparer texte à traduire :
 > Présentation homepage

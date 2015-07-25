@@ -1,4 +1,4 @@
-#player
+#player-page(ng-class="{'no-auth': !playlist.owner}")
     header
         h1#playlist-name
             | LaBanane -
@@ -8,7 +8,7 @@
         button#edit(ng-hide="playlist.owner", ng-click="authentication()") edit
         button#clear(ng-show="playlist.owner", ng-click="confirmClearPlaylist()") clear
         a#back-home.button(href="/app") home
-    #left
+    #player
         section
             h2#track-name {{currentTrack.name}}
 
@@ -35,20 +35,22 @@
                 li(ng-repeat="track in playlist.content track by $index", playlist-track, ng-class="{currentTrack: $index == currentTrack.index}", data-index="{{$index}}")
                     .remove(ng-click="remove($index)")
                     .track(ng-click="play($index)") {{track.name}}
-    #right(ng-controller="SearchCtrl", ng-show="playlist.owner")
+
+    #search(ng-controller="SearchCtrl", ng-if="playlist.owner")
         nav
             ul
                 li.tab(ng-class="{'selected':provider === 'soundcloud'}", ng-click='setSoundcloudProvider()') Soundcloud
                 li.tab(ng-class="{'selected':provider === 'youtube'}", ng-click='setYoutubeProvider()') Youtube
 
         .input-container
-            input#search(input-text, type="text", autocomplete="off", ng-model="keywords", ng-change="search()")
-            label(for="search") Song name
+            input#input-search(input-text, type="text", autocomplete="off", ng-model="keywords", ng-change="search()")
+            label(for="input-search") Song name
 
+        p.note Tips : to add a song to your playlist, you can use drag'n'drop or double click. ;)
         section#results.track-list
-            p.note Tips : to add a song to your playlist, you can use drag'n'drop or double click. ;)
             ul.tracks(scrollable)
                 li(ng-repeat="track in results track by $index", resources-track, data-provider="{{track.provider}}", data-id="{{track.id}}")
                     .add(ng-click="addSongToPlaylistEnd(track)")
                     .track(ng-dblclick="addSongToPlaylistEnd(track)") {{track.name}}
+
 #youtube-player(youtube-player)
