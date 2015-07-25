@@ -4,17 +4,17 @@ angular.module('LaBanane.services')
 
             var service = $rootScope.$new(true);
             service.sound = null;
-            service.lastPosition = 0;
 
             SC.initialize({
                 client_id: constants.SOUNDCLOUD_KEY
             });
 
             service.play = function () {
-
                 if (service.sound !== null) {
+                    service.lastPosition = 0;
                     service.sound.play({
                         whileplaying: function () {
+                            console.log('whileplaying');
                             if ((this.position - service.lastPosition) > 420) {
                                 service.lastPosition = this.position;
                                 $rootScope.$emit(constants.EVENTS.TRACK_PROGRESS, this.position / this.duration *100);
