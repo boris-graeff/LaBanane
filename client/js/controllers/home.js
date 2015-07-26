@@ -16,7 +16,6 @@ angular.module('LaBanane').
                 password: ''
             };
 
-
             $scope.lastPlaylists = localStorage.getArray('lastPlaylists');
 
 
@@ -58,4 +57,9 @@ angular.module('LaBanane').
                     }
                 );
             };
+
+            $scope.removeSearchLimit = function () {
+                $scope.maxPlaylistsDisplayed = undefined;
+            };
+
         }]);

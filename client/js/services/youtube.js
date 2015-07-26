@@ -80,7 +80,7 @@ angular.module('LaBanane.services')
                 }
             };
 
-            service.loadSong = function (videoId) {
+            service.loadSong = function (videoId, volume) {
                 var deferred = $q.defer();
 
                 // API ready?
@@ -89,6 +89,8 @@ angular.module('LaBanane.services')
                         this.player.loadVideoById(videoId);
                     }
                 }
+
+                service.setVolume(volume);
 
                 deferred.resolve();
 

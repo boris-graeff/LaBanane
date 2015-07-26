@@ -54,7 +54,6 @@ angular.module('LaBanane').
 
             // Track progress
             $rootScope.$on(constants.EVENTS.TRACK_PROGRESS, function (event, progress) {
-                console.log('EVENT CTRL '+progress);
                 $scope.currentTrack.progress = progress;
             });
 
@@ -90,11 +89,10 @@ angular.module('LaBanane').
                         index   : index
                     };
 
-                    player.loadSong(track.id).then(function () {
+                    player.loadSong(track.id, $scope.controls.volume).then(function () {
                         player.play();
                         $scope.controls.isPlaying = true;
                     });
-                    player.setVolume($scope.controls.volume);
 
                 }
                 else if ($scope.currentTrack.index !== null) {

@@ -17,6 +17,7 @@ angular.module('LaBanane.services')
                             if ((this.position - service.lastPosition) > 420) {
                                 service.lastPosition = this.position;
                                 $rootScope.$emit(constants.EVENTS.TRACK_PROGRESS, this.position / this.duration *100);
+                                $rootScope.$apply();
                             }
                         },
                         onfinish: function () {
@@ -39,12 +40,13 @@ angular.module('LaBanane.services')
                 }
             };
 
-            service.loadSong = function (url) {
+            service.loadSong = function (url, volume) {
                 var deferred = $q.defer();
 
                 SC.stream("/tracks/" + url, function (sound) {
                     service.stop();
                     service.sound = sound;
+                    service.sound.setVolume(volume);
 
                     deferred.resolve();
                 });

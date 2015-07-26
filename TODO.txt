@@ -6,6 +6,7 @@ Must :
 
 - Wait authentication result to display player
 - Adapt interface to mobile
+- Limit playlistname length (front and back)
 
 - préparer texte à traduire :
 > Présentation homepage

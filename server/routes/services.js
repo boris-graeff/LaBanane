@@ -41,7 +41,7 @@ var getPlaylistContent = function (idPlaylist, callback) {
 };
 
 var checkPlaylistId = function(res, playlistName){
-    if(! playlistName || ! PLAYLIST_ID_PATTERN.test(playlistName.toLowerCase())) {
+    if(! playlistName || ! PLAYLIST_ID_PATTERN.test(playlistName.toLowerCase()) || playlistName.length > 100) {
         res.status(400).send({error: "Invalid playlist id" });
     }
 };
@@ -61,6 +61,7 @@ exports.createPlaylist = function (req, res) {
         checkPlaylistId(res, name);
 
         playlist.id = name.toLowerCase();
+        playlist.password = playlist.password.substring(0, 100);
 
         isPlaylistIdAvailable(playlist.id, function (err, available) {
 
