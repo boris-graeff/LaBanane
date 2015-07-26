@@ -46,7 +46,7 @@
             input#input-search(input-text, type="text", autocomplete="off", ng-model="keywords", ng-change="search()")
             label(for="input-search") Song name
 
-        p.note Tips : to add a song to your playlist, you can use drag'n'drop or double click. ;)
+        p.note Tips : to add a song to your playlist, you can use drag'n'drop or double click.
         section#results.track-list
             ul.tracks(scrollable)
                 li(ng-repeat="track in results track by $index", resources-track, data-provider="{{track.provider}}", data-id="{{track.id}}")

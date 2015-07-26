@@ -26,7 +26,6 @@ angular.module('LaBanane.directives', [])
 
     .directive('scrollable', ['$timeout', function () {
         return function(scope, element) {
-            console.log('scrollable');
             var $el = $(element);
             $el.css('height', $el.parent().innerHeight());
 
@@ -46,7 +45,6 @@ angular.module('LaBanane.directives', [])
             });
 
             element.on('drop', function (event) {
-                console.log('drop playlist');
                 event.stopPropagation();
                 event.preventDefault();
 

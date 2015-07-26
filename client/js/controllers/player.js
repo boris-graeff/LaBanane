@@ -54,8 +54,6 @@ angular.module('LaBanane').
 
             // Track progress
             $rootScope.$on(constants.EVENTS.TRACK_PROGRESS, function (event, progress) {
-                console.log(progress);
-
                 $scope.$apply($scope.currentTrack.progress = progress);
             });
 
@@ -78,8 +76,6 @@ angular.module('LaBanane').
                     }
 
                     $scope.pause();
-
-                    console.log(track);
 
                     if (track.provider === 'youtube') {
                         player = youtube;
@@ -239,9 +235,6 @@ angular.module('LaBanane').
             }
 
             $scope.remove = function(index) {
-                console.log('removeTrack');
-                console.log(index);
-
                 $scope.playlist.content.splice(index, 1);
 
                 update();

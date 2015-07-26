@@ -14,7 +14,6 @@ angular.module('LaBanane.services')
                     service.lastPosition = 0;
                     service.sound.play({
                         whileplaying: function () {
-                            console.log('whileplaying');
                             if ((this.position - service.lastPosition) > 420) {
                                 service.lastPosition = this.position;
                                 $rootScope.$emit(constants.EVENTS.TRACK_PROGRESS, this.position / this.duration *100);
@@ -28,7 +27,9 @@ angular.module('LaBanane.services')
             };
 
             service.pause = function () {
-                service.sound.pause();
+                if(service.sound){
+                    service.sound.pause();
+                }
             };
 
             service.stop = function () {

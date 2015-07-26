@@ -19,7 +19,7 @@ angular.module('LaBanane.services')
             },
             CLEAR_PLAYLIST : {
                 title   : "Hey",
-                content : "Are you sure you want to clear this playlist ?",
+                content : "Are you sure to want clear this playlist ?",
                 type    : 'confirm'
             },
             AUTH : {

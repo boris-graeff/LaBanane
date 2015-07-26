@@ -86,7 +86,6 @@ angular.module('LaBanane.services')
                 // API ready?
                 if (this.ready && this.playerId) {
                     if (this.player) {
-                        console.log(this.player);
                         this.player.setVolume($("#volume").slider("value"));
                         this.player.loadVideoById(videoId);
                     }

@@ -46,8 +46,6 @@ angular.module('LaBanane').
 
                 requests.createPlaylist(name, password).then(
                     function onSuccess(response) {
-                        console.log("create resp");
-                        console.log(response);
                         if(response.available){
                             // Save password on localStorage
                             localStorage.push('passwords', name, password);
