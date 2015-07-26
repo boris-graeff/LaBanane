@@ -15,14 +15,16 @@ angular.module('LaBanane.directives', [])
         };
     })
 
-    .directive('playlistName', function () {
+    .directive('playlistName', ['constants', function (constants) {
         return function (scope, element) {
+            element.attr('maxlength', constants.MAX_PLAYLIST_NAME_LENGTH);
+
             element.on('change input paste', function (event) {
                 var value = element[0].value.replace(/\s+/g, '-').replace(/[^a-zA-Z0-9-]/g, '');
                 element[0].value = value;
             });
         };
-    })
+    }])
 
     .directive('scrollable', ['$timeout', function () {
         return function(scope, element) {

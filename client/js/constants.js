@@ -7,6 +7,7 @@ angular.module('LaBanane.constants', [])
         MAX_RESULTS: 30,
         MAX_VISITED_PLAYLISTS: 10,
         MAX_PLAYLISTS_DISPLAYED : 20,
+        MAX_PLAYLIST_NAME_LENGTH : 100,
 
         EVENTS : {
             OPEN_DIALOG: "OPEN_DIALOG",
