@@ -4,6 +4,15 @@
   overflow-y: scroll;
   height: 100%;
 
+  button {
+    font-size : 1em;
+    font-style : italic;
+    vertical-align: middle;
+    position : relative;
+    overflow : hidden;
+    transition : all @anim-duration;
+  }
+
   #page {
     max-width: 600px;
     margin: auto;
@@ -15,12 +24,17 @@
     background : url("../img/header.svg") no-repeat scroll center center / contain transparent;
     height: 9em;
     position : relative;
+  }
 
-    + p {
-      border-top : 1px solid @black;
-      margin-top: -1.8em;
-      padding-top: 2em;
-    }
+  hr {
+    height: 1px;
+    background-color: @black;
+    margin-top: -2em;
+    margin-bottom : 1em;
+  }
+
+  #fb-line {
+    height : 20px;
   }
 
   #create {
@@ -29,13 +43,7 @@
     form {
 
       .send {
-        vertical-align: middle;
-        position : relative;
-        font-size : 1em;
-        font-style : italic;
         float : right;
-        overflow : hidden;
-        transition : all @anim-duration;
         padding-left : 3*@padding;
         margin-top : @padding;
 
@@ -61,6 +69,30 @@
             left : -200px;
           }
         }
+      }
+    }
+  }
+
+  #see-all {
+    margin-bottom: 1em;
+
+    &:before {
+      content : '';
+      position : absolute;
+      left : -200px;
+      top : 50%;
+      margin-top : -12px;
+      height : 24px;
+      width : 24px;
+      transition : all @anim-duration;
+      background: url('../img/icons/ic_chevron_right_black_24px.svg') no-repeat scroll center left / contain transparent;
+    }
+
+    &:hover {
+      padding-left : 3*@padding;
+
+      &:before {
+        left : @padding-medium;
       }
     }
   }

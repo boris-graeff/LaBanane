@@ -1,6 +1,9 @@
 #home-page
     #page
         header
+        hr
+        #fb-line
+            .fb-like(data-href="https://www.facebook.com/pages/LaBanane/830399690334699?fref=ts", data-layout="standard", data-action="like", data-show-faces="false", data-share="true")
         p
             | Bienvenue sur LaBanane, l'application pour écouter et partager votre musique !
             br
@@ -15,11 +18,12 @@
         section.search(ng-show='isPlaylistSearch')
 
             .input-container
-                input#input-search-playlist(input-text, type="text", ng-model="search", autocomplete="off", playlist-name)
+                input#input-search-playlist(input-text, type="text", ng-model="search", autocomplete="off")
                 label(for="input-search-playlist") Name
             ul.playlists
-                li(ng-repeat="playlist in allPlaylists | filter:search | limitTo:maxPlaylistsDisplayed")
+                li(ng-repeat="playlist in (filteredPlaylists = (allPlaylists | filter:search))  | limitTo:maxPlaylistsDisplayed")
                     a(href="/player/{{playlist}}") {{playlist}}
+            button#see-all(ng-show="maxPlaylistsDisplayed && filteredPlaylists.length > maxPlaylistsDisplayed", ng-click="removeSearchLimit()") See all
 
             h3(ng-show="lastPlaylists") Last {{lastPlaylists.length}} visited playlists
             ul.playlists
@@ -33,6 +37,6 @@
                     input#playlist-name(ng-model="playlist.name", input-text, type="text", autocomplete="off", required, playlist-name)
                     label(for="playlist-name") Playlist name
                 .input-container
-                    input#playlist-password(ng-model="playlist.password", input-text, type="password", autocomplete="off", required)
+                    input#playlist-password(ng-model="playlist.password", input-text, type="password", autocomplete="off", required, maxlength="100")
                     label(for="playlist-password") Password
                 button.button.send(ng-click='createPlaylist()', ng-disabled="playlistForm.$invalid") Send

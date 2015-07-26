@@ -24,22 +24,22 @@ angular.module('LaBanane.services')
             },
             AUTH : {
                 title   : "Authentication",
-                content : "<p>Please, type password for this playlist</p><div class='input-container'><input id='playlist-password' type='password' ng-model='param' autocomplete='off' input-text><label for='playlist-password'>Password</label></div>",
+                content : "<p>Please, type password for this playlist</p><div class='input-container'><input id='playlist-password' type='password' ng-model='param' autocomplete='off' input-text maxlength='100'><label for='playlist-password'>Password</label></div>",
                 type    : 'confirm'
             },
             AUTH_ERROR : {
                 title   : "Error",
-                content : "<p>Bad password. Try again.</p><div class='input-container'><input id='playlist-password' type='password' ng-model='param' autocomplete='off' input-text><label for='playlist-password'>Password</label></div>",
+                content : "<p>Bad password. Try again.</p><div class='input-container'><input id='playlist-password' type='password' ng-model='param' autocomplete='off' input-text maxlength='100'><label for='playlist-password'>Password</label></div>",
                 type    : 'confirm'
             },
             CLONE : {
                 title   : "Clone",
-                content : "<p>Choose a name and a password for this playlist</p><div class='input-container'><input id='playlist-name' type='text' ng-model='param.name' autocomplete='off' input-text playlist-name><label for='playlist-name'>Name</label></div><div class='input-container'><input id='playlist-password' type='password' ng-model='param.password' autocomplete='off' input-text><label for='playlist-password'>Password</label></div>",
+                content : "<p>Choose a name and a password for this playlist</p><div class='input-container'><input id='playlist-name' type='text' ng-model='param.name' autocomplete='off' input-text playlist-name><label for='playlist-name'>Name</label></div><div class='input-container'><input id='playlist-password' type='password' ng-model='param.password' autocomplete='off' input-text maxlength='100'><label for='playlist-password'>Password</label></div>",
                 type    : 'confirm'
             },
             CLONE_ERROR : {
                 title   : "Clone",
-                content : "<p>This name is already taken, please choose another one</p><div class='input-container'><input id='playlist-name' type='text' ng-model='param.name' autocomplete='off' input-text playlist-name><label for='playlist-name'>Name</label></div><div class='input-container'><input id='playlist-password' type='password' ng-model='param.password' autocomplete='off' input-text><label for='playlist-password'>Password</label></div>",
+                content : "<p>This name is already taken, please choose another one</p><div class='input-container'><input id='playlist-name' type='text' ng-model='param.name' autocomplete='off' input-text playlist-name><label for='playlist-name'>Name</label></div><div class='input-container'><input id='playlist-password' type='password' ng-model='param.password' autocomplete='off' input-text maxlength='100'><label for='playlist-password'>Password</label></div>",
                 type    : 'confirm'
             }
         };
