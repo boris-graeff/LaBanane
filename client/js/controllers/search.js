@@ -13,16 +13,24 @@ angular.module('LaBanane').
              * Set youtube as provider
              */
             $scope.setYoutubeProvider = function () {
-                $scope.provider = 'youtube';
-                provider = youtube;
+                if($scope.provider !== 'youtube'){
+                    $scope.provider = 'youtube';
+                    provider = youtube;
+                    $scope.results.length = 0;
+                    $scope.search();
+                }
             };
 
             /**
              * Set soundcloud as provider
              */
             $scope.setSoundcloudProvider = function () {
-                $scope.provider = 'soundcloud';
-                provider = soundcloud;
+                if($scope.provider !== 'soundcloud'){
+                    $scope.provider = 'soundcloud';
+                    provider = soundcloud;
+                    $scope.results.length = 0;
+                    $scope.search();
+                }
             };
 
             /**

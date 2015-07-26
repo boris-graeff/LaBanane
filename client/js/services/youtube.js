@@ -58,7 +58,7 @@ angular.module('LaBanane.services')
             };
 
             function updateTime() {
-                $rootScope.$emit(constants.EVENTS.TRACK_PROGRESS, service.player.getCurrentTime() / service.player.getDuration());
+                $rootScope.$emit(constants.EVENTS.TRACK_PROGRESS, service.player.getCurrentTime() / service.player.getDuration() * 100);
             }
 
             service.onPlayerStateChange = function (event) {
@@ -86,7 +86,6 @@ angular.module('LaBanane.services')
                 // API ready?
                 if (this.ready && this.playerId) {
                     if (this.player) {
-                        this.player.setVolume($("#volume").slider("value"));
                         this.player.loadVideoById(videoId);
                     }
                 }

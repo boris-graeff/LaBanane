@@ -54,7 +54,8 @@ angular.module('LaBanane').
 
             // Track progress
             $rootScope.$on(constants.EVENTS.TRACK_PROGRESS, function (event, progress) {
-                $scope.$apply($scope.currentTrack.progress = progress);
+                console.log('EVENT CTRL '+progress);
+                $scope.currentTrack.progress = progress;
             });
 
             // End of the track
