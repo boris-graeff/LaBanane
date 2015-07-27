@@ -164,7 +164,7 @@ angular.module('LaBanane.directives', [])
         };
     }])
 
-    .directive('compile', ['$compile', '$parse', function($compile, $parse) {
+    .directive('compile', ['$compile', '$parse', '$timeout', function($compile, $parse, $timeout) {
         // directive factory creates a link function
         return {
             restrict: 'A',
@@ -177,7 +177,17 @@ angular.module('LaBanane.directives', [])
                         return (parsed(scope) || '').toString();
                     },
                     function() {
+
                         $compile(element, null, -9999)(scope);  //The -9999 makes it skip directives so that we do not recompile ourselves
+
+                        // Focus on fist input
+                        $timeout(function() {
+                            var firstInput = $(element[0]).find('input');
+                            if (firstInput) {
+                                $(firstInput[0]).focus();
+
+                            }
+                        }, 500);
                     }
                 );
             }
