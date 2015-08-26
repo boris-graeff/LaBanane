@@ -1,47 +1,54 @@
 /**
- * Controle for player page
+ * Controler for search module
  */
 angular.module('LaBanane').
-    controller('SearchCtrl', ['$scope', 'localStorage', 'requests', '$location', 'soundcloud', 'youtube',
-        function ($scope, localStorage, requests, $location, soundcloud, youtube) {
+    controller('SearchCtrl', ['$scope', 'soundcloud', 'youtube', '$q',
+        function ($scope, soundcloud, youtube, $q) {
 
-            var provider = soundcloud;
-            $scope.provider = 'soundcloud';
             $scope.results = [];
 
             /**
-             * Set youtube as provider
-             */
-            $scope.setYoutubeProvider = function () {
-                if($scope.provider !== 'youtube'){
-                    $scope.provider = 'youtube';
-                    provider = youtube;
-                    $scope.results.length = 0;
-                    $scope.search();
-                }
-            };
-
-            /**
-             * Set soundcloud as provider
-             */
-            $scope.setSoundcloudProvider = function () {
-                if($scope.provider !== 'soundcloud'){
-                    $scope.provider = 'soundcloud';
-                    provider = soundcloud;
-                    $scope.results.length = 0;
-                    $scope.search();
-                }
-            };
-
-            /**
-             * Search on selected provider
+             * Search on both providers
              */
             $scope.search = function () {
-                if ($scope.keywords.length > 3) {
-                    var promiseSearch = provider.doSearchRequest($scope.keywords);
-                    promiseSearch.then(function (results) {
-                        $scope.results = results;
+                var keywords = $scope.keywords;
+                if (keywords.length > 3) {
+                    var soundcloudSearch = soundcloud.doSearchRequest(keywords);
+                    var youtubeSearch = youtube.doSearchRequest(keywords);
+                    var splitKeywords = keywords.toLowerCase().split(' ');
+
+                    $q.all([soundcloudSearch, youtubeSearch]).then(function (results) {
+
+                        var ratedResults = [];
+                        _.each(_.flatten(results), function (result) {
+                            console.log(result);
+                            result.rate = rate(result.name, splitKeywords);
+                            // TODO : check si les deux ont un attribut 'name' commun
+                            ratedResults.push(result);
+                        });
+
+                        $scope.results = _.sortBy(ratedResults, 'rate');
                     });
                 }
             };
+
+            /**
+             * Rate result
+             * @param result
+             * @param keywords
+             * @returns {number}
+             */
+            function rate(result, keywords) {
+
+                // TODO : prendre en compte note youtube
+
+                var rate = 100;
+                _.each(keywords, function (keyword) {
+                    if (result.search(keyword) > 0) {
+                        rate = rate / 2;
+                    }
+                });
+
+                return rate;
+            }
         }]);

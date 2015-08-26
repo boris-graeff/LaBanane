@@ -39,11 +39,6 @@
                     .track(ng-click="play($index)") {{track.name}}
 
     #search(ng-controller="SearchCtrl", ng-if="playlist.owner")
-        nav
-            ul
-                li.tab(ng-class="{'selected':provider === 'soundcloud'}", ng-click='setSoundcloudProvider()') Soundcloud
-                li.tab(ng-class="{'selected':provider === 'youtube'}", ng-click='setYoutubeProvider()') Youtube
-
         .input-container
             input#input-search(input-text, type="text", autocomplete="off", ng-model="keywords", ng-change="search()")
             label(for="input-search") Song name
