@@ -61,6 +61,7 @@ exports.createPlaylist = function (req, res) {
         checkPlaylistId(res, name);
 
         playlist.id = name.toLowerCase();
+        playlist.name = name;
         playlist.password = playlist.password.substring(0, 100);
 
         isPlaylistIdAvailable(playlist.id, function (err, available) {
@@ -158,7 +159,7 @@ exports.getAllPlaylists = function (req, res) {
             res.status(500).send({ error: "Unexpected error :(" });
         }
         else {
-            res.json(_.pluck(playlists, 'id'));
+            res.json(_.pluck(playlists, 'name'));
         }
     });
 };

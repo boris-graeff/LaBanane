@@ -4,6 +4,8 @@ Think about :
 
 Must :
 
+- Schema mongodb : check si on peut mettre des regexp
+- Enregistrer timestamp creation et update
 - Wait authentication result to display player
 - Adapt interface to mobile
 - Limit playlistname length (front and back)

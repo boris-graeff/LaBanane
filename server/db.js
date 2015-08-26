@@ -19,6 +19,7 @@ module.exports = {
 
             var playlistSchema = new Schema({
                 id: String,
+                name: String,
                 password: String,
                 timestamp: Number,
                 content: Array

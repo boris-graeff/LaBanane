@@ -46,6 +46,11 @@ angular.module('LaBanane').
                         // Save visit in localstorage
                         localStorage.pushTemp('lastPlaylists', playlistName, constants.MAX_VISITED_PLAYLISTS);
                     }
+
+                    // TODO TEMP FIX
+                    if(window.FB !== undefined){
+                        window.FB.XFBML.parse();
+                    }
                 });
 
 
@@ -356,6 +361,7 @@ angular.module('LaBanane').
              * Send playlist state to server
              */
             function update() {
+
                 if ($scope.playlist.owner) {
                     socket.emit("message", {
                         action: 'update',

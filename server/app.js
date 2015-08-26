@@ -42,14 +42,7 @@ if (app.get('env') === 'production') {
  * Database
  */
 
-db.init(function (err, db) {
-    if (err) {
-        console.log("erreur dans db.init"); // TODO
-    }
-    else {
-        console.log("db init ok");
-    }
-});
+db.init();
 
 /**
  * Routes

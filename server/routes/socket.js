@@ -21,13 +21,15 @@ module.exports = function (socket) {
       if (data.param.playlist) {
 
         var playlist = {
-          id: data.room,
+          id: data.room.toLowerCase(),
           content: data.param.playlist,
           password: data.param.password
         };
 
         db.updatePlaylist(playlist, function (err, result) {
-          // TODO
+          if(err){
+            console.log(err);
+          }
         });
       }
     }

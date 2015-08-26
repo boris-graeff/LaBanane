@@ -18,6 +18,10 @@ angular.module('LaBanane').
 
             $scope.lastPlaylists = localStorage.getArray('lastPlaylists');
 
+            // TODO TEMP FIX
+            if(window.FB !== undefined){
+                window.FB.XFBML.parse();
+            }
 
             // Get all playlists from server
 

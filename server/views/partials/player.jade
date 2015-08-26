@@ -8,6 +8,7 @@
         button#edit(ng-hide="playlist.owner", ng-click="authentication()") edit
         button#clear(ng-show="playlist.owner", ng-click="confirmClearPlaylist()") clear
         a#back-home.button(href="/app") home
+        div.fb-share-button(data-href="http://labanane.no-ip.info/player/{{playlist.name}}", data-layout="button")
     #player
         section
             h2#track-name {{currentTrack.name}}
