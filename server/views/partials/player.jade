@@ -1,4 +1,4 @@
-#player-page(ng-class="{'no-auth': !playlist.owner}")
+#player-page(ng-class="{'no-auth': !playlist.owner, showVideoBackground: player.videoModeOn && player.isYoutubeProvider}")
     header
         h1#playlist-name
             | LaBanane -
@@ -7,6 +7,7 @@
         button#clone(ng-click="clone()") clone
         button#edit(ng-hide="playlist.owner", ng-click="authentication()") edit
         button#clear(ng-show="playlist.owner", ng-click="confirmClearPlaylist()") clear
+        button#video(ng-click="toggleVideoOption()", ng-class="{videoModeOn: player.videoModeOn}") video
         a#back-home.button(href="/app") home
         div.fb-share-button(data-href="http://labanane.no-ip.info/player/{{playlist.name}}", data-layout="button")
     #player
@@ -54,4 +55,4 @@
                     .add(ng-click="addSongToPlaylistEnd(track)")
                     .track(ng-click="addSongToPlaylistEnd(track)") {{track.name}}
 
-#youtube-player(youtube-player)
+#youtube-player(youtube-player, frameborder="0", height="100%", width="100%")

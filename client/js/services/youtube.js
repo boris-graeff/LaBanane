@@ -42,11 +42,14 @@ angular.module('LaBanane.services')
             service.createPlayer = function (videoId) {
 
                 return new YT.Player(this.playerId, {
-                    height: '0',
-                    width: '0',
                     videoId: videoId,
                     events: {
                         'onStateChange': service.onPlayerStateChange
+                    },
+                    playerVars : {
+                        controls:0,
+                        showinfo:0,
+                        autohide:1,
                     }
                 });
             };

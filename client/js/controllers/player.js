@@ -12,6 +12,11 @@ angular.module('LaBanane').
             var playlistPassword = localStorage.getValue('passwords', playlistName);
             var player = null;
 
+            $scope.player = {
+                videoModeOn : false,
+                isYoutubeProvider : false
+            };
+
             $scope.playlist = {
                 name: playlistName,
                 owner: false,
@@ -84,9 +89,11 @@ angular.module('LaBanane').
 
                     if (track.provider === 'youtube') {
                         player = youtube;
+                        $scope.player.isYoutubeProvider = true;
                     }
                     else if (track.provider === 'soundcloud') {
-                        player= soundcloud;
+                        player = soundcloud;
+                        $scope.player.isYoutubeProvider = false;
                     }
 
                     $scope.currentTrack = {
@@ -276,6 +283,10 @@ angular.module('LaBanane').
 
             $scope.authentication = function () {
                 dialogHelper.openDialogAuth(doAuthentication);
+            };
+
+            $scope.toggleVideoOption = function () {
+                $scope.player.videoModeOn = !$scope.player.videoModeOn;
             };
 
             // Privates functions

@@ -69,6 +69,18 @@
       }
     }
 
+    #video {
+      &:before {
+        background : url('../img/icons/ic_check_box_outline_blank_black_24px.svg') no-repeat scroll center left / contain transparent;
+      }
+
+      &.videoModeOn {
+        &:before {
+          background : url('../img/icons/ic_check_box_black_24px.svg') no-repeat scroll center left / contain transparent;
+        }
+      }
+    }
+
     .fb-share-button {
       float : right;
       margin-top : 10px;
@@ -222,6 +234,15 @@
       flex : 1;
     }
   }
+
+  &.showVideoBackground {
+    background : rgba(0,0,0,0.1);
+    color: #ffcc00;
+
+    + #youtube-player {
+      display : block;
+    }
+  }
 }
 
 .dragged-track {
@@ -230,5 +251,10 @@
 }
 
 #youtube-player{
+  position : fixed;
+  top : 0;
+  z-index: -99;
+  width : 100%;
+  height : 100%;
   display : none;
 }
