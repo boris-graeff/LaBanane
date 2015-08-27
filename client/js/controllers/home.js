@@ -1,11 +1,11 @@
 /**
- * Controle for homepage
+ * Homepage controller.
  */
 angular.module('LaBanane').
     controller('HomeCtrl', ['$scope', 'localStorage', 'requests', '$location', 'constants', 'dialogHelper',
         function ($scope, localStorage, requests, $location, constants, dialogHelper) {
 
-            // Init
+            // INIT
 
             $scope.isPlaylistCreation = false;
             $scope.maxPlaylistsDisplayed = constants.MAX_PLAYLISTS_DISPLAYED;

@@ -376,7 +376,7 @@ angular.module('LaBanane').
             function update() {
 
                 if ($scope.playlist.owner) {
-                    socket.emit("message", {
+                    socket.emit('message', {
                         action: 'update',
                         room: playlistName,
                         param: {

@@ -1,20 +1,15 @@
 /**
- * Controle for dialog
+ * Dialog controller
+ * Dialogs types :
+ * - SIMPLE
+ * - UNCLOSABLE
+ * - CONFIRM
  */
 angular.module('LaBanane').
     controller('DialogCtrl', ['$scope', '$rootScope', 'constants', '$sce',
         function ($scope, $rootScope, constants, $sce) {
 
-            /**
-             * Dialogs types :
-             * - SIMPLE
-             * - UNCLOSABLE
-             * - CONFIRM
-             */
-
-
             // INIT
-
 
             $scope.open = false;
             var unclosable = false;
@@ -28,9 +23,7 @@ angular.module('LaBanane').
                 $scope.hide();
             });
 
-
-            // FUNCTIONS
-
+            // SCOPE FUNCTIONS
 
             /**
              * Show dialog
@@ -51,9 +44,9 @@ angular.module('LaBanane').
 
             /**
              * Hide dialog if click on cancel button or on backdrop
+             * @param event
              */
             $scope.hide = function (event) {
-
                 if(!event || (!unclosable && $(event.target).hasClass('close-dialog'))){
                     $scope.open = false;
                 }

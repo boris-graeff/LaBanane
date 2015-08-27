@@ -2,17 +2,23 @@
 - Gestion en mode non authentifié
 
 Must :
-- Use lodash to simplify code
-- Use constants for URLs
+- récupére note youtube et en tirer parti
+
+- create directive for FB buttons and remove ugly fix
+- When video mode enabled, set icon and text in yellow
+- Animation lors d'un ajout / suppression d'un morceau
 - Wait authentication result to display player
 - Adapt interface to mobile
 - Limit playlistname length (front and back)
 
-- Utiliser fichiers minifiés
-- Utiliser Sprite
 
 
 Should :
+- Use lodash to simplify code
+- Use constants for URLs
+- Utiliser fichiers minifiés
+- Utiliser Sprite
+
 - Merge /socket.io/socket.io.js
 - Gestion affichage playlist vide
 - Replace JQuery by JQlite

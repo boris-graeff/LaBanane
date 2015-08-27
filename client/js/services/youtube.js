@@ -49,7 +49,7 @@ angular.module('LaBanane.services')
                     playerVars : {
                         controls:0,
                         showinfo:0,
-                        autohide:1,
+                        autohide:1
                     }
                 });
             };

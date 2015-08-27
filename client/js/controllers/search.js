@@ -1,5 +1,5 @@
 /**
- * Controler for search module
+ * Search controller.
  */
 angular.module('LaBanane').
     controller('SearchCtrl', ['$scope', 'soundcloud', 'youtube', '$q',
@@ -8,7 +8,7 @@ angular.module('LaBanane').
             $scope.results = [];
 
             /**
-             * Search on both providers
+             * Search tracks on youtube and soundcloud, then merge, rate and sort results.
              */
             $scope.search = function () {
                 var keywords = $scope.keywords;
@@ -21,13 +21,14 @@ angular.module('LaBanane').
 
                         var ratedResults = [];
                         _.each(_.flatten(results), function (result) {
-                            console.log(result);
                             result.rate = rate(result.name, splitKeywords);
-                            // TODO : check si les deux ont un attribut 'name' commun
                             ratedResults.push(result);
                         });
 
+                        console.dir("rate");
+                        console.dir(ratedResults);
                         $scope.results = _.sortBy(ratedResults, 'rate');
+                        console.dir($scope.results);
                     });
                 }
             };
