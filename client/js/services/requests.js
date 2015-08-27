@@ -57,7 +57,7 @@ angular.module('LaBanane.services')
 
         // Private methods
 
-        function handleError(response) {
+        function handleError() {
             dialogHelper.openDialogUnexpectedError();
             return ($q.reject("Unexpected error :("));
         }

@@ -1,54 +1,56 @@
 #player-page(ng-class="{'no-auth': !playlist.owner, showVideoBackground: player.videoModeOn && player.isYoutubeProvider}")
     header
+        div.fb-share-button(data-href="http://labanane.no-ip.info/player/{{playlist.name}}", data-layout="button")
         h1#playlist-name
-            | LaBanane -
+            | LaBanane /
             | {{playlist.name}}
-            | ({{playlist.content.length}} songs)
         button#clone(ng-click="clone()") clone
         button#edit(ng-hide="playlist.owner", ng-click="authentication()") edit
         button#clear(ng-show="playlist.owner", ng-click="confirmClearPlaylist()") clear
         button#video(ng-click="toggleVideoOption()", ng-class="{videoModeOn: player.videoModeOn}") video
         a#back-home.button(href="/app") home
-        div.fb-share-button(data-href="http://labanane.no-ip.info/player/{{playlist.name}}", data-layout="button")
-    #player
-        section
-            h2#track-name {{currentTrack.name}}
 
-            progress-bar#track-state(ng-attr-data-value="{{currentTrack.progress}}", ng-attr-callback="seek")
+    section
+        section#player
+            section
+                h2#track-name {{currentTrack.name}}
 
-            ul#player-controls
-                li
-                    button.previous(ng-click="previous()")
-                li(ng-hide="controls.isPlaying")
-                    button.play(ng-click="play()")
-                li(ng-show="controls.isPlaying")
-                    button.pause(ng-click="pause()")
-                li
-                    button.next(ng-click="next()")
-                li
-                    button.shuffle(ng-click="toggleShuffleMode()", ng-class="{shuffleModeOn: controls.isShuffleMode}")
-                li.volume
-                    button.volume-up(ng-click="mute()", ng-hide="controls.isMuted")
-                    button.volume-off(ng-click="unmute()", ng-show="controls.isMuted")
-                    progress-bar#track-volume(ng-attr-data-value="{{controls.volume}}", ng-attr-callback="setVolume")
+                progress-bar#track-state(ng-attr-data-value="{{currentTrack.progress}}", ng-attr-callback="seek")
+
+                ul#player-controls
+                    li
+                        button.previous(ng-click="previous()")
+                    li(ng-hide="controls.isPlaying")
+                        button.play(ng-click="play()")
+                    li(ng-show="controls.isPlaying")
+                        button.pause(ng-click="pause()")
+                    li
+                        button.next(ng-click="next()")
+                    li
+                        button.shuffle(ng-click="toggleShuffleMode()", ng-class="{shuffleModeOn: controls.isShuffleMode}")
+                    li.volume
+                        button.volume-up(ng-click="mute()", ng-hide="controls.isMuted")
+                        button.volume-off(ng-click="unmute()", ng-show="controls.isMuted")
+                        progress-bar#track-volume(ng-attr-data-value="{{controls.volume}}", ng-attr-callback="setVolume")
+
+            #search(ng-controller="SearchCtrl", ng-if="playlist.owner")
+                h3 Search
+                .input-container
+                    input#input-search(input-text, type="text", autocomplete="off", ng-model="keywords", ng-change="search()")
+                    label(for="input-search") Song name
+
+                p.note Tips : you can use drag'n'drop to add a song to your playlist.
+                section#results.track-list
+                    ul.tracks(scrollable)
+                        li(ng-repeat="track in results track by $index", resources-track, class="{{track.provider}}-track" data-provider="{{track.provider}}", data-id="{{track.id}}")
+                            .add(ng-click="addSongToPlaylistEnd(track)")
+                            .track(ng-click="addSongToPlaylistEnd(track)") {{track.name}}
 
         section#playlist.track-list
+            | {{playlist.content.length}} songs
             ul.tracks(scrollable, playlist)
                 li(ng-repeat="track in playlist.content track by $index", playlist-track, ng-class="{currentTrack: $index == currentTrack.index}", data-index="{{$index}}")
                     .remove(ng-click="remove($index)")
                     .track(ng-click="play($index)") {{track.name}}
-
-    #search(ng-controller="SearchCtrl", ng-if="playlist.owner")
-        h3 Search
-        .input-container
-            input#input-search(input-text, type="text", autocomplete="off", ng-model="keywords", ng-change="search()")
-            label(for="input-search") Song name
-
-        p.note Tips : you can use drag'n'drop to add a song to your playlist.
-        section#results.track-list
-            ul.tracks(scrollable)
-                li(ng-repeat="track in results track by $index", resources-track, class="{{track.provider}}-track" data-provider="{{track.provider}}", data-id="{{track.id}}")
-                    .add(ng-click="addSongToPlaylistEnd(track)")
-                    .track(ng-click="addSongToPlaylistEnd(track)") {{track.name}}
 
 #youtube-player(youtube-player, frameborder="0", height="100%", width="100%")

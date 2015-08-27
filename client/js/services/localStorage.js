@@ -1,5 +1,6 @@
 angular.module('LaBanane.services')
     .factory('localStorage', [function () {
+
         return {
             getArray        : getArray,
             push            : push,
@@ -8,8 +9,6 @@ angular.module('LaBanane.services')
             getValue        : getValue,
             setValue        : setValue
         };
-
-        // Public methods
 
         function getArray(itemKey) {
             var item = window.localStorage.getItem(itemKey);
@@ -54,4 +53,4 @@ angular.module('LaBanane.services')
 
             window.localStorage.setItem(itemKey, JSON.stringify(item));
         }
-    }])
+    }]);

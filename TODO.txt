@@ -2,12 +2,11 @@
 - Gestion en mode non authentifié
 
 Must :
-
+- Use lodash to simplify code
+- Use constants for URLs
 - Wait authentication result to display player
 - Adapt interface to mobile
 - Limit playlistname length (front and back)
-
-- préparer texte à traduire :
 
 - Utiliser fichiers minifiés
 - Utiliser Sprite
