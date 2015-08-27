@@ -57,6 +57,8 @@ module.exports = {
      * @param callback
      */
     updatePlaylist: function (playlist, callback) {
+        playlist.timestamp = Date.now();
+
         ref.Playlist.update({
             id: playlist.id,
             password: playlist.password
@@ -71,6 +73,8 @@ module.exports = {
      * @param callback
      */
     createPlaylist: function (playlist, callback) {
+        playlist.timestamp = Date.now();
+        
         ref.Playlist.create(playlist, callback);
     }
 
