@@ -123,7 +123,15 @@
     }
   }
 
+  #search {
+    flex: 1 1 auto;
+    min-height: 0px;
+    display: flex;
+    flex-direction: column;
+  }
+
   #results {
+    flex: 1 1 auto;
 
     li {
       .add {
@@ -142,19 +150,29 @@
   }
 
   .track-list {
-    // TODO flex: 1 1 auto;
     overflow: hidden;
-    min-height: 0px;
+
+    li {
+      &:before {
+        width : 35px;
+        height : 15px;
+        content : '';
+        position : absolute;
+        left: 3px;
+        top: 4px;
+      }
+    }
+
 
     .youtube-track {
       &:before {
-        content: 'y';
+        background: url('../img/icons/ic_youtube.svg');
       }
     }
 
     .soundcloud-track {
       &:before {
-        content: 's';
+        background: url('../img/icons/ic_soundcloud.svg');
       }
     }
   }

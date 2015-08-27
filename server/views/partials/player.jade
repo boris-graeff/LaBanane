@@ -9,7 +9,8 @@
         button#clear(ng-show="playlist.owner", ng-click="confirmClearPlaylist()") clear
         button#video(ng-click="toggleVideoOption()", ng-class="{videoModeOn: player.videoModeOn}") video
         a#back-home.button(href="/app") home
-
+        div(ng-if="player.videoModeOn")
+            include playerControls.jade
     section
         section#player
             section
@@ -17,17 +18,7 @@
 
                 progress-bar#track-state(ng-attr-data-value="{{currentTrack.progress}}", ng-attr-callback="seek")
 
-                ul#player-controls
-                    li
-                        button.previous(ng-click="previous()")
-                    li(ng-hide="controls.isPlaying")
-                        button.play(ng-click="play()")
-                    li(ng-show="controls.isPlaying")
-                        button.pause(ng-click="pause()")
-                    li
-                        button.next(ng-click="next()")
-                    li
-                        button.shuffle(ng-click="toggleShuffleMode()", ng-class="{shuffleModeOn: controls.isShuffleMode}")
+                include playerControls.jade
                     li.volume
                         button.volume-up(ng-click="mute()", ng-hide="controls.isMuted")
                         button.volume-off(ng-click="unmute()", ng-show="controls.isMuted")
@@ -49,7 +40,7 @@
         section#playlist.track-list
             | {{playlist.content.length}} songs
             ul.tracks(scrollable, playlist)
-                li(ng-repeat="track in playlist.content track by $index", playlist-track, ng-class="{currentTrack: $index == currentTrack.index}", data-index="{{$index}}")
+                li(ng-repeat="track in playlist.content track by $index", playlist-track, class="{{track.provider}}-track", ng-class="{currentTrack: $index == currentTrack.index}", data-index="{{$index}}")
                     .remove(ng-click="remove($index)")
                     .track(ng-click="play($index)") {{track.name}}
 
