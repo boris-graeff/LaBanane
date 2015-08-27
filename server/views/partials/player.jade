@@ -39,6 +39,7 @@
                     .track(ng-click="play($index)") {{track.name}}
 
     #search(ng-controller="SearchCtrl", ng-if="playlist.owner")
+        h3 Search
         .input-container
             input#input-search(input-text, type="text", autocomplete="off", ng-model="keywords", ng-change="search()")
             label(for="input-search") Song name
@@ -46,7 +47,7 @@
         p.note Tips : you can use drag'n'drop to add a song to your playlist.
         section#results.track-list
             ul.tracks(scrollable)
-                li(ng-repeat="track in results track by $index", resources-track, data-provider="{{track.provider}}", data-id="{{track.id}}")
+                li(ng-repeat="track in results track by $index", resources-track, class="{{track.provider}}-track" data-provider="{{track.provider}}", data-id="{{track.id}}")
                     .add(ng-click="addSongToPlaylistEnd(track)")
                     .track(ng-click="addSongToPlaylistEnd(track)") {{track.name}}
 

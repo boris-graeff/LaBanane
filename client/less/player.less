@@ -151,6 +151,18 @@
       flex: 1 1 auto;
       overflow: hidden;
       min-height: 0px;
+
+      .youtube-track {
+        &:before {
+          content : 'y';
+        }
+      }
+
+      .soundcloud-track {
+        &:before {
+          content : 's';
+        }
+      }
     }
 
     #player-controls {

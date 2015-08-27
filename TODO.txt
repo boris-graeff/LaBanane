@@ -1,19 +1,13 @@
-Think about :
+﻿Think about :
 - Gestion en mode non authentifié
-- Ajouter instruction partie droite : pour ajouter un son, choisissez un provider et effectuer une recherche
 
 Must :
 
-- Schema mongodb : check si on peut mettre des regexp
-- Enregistrer timestamp creation et update
 - Wait authentication result to display player
 - Adapt interface to mobile
 - Limit playlistname length (front and back)
 
 - préparer texte à traduire :
-> Présentation homepage
-> Balise meta presentation
-> Textes boites de dialogs
 
 - Utiliser fichiers minifiés
 - Utiliser Sprite

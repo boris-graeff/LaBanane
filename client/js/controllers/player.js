@@ -9,11 +9,11 @@ angular.module('LaBanane').
 
             // Init
             var playlistName = $routeParams.name;
-            var playlistPassword = localStorage.getValue('passwords', playlistName);
+            var playlistPassword = localStorage.getValueInArray('passwords', playlistName);
             var player = null;
 
             $scope.player = {
-                videoModeOn : false,
+                videoModeOn : localStorage.getValue('videoModeOn'),
                 isYoutubeProvider : false
             };
 
@@ -279,14 +279,16 @@ angular.module('LaBanane').
                     }
                 }
                 update();
-            }
+            };
 
             $scope.authentication = function () {
                 dialogHelper.openDialogAuth(doAuthentication);
             };
 
             $scope.toggleVideoOption = function () {
-                $scope.player.videoModeOn = !$scope.player.videoModeOn;
+                var videoModeOn = !$scope.player.videoModeOn;
+                $scope.player.videoModeOn = videoModeOn;
+                localStorage.setValue('videoModeOn', videoModeOn);
             };
 
             // Privates functions

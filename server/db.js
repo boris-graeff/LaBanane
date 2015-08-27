@@ -74,7 +74,7 @@ module.exports = {
      */
     createPlaylist: function (playlist, callback) {
         playlist.timestamp = Date.now();
-        
+
         ref.Playlist.create(playlist, callback);
     }
 
