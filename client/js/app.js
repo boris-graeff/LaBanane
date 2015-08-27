@@ -5,7 +5,6 @@
 
     angular.module('LaBanane', [
         'LaBanane.controllers',
-        'LaBanane.filters',
         'LaBanane.services',
         'LaBanane.directives',
         'LaBanane.constants',
