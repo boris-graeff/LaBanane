@@ -2,11 +2,11 @@
 - Gestion en mode non authentifié
 
 Must :
-- récupére note youtube et en tirer parti
+- Animation lors d'un ajout / suppression d'un morceau
+- Récupérer image morceau soundcloud
 
 - create directive for FB buttons and remove ugly fix
-- When video mode enabled, set icon and text in yellow
-- Animation lors d'un ajout / suppression d'un morceau
+- récupére note youtube et en tirer parti
 - Wait authentication result to display player
 - Adapt interface to mobile
 - Limit playlistname length (front and back)

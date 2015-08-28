@@ -76,7 +76,13 @@ angular.module('LaBanane.services')
 
                     for (var i in tracks) {
                         var track = tracks[i];
-                        results.push({'index': i, 'id': track.id, 'name': track.title, 'provider': 'soundcloud'});
+                        results.push({
+                            'index'     : i,
+                            'id'        : track.id,
+                            'name'      : track.title,
+                            'provider'  : 'soundcloud',
+                            'artwork'   : tracks.artwork_url
+                        });
                     }
 
                     $rootScope.$apply(function () {
