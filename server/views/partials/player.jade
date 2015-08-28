@@ -1,17 +1,19 @@
-#player-page(ng-class="{'no-auth': !playlist.owner, showVideoBackground: player.videoModeOn && player.isYoutubeProvider}")
+#player-page(ng-class="{'no-auth': !playlist.owner, videoMode: player.videoMode}")
     header
-        div.fb-share-button(data-href="http://labanane.no-ip.info/player/{{playlist.name}}", data-layout="button")
-        h1#playlist-name
-            | LaBanane /
-            | {{playlist.name}}
-        button#clone(ng-click="clone()") clone
-        button#edit(ng-hide="playlist.owner", ng-click="authentication()") edit
-        button#clear(ng-show="playlist.owner", ng-click="confirmClearPlaylist()") clear
-        button#video(ng-click="toggleVideoOption()", ng-class="{videoModeOn: player.videoModeOn}") video
-        a#back-home.button(href="/app") home
-        div(ng-if="player.videoModeOn")
+        div
+            h1#playlist-name
+                | LaBanane /
+                | {{playlist.name}}
+            button#clone(ng-click="clone()") clone
+            button#edit(ng-hide="playlist.owner", ng-click="authentication()") edit
+            button#clear(ng-show="playlist.owner", ng-click="confirmClearPlaylist()") clear
+            button#video(ng-click="toggleVideoOption()", ng-class="{videoModeOn: player.videoMode}") video
+            a#back-home.button(href="/app") home
+        div(ng-if="player.videoMode")
             include playerControls.jade
-    section
+        div
+            .fb-share-button(data-href="http://labanane.no-ip.info/player/{{playlist.name}}", data-layout="button")
+    section(ng-if="!player.videoMode")
         section#player
             section
                 h2#track-name {{currentTrack.name}}
@@ -19,6 +21,8 @@
                 progress-bar#track-state(ng-attr-data-value="{{currentTrack.progress}}", ng-attr-callback="seek")
 
                 include playerControls.jade
+                    li
+                        button.shuffle(ng-click="toggleShuffleMode()", ng-class="{shuffleModeOn: controls.isShuffleMode}")
                     li.volume
                         button.volume-up(ng-click="mute()", ng-hide="controls.isMuted")
                         button.volume-off(ng-click="unmute()", ng-show="controls.isMuted")

@@ -21,16 +21,38 @@
 
   header {
     padding: 0 @padding;
+    display : flex;
+    height : 40px;
+
+    > div {
+      flex : 1;
+
+      &:first-child {
+        display: flex;
+        align-items: center;
+      }
+
+      &:last-child {
+        display: flex;
+        align-items: center;
+        flex-direction: row;
+        justify-content: flex-end;
+      }
+    }
 
     h1 {
-      margin-right: @padding;
-      font-size: 1em;
+      margin-right: 2*@padding;
+      font-size: 1.2em;
+      display: inline-block;
+      vertical-align: middle;
     }
 
     button, .button {
       padding: @padding-light @padding-medium @padding-light @padding-light;
       background: transparent;
       font-size: 0.9em;
+      display: inline-block;
+      vertical-align: middle;
 
       &:hover {
         background: @black-10;
@@ -83,9 +105,13 @@
       }
     }
 
-    .fb-share-button {
-      float: right;
-      margin-top: 7px;
+    #player-controls {
+      width : 100%;
+      justify-content: center;
+
+      li {
+        height: 40px;
+      }
     }
   }
 
@@ -177,17 +203,26 @@
     }
   }
 
+  #player {
+    #player-controls {
+      margin: 1em 0;
+
+      li {
+        height: 60px;
+      }
+    }
+  }
+
+
   #player-controls {
     display: flex;
     list-style: none;
     flex-direction: row;
-    margin: 1em 0;
     text-align: center;
     flex-wrap: wrap;
 
     li {
       width: 16%;
-      height: 60px;
       text-align: left;
 
       &.volume {
@@ -250,6 +285,8 @@
     }
   }
 
+
+
   /*
   TODO
   &.no-auth {
@@ -262,9 +299,10 @@
   }
   */
 
-  &.showVideoBackground {
-    background: rgba(0, 0, 0, 0.1);
-    color: #ffcc00;
+  &.videoMode {
+    header {
+      background: @yellow-90;
+    }
 
     + #youtube-player {
       display: block;

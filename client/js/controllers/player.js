@@ -13,13 +13,13 @@ angular.module('LaBanane').
             var player = null;
 
             $scope.player = {
-                videoModeOn : localStorage.getValue('videoModeOn'),
-                isYoutubeProvider : false
+                videoMode : false
             };
 
             $scope.playlist = {
                 name: playlistName,
-                owner: false,
+                //owner: false, TODO
+                owner: true,
                 content : []
             };
 
@@ -89,11 +89,9 @@ angular.module('LaBanane').
 
                     if (track.provider === 'youtube') {
                         player = youtube;
-                        $scope.player.isYoutubeProvider = true;
                     }
                     else if (track.provider === 'soundcloud') {
                         player = soundcloud;
-                        $scope.player.isYoutubeProvider = false;
                     }
 
                     $scope.currentTrack = {
@@ -286,9 +284,8 @@ angular.module('LaBanane').
             };
 
             $scope.toggleVideoOption = function () {
-                var videoModeOn = !$scope.player.videoModeOn;
-                $scope.player.videoModeOn = videoModeOn;
-                localStorage.setValue('videoModeOn', videoModeOn);
+                var videoMode = !$scope.player.videoMode;
+                $scope.player.videoMode = videoMode;
             };
 
             // Privates functions
