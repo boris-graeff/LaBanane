@@ -22,6 +22,7 @@ module.exports = {
                 name: String,
                 password: String,
                 timestamp: Number,
+                artwork: String,
                 content: Array
             });
 

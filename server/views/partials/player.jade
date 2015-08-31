@@ -1,4 +1,4 @@
-#player-page(ng-class="{'no-auth': !playlist.owner, videoMode: player.videoMode}")
+#player-page(ng-class="{'no-auth': !playlist.owner, videoMode: player.videoMode}", class="{{player.selectedProvider}}")
     header
         div
             h1#playlist-name
@@ -49,3 +49,6 @@
                     .track(ng-click="play($index)") {{track.name}}
 
 #youtube-player(youtube-player, frameborder="0", height="100%", width="100%")
+#soundcloud-background
+    img(ng-if="currentTrack.artwork", ng-src="{{currentTrack.artwork}}")
+    #no-artwork(ng-if="!currentTrack.artwork")

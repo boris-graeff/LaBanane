@@ -75,13 +75,15 @@ angular.module('LaBanane.services')
                     var results = [];
 
                     for (var i in tracks) {
-                        var track = tracks[i];
+                        var track = tracks[i],
+                            artwork = track.artwork_url;
+
                         results.push({
                             'index'     : i,
                             'id'        : track.id,
                             'name'      : track.title,
                             'provider'  : 'soundcloud',
-                            'artwork'   : tracks.artwork_url
+                            'artwork'   : (artwork) ? artwork.replace('large', 't500x500') : '' // TODO : add default image
                         });
                     }
 

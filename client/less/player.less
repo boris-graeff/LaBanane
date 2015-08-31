@@ -304,9 +304,19 @@
       background: @yellow-90;
     }
 
-    + #youtube-player {
-      display: block;
+    &.youtubeProvider {
+      + #youtube-player {
+        display: block;
+      }
     }
+
+    &.soundcloudProvider {
+      + #youtube-player + #soundcloud-background {
+        display: flex;
+      }
+    }
+
+
   }
 }
 
@@ -315,11 +325,24 @@
   color: @yellow;
 }
 
-#youtube-player {
+#youtube-player, #soundcloud-background {
   position: fixed;
   top: 0;
   z-index: -99;
   width: 100%;
   height: 100%;
   display: none;
+}
+
+#soundcloud-background {
+  justify-content: center;
+  align-items: center;
+
+  #no-artwork {
+    background: transparent url('../img/icons/ic_soundcloud.svg') no-repeat center center;
+    background-size: 20%;
+    height: 80%;
+    width: 80%;
+    opacity: 0.5;
+  }
 }

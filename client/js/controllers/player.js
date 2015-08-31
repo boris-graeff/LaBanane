@@ -13,7 +13,8 @@ angular.module('LaBanane').
             var player = null;
 
             $scope.player = {
-                videoMode : false
+                videoMode : false,
+                selectedProvider : 'noProvider'
             };
 
             $scope.playlist = {
@@ -26,7 +27,8 @@ angular.module('LaBanane').
             $scope.currentTrack = {
                 name : ' ',
                 index : null,
-                progress : 0
+                progress : 0,
+                artwork : ''
             };
 
             $scope.controls = {
@@ -89,14 +91,19 @@ angular.module('LaBanane').
 
                     if (track.provider === 'youtube') {
                         player = youtube;
+                        $scope.player.selectedProvider = 'youtubeProvider';
                     }
                     else if (track.provider === 'soundcloud') {
                         player = soundcloud;
+                        $scope.player.selectedProvider = 'soundcloudProvider';
                     }
 
+                    console.log("current");
+                    console.log(track);
                     $scope.currentTrack = {
-                        name   : track.name,
-                        index   : index
+                        name    : track.name,
+                        index   : index,
+                        artwork : track.artwork
                     };
 
                     player.loadSong(track.id, $scope.controls.volume).then(function () {
