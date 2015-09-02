@@ -44,7 +44,7 @@
         section#playlist.track-list
             | {{playlist.content.length}} songs
             ul.tracks(scrollable, playlist)
-                li(ng-repeat="track in playlist.content track by $index", playlist-track, class="{{track.provider}}-track", ng-class="{currentTrack: $index == currentTrack.index}", data-index="{{$index}}")
+                li(ng-repeat="track in playlist.content", playlist-track, class="{{track.provider}}-track", ng-class="{currentTrack: $index == currentTrack.index}", data-index="{{$index}}")
                     .remove(ng-click="remove($index)")
                     .track(ng-click="play($index)") {{track.name}}
 

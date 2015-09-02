@@ -98,8 +98,6 @@ angular.module('LaBanane').
                         $scope.player.selectedProvider = 'soundcloudProvider';
                     }
 
-                    console.log("current");
-                    console.log(track);
                     $scope.currentTrack = {
                         name    : track.name,
                         index   : index,
@@ -209,12 +207,16 @@ angular.module('LaBanane').
 
 
             $scope.addSongToPlaylistEnd = function (trackInfo) {
-                $scope.playlist.content.push(trackInfo);
+                var newTrack = _.cloneDeep(trackInfo);
+                newTrack.timestamp = Date.now();
+                $scope.playlist.content.push(newTrack);
                 update();
             };
 
             $scope.addSongToPlaylist = function(index, trackInfo) {
-                $scope.playlist.content.splice(index, 0, trackInfo);
+                var newTrack = _.cloneDeep(trackInfo);
+                newTrack.timestamp = Date.now();
+                $scope.playlist.content.splice(index, 0, newTrack);
                 update();
             };
 
@@ -248,7 +250,7 @@ angular.module('LaBanane').
 
             $scope.clone = function () {
                 dialogHelper.openDialogClone(doClone);
-            }
+            };
 
             $scope.remove = function(index) {
                 $scope.playlist.content.splice(index, 1);

@@ -179,6 +179,8 @@
     overflow: hidden;
 
     li {
+      overflow: hidden;
+
       &:before {
         width : 35px;
         height : 15px;
@@ -186,6 +188,31 @@
         position : absolute;
         left: 3px;
         top: 4px;
+      }
+
+      /*
+      &.ng-move{
+        height : 0;
+        transition: all 0ms;
+      }
+      &.ng-enter{
+        height : 0;
+        transition: all 0ms;
+      }
+      &.ng-leave{
+        height : 0;
+      }
+      */
+      &.ng-enter, &.ng-leave {
+        transition: 420ms ease-out all;
+      }
+      &.ng-enter.ng-enter-active, &.ng-leave {
+        height: 1.6em;
+        margin : 0;
+      }
+      &.ng-leave.ng-leave-active, &.ng-enter {
+        height: 0;
+        margin : 0 10%;
       }
     }
 
