@@ -10,6 +10,7 @@ angular.module('LaBanane', [
     // 3rd party dependencies
     'btford.socket-io',
     'ngRoute',
+    'ngAnimate',
     'ngTouch'
 ]).
 
