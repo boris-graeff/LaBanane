@@ -63,6 +63,10 @@ angular.module('LaBanane').
 
             // Events
 
+            $scope.$on('$destroy', function() {
+                $scope.stop();
+            });
+
 
             // Track progress
             $rootScope.$on(constants.EVENTS.TRACK_PROGRESS, function (event, progress) {

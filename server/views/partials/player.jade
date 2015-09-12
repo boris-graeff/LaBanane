@@ -9,14 +9,17 @@
             button#clear(ng-show="playlist.owner", ng-click="confirmClearPlaylist()") clear
             button#video(ng-click="toggleVideoOption()", ng-class="{videoModeOn: player.videoMode}") video
             a#back-home.button(href="/app") home
-        div(ng-if="player.videoMode")
-            include playerControls.jade
-        div
             .fb-share-button(data-href="http://labanane.no-ip.info/player/{{playlist.name}}", data-layout="button")
+        div(ng-if="player.videoMode")
+            div
+                h2.track-name {{currentTrack.name}}
+            div
+                include playerControls.jade
+            div
     section(ng-if="!player.videoMode")
         section#player
             section
-                h2#track-name {{currentTrack.name}}
+                h2.track-name {{currentTrack.name}}
 
                 progress-bar#track-state(ng-attr-data-value="{{currentTrack.progress}}", ng-attr-callback="seek")
 
@@ -44,7 +47,7 @@
         section#playlist.track-list
             | {{playlist.content.length}} songs
             ul.tracks(scrollable, playlist)
-                li(ng-repeat="track in playlist.content", playlist-track, class="{{track.provider}}-track", ng-class="{currentTrack: $index == currentTrack.index}", data-index="{{$index}}")
+                li(ng-repeat="track in playlist.content track by track.timestamp", playlist-track, class="{{track.provider}}-track", ng-class="{currentTrack: $index == currentTrack.index}", data-index="{{$index}}")
                     .remove(ng-click="remove($index)")
                     .track(ng-click="play($index)") {{track.name}}
 

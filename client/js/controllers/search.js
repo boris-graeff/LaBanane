@@ -20,7 +20,6 @@ angular.module('LaBanane').
                     $q.all([soundcloudSearch, youtubeSearch]).then(function (results) {
 
                         $scope.results = _.flatten(results);
-                        console.log($scope.results);
                         /*
                         var ratedResults = [];
                         _.each(_.flatten(results), function (result) {
