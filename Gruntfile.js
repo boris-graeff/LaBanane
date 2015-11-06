@@ -73,14 +73,14 @@ module.exports = function (grunt) {
             js: {
                 files: {
                     "client/dist/app.js": [
-                        //"client/bower_components/angular/angular.min.js", TODO
-                        "client/bower_components/angular/angular.js",
-                        "client/bower_components/angular-route/angular-route.min.js",
-                        "client/bower_components/angular-touch/angular-touch.min.js",
-                        "client/bower_components/angular-animate/angular-animate.min.js",
-                        "client/bower_components/angular-socket-io/socket.js",
-                        "client/bower_components/jquery/dist/jquery.min.js",
-                        "client/bower_components/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js",
+                        //"./node_modules/angular/angular.min.js", TODO
+                        "./node_modules/angular/angular.js",
+                        "./node_modules/angular-route/angular-route.min.js",
+                        "./node_modules/angular-touch/angular-touch.min.js",
+                        "./node_modules/angular-animate/angular-animate.min.js",
+                        "./node_modules/angular-socket-io/socket.js",
+                        "./node_modules/jquery/dist/jquery.min.js",
+                        "./node_modules/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js",
                         "grunt/target/sources.js"
                     ]
                 }
@@ -118,8 +118,11 @@ module.exports = function (grunt) {
         }
     });
 
+
+    grunt.registerTask("build", ["style", "js"]);
     // Default task
-    grunt.registerTask("default", ["style", "js", "watch"]);
+
+    grunt.registerTask("default", ["build", "watch"]);
 
     // Custom task for JavaScript files
     grunt.registerTask("js", ["mkdir:folders", "uglify:sources", "concat:js"]);
