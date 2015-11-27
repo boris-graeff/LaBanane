@@ -1,24 +1,47 @@
 @media screen and (max-width: 640px) {
+  #app {
 
-  #player-page {
-    padding-top : 32px !important;
-    width: 200% !important;
-
-    header h1 {
-      display : block !important;
+    ul.tracks li {
+      height : 2.5rem;
+      line-height : 2.5rem;
     }
 
-    #player-controls {
+    #player-page {
 
-      li {
-        width: 25% !important;
-        height: 40px !important;
+      > section {
+        flex-direction : column;
+      }
 
-        &.volume {
-          width: 100% !important;
+      header h1 {
+        display : block !important;
+      }
+
+      #player {
+        flex: 0 auto;
+        #search {
+          display : none;
+        }
+      }
+
+      .track-list li:before {
+        top : 10px;
+      }
+
+      #playlist li .remove {
+        margin-top : 8px;
+      }
+
+      #player-controls {
+
+        li {
+          width: 25% !important;
+          height: 40px !important;
+
+          &.volume {
+            width: 100% !important;
+          }
         }
       }
     }
   }
-
 }

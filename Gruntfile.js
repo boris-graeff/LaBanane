@@ -63,7 +63,6 @@ module.exports = function (grunt) {
             }
         },
 
-        // Concat
         concat: {
             // Global Options
             options: {
@@ -80,13 +79,13 @@ module.exports = function (grunt) {
                         "./node_modules/angular-animate/angular-animate.min.js",
                         "./node_modules/angular-socket-io/socket.js",
                         "./node_modules/jquery/dist/jquery.min.js",
-                        "./node_modules/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js",
+                        "./node_modules/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.js",
                         "grunt/target/sources.js"
                     ]
                 }
             }
         },
-        // LESS
+
         less: {
             app: {
                 files: {
@@ -97,7 +96,6 @@ module.exports = function (grunt) {
             }
         },
 
-        // Make Directory
         mkdir: {
             folders: {
                 create: [

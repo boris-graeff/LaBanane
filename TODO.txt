@@ -1,17 +1,42 @@
-﻿Think about :
+﻿- responsive
+	- mieux gérer les espaces
+
+- Ajouter HTTPS
+- S'inscrire à https://letsencrypt.org/
+- Mode appli smartphone : https://ponyfoo.com/articles/progressive-app-serviceworker?utm_source=javascriptweekly&utm_medium=email
+
+- socket.io inclure dans le package js
+
+- gestion libelles
+angular.module('app').constant('I18N.MESSAGES', {
+  'errors.route.changeError':'Route change error',
+  'crud.user.save.success':"A user with id '{{id}}' was saved successfully.",
+  'crud.user.remove.success':"A user with id '{{id}}' was removed successfully.",
+  'crud.user.remove.error':"Something went wrong when removing user with id '{{id}}'.",
+  'crud.user.save.error':"Something went wrong when saving a user...",
+  'crud.project.save.success':"A project with id '{{id}}' was saved successfully.",
+  'crud.project.remove.success':"A project with id '{{id}}' was removed successfully.",
+  'crud.project.save.error':"Something went wrong when saving a project...",
+  'login.reason.notAuthorized':"You do not have the necessary access permissions.  Do you want to login as someone else?",
+  'login.reason.notAuthenticated':"You must be logged in to access this part of the application.",
+  'login.error.invalidCredentials': "Login failed.  Please check your credentials and try again.",
+  'login.error.serverError': "There was a problem with authenticating: {{exception}}."
+});
+
+
+
+-----
+
+
+Think about :
 - Gestion en mode non authentifié
 
 Must :
-- Animation lors d'un ajout / suppression d'un morceau
-- Récupérer image morceau soundcloud
-
 - create directive for FB buttons and remove ugly fix
 - récupére note youtube et en tirer parti
 - Wait authentication result to display player
 - Adapt interface to mobile
 - Limit playlistname length (front and back)
-
-
 
 Should :
 - Use lodash to simplify code
