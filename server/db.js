@@ -44,12 +44,16 @@ module.exports = {
     },
 
     /**
-     * Get all playlists
+     * Get all playlists and sort them by
      * @param idPlaylist
      * @param callback
      */
     getAllPlaylists: function (callback) {
-        ref.Playlist.find(callback);
+        ref.Playlist.find({}, {}, {
+            sort: {
+                timestamp : 'desc'
+            }
+        }, callback);
     },
 
     /**
