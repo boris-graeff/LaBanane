@@ -88,7 +88,7 @@ angular.module('LaBanane.services')
 
                 // API ready?
                 if (this.ready && this.playerId) {
-                    if (this.player) {
+                    if (this.player && this.player.hasOwnProperty('loadVideoById')) {
                         this.player.loadVideoById(videoId);
                     }
                 }
