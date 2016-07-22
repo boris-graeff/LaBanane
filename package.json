@@ -31,6 +31,7 @@
   "scripts": {
     "postinstall": "grunt build",
     "prestart": "npm install",
-    "test": "node node_modules/karma/bin/karma start test/karma.conf.js"
+    "test": "node node_modules/karma/bin/karma start test/karma.conf.js",
+    "start": "NODE_ENV=production node server/app.js"
   }
 }
